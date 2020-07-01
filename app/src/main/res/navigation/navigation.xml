@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.patrick.fittracker.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" />
+    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.patrick.fittracker.calendar.CalendarFragment"
+        android:label="calendar_fragment"
+        tools:layout="@layout/calendar_fragment" />
+    <action android:id="@+id/action_global_calendarFragment" app:destination="@id/calendarFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.patrick.fittracker.profile.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" />
+    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
+    <fragment
+        android:id="@+id/analysisFragment"
+        android:name="com.patrick.fittracker.analysis.AnalysisFragment"
+        android:label="analysis_fragment"
+        tools:layout="@layout/analysis_fragment" />
+    <action android:id="@+id/action_global_analysisFragment" app:destination="@id/analysisFragment" />
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="com.patrick.fittracker.group.GroupFragment"
+        android:label="group_fragment"
+        tools:layout="@layout/group_fragment" />
+    <action android:id="@+id/action_global_groupFragment" app:destination="@id/groupFragment" />
+    <dialog
+        android:id="@+id/poseSelectFragment"
+        android:name="com.patrick.fittracker.poseselect.PoseSelectFragment"
+        android:label="pose_select_fragment"
+        tools:layout="@layout/pose_select_fragment" >
+        <argument
+            android:name="muscleKey"
+            app:argType="com.patrick.fittracker.data.SelectedMuscleGroup" />
+    </dialog>
+    <action android:id="@+id/action_global_poseSelectFragment" app:destination="@id/poseSelectFragment" />
+</navigation>
