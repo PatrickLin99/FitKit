@@ -12,8 +12,13 @@ class PoseSelectViewModel(selectedMuscleGroup: SelectedMuscleGroup) : ViewModel(
     val movementList: LiveData<List<String>>
         get() = _movementList
 
-    init {
-//        _movementList.value = SelectedMuscleGroup(listOf())
+    private val _navigateToRecord = MutableLiveData<String>()
+
+    val navigateToRecord: LiveData<String>
+    get() = _navigateToRecord
+    fun navigateToRecord(selectedMuscleGroup: String) {
+        _navigateToRecord.value = selectedMuscleGroup
     }
+
 }
 

@@ -44,6 +44,7 @@ class GroupFragment : Fragment() {
 
 
 
+
         binding.muscleChestImage.setOnClickListener(onClickListener)
         binding.muscleBicepsImage.setOnClickListener(onClickListener)
         binding.muscleDeltoidsImage.setOnClickListener(onClickListener)
@@ -64,39 +65,30 @@ class GroupFragment : Fragment() {
         when (it.id) {
             R.id.muscle_chest_image -> {
                 viewModel.readData("chest")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
             R.id.muscle_biceps_image -> {
                 viewModel.readData("biceps")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
             R.id.muscle_deltoids_image -> {
                 viewModel.readData("deltoids")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
             R.id.muscle_lowerback_image -> {
                 viewModel.readData("lowerback")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
             R.id.muscle_abs_image -> {
                 viewModel.readData("abs")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
             R.id.muscle_upperback_image -> {
                 viewModel.readData("upperback")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
             R.id.muscle_frontlegs_image -> {
                 viewModel.readData("frontlegs")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
             R.id.muscle_calf_image -> {
                 viewModel.readData("calf")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
             R.id.muscle_backlegs_image -> {
                 viewModel.readData("backlegs")
-//                findNavController().navigate(R.id.action_global_poseSelectFragment)
             }
         }
     }

@@ -46,4 +46,14 @@
             />
     </dialog>
     <action android:id="@+id/action_global_poseSelectFragment" app:destination="@id/poseSelectFragment" />
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.patrick.fittracker.record.RecordFragment"
+        android:label="record_fragment"
+        tools:layout="@layout/record_fragment" >
+        <argument
+            android:name="muscleKey"
+            app:argType="string" />
+    </fragment>
+    <action android:id="@+id/action_global_recordFragment" app:destination="@id/recordFragment" />
 </navigation>

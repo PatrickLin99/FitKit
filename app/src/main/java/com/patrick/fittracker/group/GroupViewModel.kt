@@ -16,9 +16,6 @@ import kotlinx.coroutines.launch
 class GroupViewModel : ViewModel() {
 
 
-
-   val poseReturn = MutableLiveData<SelectedMuscleGroup>()
-
     private var _navigateToPoseSelect = MutableLiveData<SelectedMuscleGroup>()
 
     val navigateToPoseSelect : LiveData<SelectedMuscleGroup>
@@ -40,8 +37,7 @@ class GroupViewModel : ViewModel() {
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-//                    Log.d("task result list", "${task.result}")
-//                    Log.d("test group:", "$group")
+
 //                    Log.d("task result array", "${task.result?.data?.getValue("menu")}")
 
 //                    poseReturn.value = task.result?.data?.getValue("menu") as SelectedMuscleGroup

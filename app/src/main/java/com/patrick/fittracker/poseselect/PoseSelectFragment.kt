@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.databinding.PoseSelectFragmentBinding
 
 class PoseSelectFragment : BottomSheetDialogFragment() {
@@ -28,20 +30,30 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
         val binding = PoseSelectFragmentBinding.inflate(inflater, container,false)
 
         val movement = PoseSelectFragmentArgs.fromBundle(requireArguments()).muscleKey
-        Log.d("test movement:", "$movement")
 
         val viewModelFactory = PoseSelectViewModelFactory(movement)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(PoseSelectViewModel::class.java)
         binding.viewModel = viewModel
 
 
-        val adapter = PostSelectAdapter()
+        val adapter = PostSelectAdapter(PostSelectAdapter.OnClickListener{
+            viewModel.navigateToRecord(it)
+        })
         binding.lifecycleOwner = viewLifecycleOwner
         binding.muscleSelectPost.adapter = adapter
         movement?.let {
             Log.d("test","7654321 $it")
             adapter.submitList(it.menu)
         }
+
+        binding.textView16.text = "${movement.category}"
+
+        viewModel.navigateToRecord.observe(viewLifecycleOwner, Observer {
+            it?.let {
+//                Log.d("test navigateToRecord", "$it")
+                this.findNavController().navigate(NavigationDirections.actionGlobalRecordFragment(it))
+            }
+        })
 
         return binding.root
     }

@@ -12,7 +12,7 @@ import com.patrick.fittracker.databinding.ItemMusclePostureBinding
 //class PostSelectAdapter {
 //}
 //class PostSelectAdapter(val onClickListener: OnClickListener):
-class PostSelectAdapter():
+class PostSelectAdapter(val onClickListener: OnClickListener):
     ListAdapter<String, PostSelectAdapter.PostSelectViewHolder>(DiffCallback){
 
     class PostSelectViewHolder(private var binding: ItemMusclePostureBinding):
@@ -40,14 +40,14 @@ class PostSelectAdapter():
     }
 
     override fun onBindViewHolder(holder: PostSelectViewHolder, position: Int){
-        val product = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(product)
-//        }
-        holder.bind(product)
+        val menu = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(menu)
+        }
+        holder.bind(menu)
     }
 
-    class OnClickListener(val clickListener: (product: String) -> Unit) {
-        fun onClick(product: String) = clickListener(product)
+    class OnClickListener(val clickListener: (menu: String) -> Unit) {
+        fun onClick(menu: String) = clickListener(menu)
     }
 }

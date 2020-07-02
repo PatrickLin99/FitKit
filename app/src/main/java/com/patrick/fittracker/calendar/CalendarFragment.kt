@@ -1,14 +1,16 @@
 package com.patrick.fittracker.calendar
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
+import android.widget.CalendarView.OnDateChangeListener
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-
 import com.patrick.fittracker.R
+
 
 class CalendarFragment : Fragment() {
 
@@ -23,6 +25,13 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.calendar_fragment, container, false)
+//        val binding = PoseSelectFragmentBinding.inflate(inflater, container,false)
+
+
+
+
+//        return binding.root
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
