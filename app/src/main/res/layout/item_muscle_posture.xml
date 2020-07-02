@@ -8,6 +8,11 @@
             name="viewModel"
             type="com.patrick.fittracker.poseselect.PoseSelectViewModel" />
 
+        <variable
+            name="menu"
+            type="String" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
-            android:text="TextView"
+            android:text="@{menu}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="@+id/imageView3" />

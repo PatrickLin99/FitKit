@@ -42,7 +42,8 @@
         tools:layout="@layout/pose_select_fragment" >
         <argument
             android:name="muscleKey"
-            app:argType="com.patrick.fittracker.data.SelectedMuscleGroup" />
+            app:argType="com.patrick.fittracker.data.SelectedMuscleGroup"
+            />
     </dialog>
     <action android:id="@+id/action_global_poseSelectFragment" app:destination="@id/poseSelectFragment" />
 </navigation>

@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.patrick.fittracker.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.home_fragment.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -63,15 +64,15 @@ class MainActivity : AppCompatActivity() {
                     return true
                 }
                 R.id.navigation_calendar -> {
-                        findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_calendarFragment)
+                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_calendarFragment)
                     return true
                 }
                 R.id.navigation_profile -> {
-                        findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_profileFragment)
+                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_profileFragment)
                     return true
                 }
                 R.id.navigation_analysis -> {
-                        findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_analysisFragment)
+                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_analysisFragment)
                     return true
                 }
             }

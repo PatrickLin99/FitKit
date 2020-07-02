@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 
 
 
@@ -51,8 +53,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
 
     //Safe Argument
-//    def nav_version = "2.3.0"
-//    implementation "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
