@@ -35,7 +35,6 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
         binding.viewModel = viewModel
 
 
-
         val adapter = PostSelectAdapter()
         binding.lifecycleOwner = viewLifecycleOwner
         binding.muscleSelectPost.adapter = adapter
@@ -43,19 +42,6 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
             Log.d("test","7654321 $it")
             adapter.submitList(it.menu)
         }
-
-
-        viewModel.movementList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                Log.d("test","1234567 $it")
-                adapter.submitList(it)
-            }
-        })
-
-
-
-
-
 
         return binding.root
     }

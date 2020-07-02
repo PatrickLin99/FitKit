@@ -35,20 +35,12 @@ class GroupFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        binding.muscleChestImage.setOnClickListener {
-            it?.let {
-                findNavController().navigate(R.id.action_global_poseSelectFragment)
-            }
-        }
-
         viewModel.navigateToPoseSelect.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Log.d("test navigateToPoseSelect", "$it")
+//                Log.d("test navigateToPoseSelect", "$it")
                 findNavController().navigate(NavigationDirections.actionGlobalPoseSelectFragment(it))
             }
         })
-
-
 
 
 
@@ -61,7 +53,6 @@ class GroupFragment : Fragment() {
         binding.muscleFrontlegsImage.setOnClickListener(onClickListener)
         binding.muscleCalfImage.setOnClickListener(onClickListener)
         binding.muscleBacklegsImage.setOnClickListener(onClickListener)
-
 
         return  binding.root
     }

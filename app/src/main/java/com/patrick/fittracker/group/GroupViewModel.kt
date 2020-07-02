@@ -47,48 +47,14 @@ class GroupViewModel : ViewModel() {
 //                    poseReturn.value = task.result?.data?.getValue("menu") as SelectedMuscleGroup
 
                     val selectedMuscleGroup = task.result?.toObject(SelectedMuscleGroup::class.java)
-                    Log.d("test selectedMuscleGroup:", "$selectedMuscleGroup")
-                    var list = selectedMuscleGroup
+//                    Log.d("test selectedMuscleGroup:", "$selectedMuscleGroup")
 
-                    _navigateToPoseSelect.value = list
+                    _navigateToPoseSelect.value = selectedMuscleGroup
 
-//                    Log.d("test selectedMuscleGroup:", "${selectedMuscleGroup?.menu}")
-
-//                    if (selectedMuscleGroup != null) {
-//                        list.add(selectedMuscleGroup)
-//                        Log.d("test add success", "$list")
-//                    }
                 }
-
-
-//                    val menuList = task.result?.toObject(SelectedMuscleGroup::class.java)
-//                    Log.d("task result menuList","$menuList")
-
-//                    for (document in ) {
-//                        Log.d("FragmentActivity", document.id + " => " + document.data)
-//
-//
-//
-////                        author.value = document.getString("author.name")
-////                        content.value = document.getString("content")
-////                        createdTime.value = document.getLong("createdTime")
-////                        id.value = document.getString("id")
-////                        tag.value = document.getString("tag")
-////                        title.value = document.getString("title")
-////                        Log.d("test","$${title.value} ${author.value} ${content.value} ${createdTime.value} ${id.value}")
-////
-////                        val qq = Info("${author.value}","${content.value}","${createdTime.value}","${id.value}","${tag.value}","${title.value}")
-////
-////                        ii.add(qq)
-////                        mutableLivedata.value = ii
-////
-//
-//                    }
-//                } else {
                     Log.w("FragmentActivity", "Error getting documents.", task.exception)
                 }
             }
-//    }
 
     fun navigationToSelect(selectedMuscleGroup: SelectedMuscleGroup) {
 
