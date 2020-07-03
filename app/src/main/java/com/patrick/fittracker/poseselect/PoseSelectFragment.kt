@@ -46,7 +46,7 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
             adapter.submitList(it.menu)
         }
 
-        binding.textView16.text = "${movement.category}"
+        binding.textView16.text = movement.category
 
         viewModel.navigateToRecord.observe(viewLifecycleOwner, Observer {
             it?.let {

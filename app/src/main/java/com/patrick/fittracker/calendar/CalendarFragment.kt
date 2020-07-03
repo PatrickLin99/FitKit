@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.patrick.fittracker.R
+import com.patrick.fittracker.databinding.CalendarFragmentBinding
+import java.util.*
 
 
 class CalendarFragment : Fragment() {
@@ -24,14 +28,18 @@ class CalendarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.calendar_fragment, container, false)
-//        val binding = PoseSelectFragmentBinding.inflate(inflater, container,false)
+//        return inflater.inflate(R.layout.calendar_fragment, container, false)
+        val binding = CalendarFragmentBinding.inflate(inflater, container,false)
+
+
+        binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            var time : String = "$year + $month + $dayOfMonth"
+            Toast.makeText(requireContext(),"show time: $time",Toast.LENGTH_SHORT).show()
+        }
 
 
 
-
-//        return binding.root
-
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

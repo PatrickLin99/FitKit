@@ -1,25 +1,49 @@
 package com.patrick.fittracker.data.source.remote
 
-import android.icu.util.Calendar
-import androidx.lifecycle.MutableLiveData
+
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.patrick.fittracker.data.Article
-import com.patrick.fittracker.data.Author
-import com.patrick.fittracker.data.source.PublisherDataSource
-import com.patrick.fittracker.util.Logger
-import java.util.*
+import com.patrick.fittracker.data.SelectedMuscleGroup
+import com.patrick.fittracker.data.source.FitTrackerDataSource
+import com.patrick.fittracker.data.Result
+import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-object PublisherRemoteDataSource : PublisherDataSource {
+object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
     private const val PATH_ARTICLES = "articles"
     private const val KEY_CREATED_TIME = "createdTime"
-    override suspend fun getSelectedMuscleGroupMenu(id: String): List<String> {
+    private const val PATH_ARTICLES_MUSCLE_GROUP = "muscle_group"
+    override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> = suspendCoroutine { continuation ->
 
-        TODO("Not yet implemented")
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES_MUSCLE_GROUP)
+            .document(group.value)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+
+                    val selectedMuscleGroup = task.result?.toObject(SelectedMuscleGroup::class.java)
+
+                    selectedMuscleGroup?.let {
+
+                        continuation.resume(Result.Success(it))
+
+                    }
+
+                } else {
+                    task.exception?.let {
+
+//                        Log.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+//                    continuation.resume(Result.Fail(PublisherApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+
     }
+
 
 //    override suspend fun login(id: String): Result<Author> {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

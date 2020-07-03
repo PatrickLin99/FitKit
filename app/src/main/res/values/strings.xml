@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FitTracker</string>
+
+    <string name="you_know_nothing">You know nothing</string>
+
+
 </resources>

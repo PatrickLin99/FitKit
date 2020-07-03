@@ -2,11 +2,13 @@ package com.patrick.fittracker.data.source.local
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.patrick.fittracker.data.Author
-import com.patrick.fittracker.data.source.PublisherDataSource
+import com.patrick.fittracker.data.Result
+import com.patrick.fittracker.data.SelectedMuscleGroup
+import com.patrick.fittracker.data.source.FitTrackerDataSource
+import com.patrick.fittracker.group.MuscleGroupTypeFilter
 
-class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
-    override suspend fun getSelectedMuscleGroupMenu(id: String): List<String> {
+class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
+    override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> {
         TODO("Not yet implemented")
     }
 

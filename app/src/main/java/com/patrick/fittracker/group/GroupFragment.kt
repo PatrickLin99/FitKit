@@ -4,26 +4,26 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
-
 import com.patrick.fittracker.R
 import com.patrick.fittracker.data.SelectedMuscleGroup
 import com.patrick.fittracker.databinding.GroupFragmentBinding
+import com.patrick.fittracker.ext.getVmFactory
 
-class GroupFragment : Fragment() {
+class GroupFragment() : Fragment() {
 
-    companion object {
-        fun newInstance() = GroupFragment()
-    }
+    var group: MuscleGroupTypeFilter = MuscleGroupTypeFilter.CHEST
 
-//    private lateinit var viewModel: GroupViewModel
 
-    val viewModel: GroupViewModel by lazy {
-        ViewModelProvider(this).get(GroupViewModel::class.java)
-    }
+    private val viewModel by viewModels <GroupViewModel> {getVmFactory(group)}
+
+//    val viewModel: GroupViewModel by lazy {
+//        ViewModelProvider(this).get(GroupViewModel::class.java)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,36 +59,35 @@ class GroupFragment : Fragment() {
     }
 
 
-
     private val onClickListener = View.OnClickListener {
-        viewModel.navigationToSelect(SelectedMuscleGroup())
+//        viewModel.navigationToSelect(SelectedMuscleGroup())
         when (it.id) {
             R.id.muscle_chest_image -> {
-                viewModel.readData("chest")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.CHEST)
             }
             R.id.muscle_biceps_image -> {
-                viewModel.readData("biceps")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.BICEPS)
             }
             R.id.muscle_deltoids_image -> {
-                viewModel.readData("deltoids")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.DELTOIDS)
             }
             R.id.muscle_lowerback_image -> {
-                viewModel.readData("lowerback")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.LOWERBACK)
             }
             R.id.muscle_abs_image -> {
-                viewModel.readData("abs")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.ABS)
             }
             R.id.muscle_upperback_image -> {
-                viewModel.readData("upperback")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.UPPERBACK)
             }
             R.id.muscle_frontlegs_image -> {
-                viewModel.readData("frontlegs")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.FRONTLEGS)
             }
             R.id.muscle_calf_image -> {
-                viewModel.readData("calf")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.CALF)
             }
             R.id.muscle_backlegs_image -> {
-                viewModel.readData("backlegs")
+                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.BACKLEGS)
             }
         }
     }

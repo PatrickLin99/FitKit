@@ -8,15 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.R
 import com.patrick.fittracker.databinding.HomeFragmentBinding
 
 class HomeFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
 
     private lateinit var viewModel: HomeViewModel
 
@@ -24,18 +21,16 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        return inflater.inflate(R.layout.home_fragment, container, false)
-        val binding = HomeFragmentBinding.inflate(inflater, container,false)
+        val binding = HomeFragmentBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
 //        binding.viewModel = viewModel
 
         binding.viewSelfTraining.setOnClickListener {
             it?.let {
-                findNavController().navigate(R.id.action_global_groupFragment)
+                findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
             }
         }
-
         return binding.root
     }
 

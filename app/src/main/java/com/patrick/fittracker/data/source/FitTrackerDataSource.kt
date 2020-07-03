@@ -2,11 +2,13 @@ package com.patrick.fittracker.data.source
 
 import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.Article
-import com.patrick.fittracker.data.Author
+import com.patrick.fittracker.data.Result
+import com.patrick.fittracker.data.SelectedMuscleGroup
+import com.patrick.fittracker.group.MuscleGroupTypeFilter
 
-interface PublisherDataSource {
+interface FitTrackerDataSource {
 
-    suspend fun getSelectedMuscleGroupMenu (id: String): List<String>
+    suspend fun getSelectedMuscleGroupMenu (group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup>
 
 //    suspend fun login(id: String): Result<Author>
 //
