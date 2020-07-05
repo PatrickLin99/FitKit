@@ -47,7 +47,7 @@ class RecordFragment : Fragment() {
 
         viewModel.navigateToPoseSelect.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Log.d("test 666666","$it   ${it.orderNum}  ${it.unknown}")
+//                Log.d("test 666666","$it   ${it.orderNum}  ${it.unknown}")
                 adapter.submitList(it.orderNum)
             }
         })

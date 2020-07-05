@@ -2,12 +2,17 @@ package com.patrick.fittracker.data.source.remote
 
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.patrick.fittracker.FitTrackerApplication
+import com.patrick.fittracker.R
+import com.patrick.fittracker.data.Cardio
 import com.patrick.fittracker.data.RecordSetOrder
 import com.patrick.fittracker.data.SelectedMuscleGroup
 import com.patrick.fittracker.data.source.FitTrackerDataSource
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import com.patrick.fittracker.record.SetOrderFilter
+import com.patrick.fittracker.util.Logger
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -17,6 +22,8 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
     private const val KEY_CREATED_TIME = "createdTime"
     private const val PATH_ARTICLES_MUSCLE_GROUP = "muscle_group"
     private const val PATH_ARTICLES_NUM = "record_set_order"
+    private const val PATH_ARTICLES_CARDIO = "cardio"
+
     override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> = suspendCoroutine { continuation ->
 
         FirebaseFirestore.getInstance()
@@ -73,7 +80,38 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
                     }
 //                    continuation.resume(Result.Fail(PublisherApplication.instance.getString(R.string.you_know_nothing)))
                 }
-            }    }
+            }
+        }
+
+    override suspend fun getCardioSelection(): Result<List<Cardio>> = suspendCoroutine { continuation ->
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES_CARDIO)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<Cardio>()
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " => " + document.data)
+
+                        val cardio = document.toObject(Cardio::class.java)
+                        list.add(cardio)
+                    }
+                    continuation.resume(Result.Success(list))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
+
+
 
 
 //    override suspend fun login(id: String): Result<Author> {

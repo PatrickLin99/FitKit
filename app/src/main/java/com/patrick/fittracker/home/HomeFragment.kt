@@ -34,6 +34,12 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
             }
         }
+
+        binding.viewCardio.setOnClickListener {
+            it?.let {
+                findNavController().navigate(NavigationDirections.actionGlobalCardioSelectionFragment())
+            }
+        }
         return binding.root
     }
 
