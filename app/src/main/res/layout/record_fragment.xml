@@ -40,95 +40,107 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-            <TextView
-                android:id="@+id/record_order_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+<!--            <TextView-->
+<!--                android:id="@+id/record_order_title"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:text="次數"-->
+<!--                android:textSize="18dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/record_weight_title"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/record_muscle_main_title" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/record_weight_title"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="32dp"-->
+<!--                android:text="重量"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintBaseline_toBaselineOf="@+id/record_order_title"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/record_set_title"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/record_order_title" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/record_set_title"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="32dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:text="組數"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintBaseline_toBaselineOf="@+id/record_weight_title"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/record_weight_title" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/set_number"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:ems="10"-->
+<!--                android:hint="第幾組"-->
+<!--                android:inputType="number"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textSize="18dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/editText2"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/record_order_title" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/editText2"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="多重"-->
+<!--                android:inputType="number"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textSize="18dp"-->
+<!--                app:layout_constraintBaseline_toBaselineOf="@+id/set_number"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/editText3"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/set_number" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/editText3"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="組數"-->
+<!--                android:inputType="number"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textSize="18dp"-->
+<!--                app:layout_constraintBaseline_toBaselineOf="@+id/editText2"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/editText2" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/add_button_image"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginEnd="32dp"-->
+<!--                android:layout_marginBottom="32dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:srcCompat="@drawable/add" />-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_add_list"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_marginTop="16dp"
-                android:text="次數"
-                android:textSize="18dp"
-                app:layout_constraintEnd_toStartOf="@+id/record_weight_title"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/record_muscle_main_title" />
-
-            <TextView
-                android:id="@+id/record_weight_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:text="重量"
-                android:textSize="18sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/record_order_title"
-                app:layout_constraintEnd_toStartOf="@+id/record_set_title"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/record_order_title" />
-
-            <TextView
-                android:id="@+id/record_set_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="16dp"
-                android:text="組數"
-                android:textSize="18sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/record_weight_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/record_weight_title" />
-
-            <TextView
-                android:id="@+id/set_number"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:hint="第幾組"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                app:layout_constraintEnd_toStartOf="@+id/editText2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/record_order_title" />
-
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="多重"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/set_number"
-                app:layout_constraintEnd_toStartOf="@+id/editText3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/set_number" />
-
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="組數"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/editText2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/editText2" />
-
-            <ImageView
-                android:id="@+id/add_button_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/add" />
+                app:layout_constraintTop_toBottomOf="@+id/record_muscle_main_title"
+                tools:listitem="@layout/item_record_add_set" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

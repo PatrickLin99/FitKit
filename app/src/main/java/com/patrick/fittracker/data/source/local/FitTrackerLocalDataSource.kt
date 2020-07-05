@@ -2,13 +2,19 @@ package com.patrick.fittracker.data.source.local
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import com.patrick.fittracker.data.RecordSetOrder
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.SelectedMuscleGroup
 import com.patrick.fittracker.data.source.FitTrackerDataSource
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
+import com.patrick.fittracker.record.SetOrderFilter
 
 class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
     override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getSetOrderNum(group: SetOrderFilter): Result<RecordSetOrder> {
         TODO("Not yet implemented")
     }
 

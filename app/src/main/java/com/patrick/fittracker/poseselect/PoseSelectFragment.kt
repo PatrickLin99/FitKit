@@ -46,6 +46,7 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
             adapter.submitList(it.menu)
         }
 
+
         binding.textView16.text = movement.category
 
         viewModel.navigateToRecord.observe(viewLifecycleOwner, Observer {
@@ -54,6 +55,14 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
                 this.findNavController().navigate(NavigationDirections.actionGlobalRecordFragment(it))
             }
         })
+
+//        viewModel.navigateToRecordTwo.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                Log.d("test safe args", "$it")
+//                adapter.submitList(it.menu)
+//                this.findNavController().navigate(NavigationDirections.actionGlobalRecordFragment(it))
+//            }
+//        })
 
         return binding.root
     }

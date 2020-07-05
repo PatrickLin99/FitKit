@@ -1,5 +1,6 @@
 package com.patrick.fittracker.home
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -28,6 +29,8 @@ class HomeFragment : Fragment() {
 
         binding.viewSelfTraining.setOnClickListener {
             it?.let {
+                binding.viewSelfTraining.setBackgroundColor(Color.parseColor("#3aacba"))
+                binding.mainSelfTraining.setTextColor(Color.parseColor("#383838"))
                 findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
             }
         }

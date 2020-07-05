@@ -20,5 +20,26 @@ class PoseSelectViewModel(selectedMuscleGroup: SelectedMuscleGroup) : ViewModel(
         _navigateToRecord.value = selectedMuscleGroup
     }
 
+    private val _navigateToRecordTwo = MutableLiveData<SelectedMuscleGroup>()
+
+    val navigateToRecordTwo: LiveData<SelectedMuscleGroup>
+        get() = _navigateToRecordTwo
+    fun navigateToRecordTwo(selectedMuscleGroup: SelectedMuscleGroup) {
+        _navigateToRecordTwo.value = selectedMuscleGroup
+    }
+
+//        private val _movementList= MutableLiveData<List<SelectedMuscleGroup>>()
+//
+//    val movementList: LiveData<List<SelectedMuscleGroup>>
+//        get() = _movementList
+//
+//    private val _navigateToRecord = MutableLiveData<SelectedMuscleGroup>()
+//
+//    val navigateToRecord: LiveData<SelectedMuscleGroup>
+//        get() = _navigateToRecord
+//    fun navigateToRecord(selectedMuscleGroup: SelectedMuscleGroup) {
+//        _navigateToRecord.value = selectedMuscleGroup
+//    }
+
 }
 

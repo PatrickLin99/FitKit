@@ -2,15 +2,21 @@ package com.patrick.fittracker.data.source
 
 import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.Article
+import com.patrick.fittracker.data.RecordSetOrder
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.SelectedMuscleGroup
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
+import com.patrick.fittracker.record.SetOrderFilter
 
 class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSource,
                                   private val localDataSource: FitTrackerDataSource
 ) : FitTrackerRepository {
     override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> {
         return remoteDataSource.getSelectedMuscleGroupMenu(group)
+    }
+
+    override suspend fun getSetOrderNum(group: SetOrderFilter): Result<RecordSetOrder> {
+        return remoteDataSource.getSetOrderNum(group)
     }
 
 

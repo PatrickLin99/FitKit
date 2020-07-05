@@ -56,4 +56,9 @@
             app:argType="string" />
     </fragment>
     <action android:id="@+id/action_global_recordFragment" app:destination="@id/recordFragment" />
+    <dialog
+        android:id="@+id/addSuccessFragment"
+        android:name="com.patrick.fittracker.addsuccess.AddSuccessFragment"
+        android:label="add_success_fragment"
+        tools:layout="@layout/add_success_fragment" /><action android:id="@+id/action_global_addSuccessFragment" app:destination="@id/addSuccessFragment"/>
 </navigation>
