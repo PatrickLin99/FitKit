@@ -17,7 +17,6 @@ import com.patrick.fittracker.ext.getVmFactory
 class CardioSelectionFragment : Fragment() {
 
 
-//    private lateinit var viewModel: CardioSelectionViewModel
     private val viewModel by viewModels <CardioSelectionViewModel> {getVmFactory()}
 
 
@@ -47,16 +46,12 @@ class CardioSelectionFragment : Fragment() {
         viewModel.navigationToCardioRecord.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalCardioRecordFragment(it))
+                viewModel.navigateToCardioRecordDone()
             }
         })
 
         return binding.root
     }
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(CardioSelectionViewModel::class.java)
-//        // TODO: Use the ViewModel
-//    }
 
 }

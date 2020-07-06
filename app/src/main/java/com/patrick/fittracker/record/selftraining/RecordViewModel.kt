@@ -1,34 +1,44 @@
-package com.patrick.fittracker.cardio.selection
+package com.patrick.fittracker.record.selftraining
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.Cardio
-import com.patrick.fittracker.data.source.FitTrackerRepository
+import com.patrick.fittracker.data.RecordSetOrder
 import com.patrick.fittracker.data.Result
+import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
+import com.patrick.fittracker.record.SetOrderFilter
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CardioSelectionViewModel(private val repository: FitTrackerRepository) : ViewModel() {
+class RecordViewModel(private val repository: FitTrackerRepository,
+                      private val group: SetOrderFilter?
+) : ViewModel() {
 
-    private val _cardio = MutableLiveData<List<Cardio>>()
 
-    val cardio: LiveData<List<Cardio>>
-        get() = _cardio
+    private var _navigateToPoseSelect = MutableLiveData<RecordSetOrder>()
 
-    var liveArticles = MutableLiveData<List<Cardio>>()
+    val navigateToPoseSelect : LiveData<RecordSetOrder>
+        get() = _navigateToPoseSelect
 
-    private val _navigateToCardioRecord = MutableLiveData<Cardio>()
 
-    val navigationToCardioRecord: LiveData<Cardio>
-        get() = _navigateToCardioRecord
+    fun navigationToSelect(recordSetOrder: RecordSetOrder) {
+
+        coroutineScope.launch {
+//            _navigateToPoseSelect.value = orderNum
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------------
+    private val _leave = MutableLiveData<Boolean>()
+
+    val leave: LiveData<Boolean>
+        get() = _leave
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -54,17 +64,6 @@ class CardioSelectionViewModel(private val repository: FitTrackerRepository) : V
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-
-    fun navigateToCardioRecord(cardio: Cardio) {
-        _navigateToCardioRecord.value = cardio
-    }
-
-    fun navigateToCardioRecordDone () {
-        _navigateToCardioRecord.value = null
-    }
-
-
-
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
      * Retrofit service to stop.
@@ -74,30 +73,27 @@ class CardioSelectionViewModel(private val repository: FitTrackerRepository) : V
         viewModelJob.cancel()
     }
 
-    /**
-     * Call getArticlesResult() on init so we can display status immediately.
-     */
     init {
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-//        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-            getCardioSelectionResult()
-//        } else {
-//            getCardioSelectionResult()
-//        }
+        if (FitTrackerApplication.instance.isLiveDataDesign()) {
+//            getLiveArticlesResult()
+        } else {
+//            getArticlesResult()
+        }
     }
 
-    fun getCardioSelectionResult() {
+    fun getMuscleGroupResult(group: SetOrderFilter) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getCardioSelection()
+            val result = repository.getSetOrderNum(group)
 
-            _cardio.value = when (result) {
+            _navigateToPoseSelect.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -131,8 +127,19 @@ class CardioSelectionViewModel(private val repository: FitTrackerRepository) : V
 
         } else {
             if (status.value != LoadApiStatus.LOADING) {
-                getCardioSelectionResult()
+                if (group != null) {
+                    getMuscleGroupResult(group)
+                }
             }
         }
     }
+
+    fun leave(needRefresh: Boolean = false) {
+        _leave.value = needRefresh
+    }
+
+    fun onLeft() {
+        _leave.value = null
+    }
+
 }

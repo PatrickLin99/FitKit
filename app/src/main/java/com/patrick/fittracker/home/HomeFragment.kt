@@ -35,8 +35,18 @@ class HomeFragment : Fragment() {
             }
         }
 
+        binding.viewSelect.setOnClickListener {
+            it?.let {
+                binding.viewSelect.setBackgroundColor(Color.parseColor("#3aacba"))
+                binding.mainSelect.setTextColor(Color.parseColor("#383838"))
+                findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
+            }
+        }
+
         binding.viewCardio.setOnClickListener {
             it?.let {
+                binding.viewCardio.setBackgroundColor(Color.parseColor("#3aacba"))
+                binding.mainCardio.setTextColor(Color.parseColor("#383838"))
                 findNavController().navigate(NavigationDirections.actionGlobalCardioSelectionFragment())
             }
         }

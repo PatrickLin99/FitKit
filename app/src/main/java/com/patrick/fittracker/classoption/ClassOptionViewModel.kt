@@ -1,15 +1,14 @@
-package com.patrick.fittracker.record
+package com.patrick.fittracker.classoption
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.RecordSetOrder
+import com.patrick.fittracker.data.Cardio
+import com.patrick.fittracker.data.ClassOption
 import com.patrick.fittracker.data.Result
-import com.patrick.fittracker.data.SelectedMuscleGroup
 import com.patrick.fittracker.data.source.FitTrackerRepository
-import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
@@ -17,29 +16,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class RecordViewModel(private val repository: FitTrackerRepository,
-                      private val group: SetOrderFilter?
-) : ViewModel() {
+//class ClassOptionViewModel(private val repository: FitTrackerRepository) : ViewModel() {
+//    // TODO: Implement the ViewModel
+//}
 
+class ClassOptionViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-    private var _navigateToPoseSelect = MutableLiveData<RecordSetOrder>()
+    private val _classoption = MutableLiveData<List<ClassOption>>()
 
-    val navigateToPoseSelect : LiveData<RecordSetOrder>
-        get() = _navigateToPoseSelect
+    val classiption: LiveData<List<ClassOption>>
+        get() = _classoption
 
+    var liveArticles = MutableLiveData<List<ClassOption>>()
 
-    fun navigationToSelect(recordSetOrder: RecordSetOrder) {
+    private val _navigateToClassOptionRecord = MutableLiveData<ClassOption>()
 
-        coroutineScope.launch {
-//            _navigateToPoseSelect.value = orderNum
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------------
-    private val _leave = MutableLiveData<Boolean>()
-
-    val leave: LiveData<Boolean>
-        get() = _leave
+    val navigationToClassOptionRecord: LiveData<ClassOption>
+        get() = _navigateToClassOptionRecord
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -65,6 +58,17 @@ class RecordViewModel(private val repository: FitTrackerRepository,
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+
+    fun navigateToCardioRecord(classOption: ClassOption) {
+        _navigateToClassOptionRecord.value = classOption
+    }
+
+    fun navigateToCardioRecordDone () {
+        _navigateToClassOptionRecord.value = null
+    }
+
+
+
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
      * Retrofit service to stop.
@@ -74,27 +78,30 @@ class RecordViewModel(private val repository: FitTrackerRepository,
         viewModelJob.cancel()
     }
 
+    /**
+     * Call getArticlesResult() on init so we can display status immediately.
+     */
     init {
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-//            getLiveArticlesResult()
-        } else {
-//            getArticlesResult()
-        }
+//        if (FitTrackerApplication.instance.isLiveDataDesign()) {
+        getClassOptionResult()
+//        } else {
+//            getCardioSelectionResult()
+//        }
     }
 
-    fun getMuscleGroupResult(group: SetOrderFilter) {
+    fun getClassOptionResult() {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getSetOrderNum(group)
+            val result = repository.getClassOption()
 
-            _navigateToPoseSelect.value = when (result) {
+            _classoption.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -128,19 +135,8 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 
         } else {
             if (status.value != LoadApiStatus.LOADING) {
-                if (group != null) {
-                    getMuscleGroupResult(group)
-                }
+                getClassOptionResult()
             }
         }
     }
-
-    fun leave(needRefresh: Boolean = false) {
-        _leave.value = needRefresh
-    }
-
-    fun onLeft() {
-        _leave.value = null
-    }
-
 }

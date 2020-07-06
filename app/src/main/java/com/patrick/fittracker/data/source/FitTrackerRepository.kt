@@ -13,6 +13,8 @@ interface FitTrackerRepository {
 
     suspend fun getCardioSelection (): Result<List<Cardio>>
 
+    suspend fun getClassOption (): Result<List<ClassOption>>
+
 
 //    suspend fun loginMockData(id: String): Result<Author>
 //

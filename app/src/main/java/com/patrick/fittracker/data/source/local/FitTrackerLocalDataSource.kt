@@ -2,10 +2,7 @@ package com.patrick.fittracker.data.source.local
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.patrick.fittracker.data.Cardio
-import com.patrick.fittracker.data.RecordSetOrder
-import com.patrick.fittracker.data.Result
-import com.patrick.fittracker.data.SelectedMuscleGroup
+import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerDataSource
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import com.patrick.fittracker.record.SetOrderFilter
@@ -20,6 +17,10 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
     }
 
     override suspend fun getCardioSelection(): Result<List<Cardio>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getClassOption(): Result<List<ClassOption>> {
         TODO("Not yet implemented")
     }
 

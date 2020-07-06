@@ -48,7 +48,7 @@
     <action android:id="@+id/action_global_poseSelectFragment" app:destination="@id/poseSelectFragment" />
     <fragment
         android:id="@+id/recordFragment"
-        android:name="com.patrick.fittracker.record.RecordFragment"
+        android:name="com.patrick.fittracker.record.selftraining.RecordFragment"
         android:label="record_fragment"
         tools:layout="@layout/record_fragment" >
         <argument
@@ -77,4 +77,18 @@
             app:argType="com.patrick.fittracker.data.Cardio" />
     </fragment>
     <action android:id="@+id/action_global_cardioRecordFragment" app:destination="@id/cardioRecordFragment" />
+    <fragment
+        android:id="@+id/classOptionFragment"
+        android:name="com.patrick.fittracker.classoption.ClassOptionFragment"
+        android:label="ClassOptionFragment" />
+    <action android:id="@+id/action_global_classOptionFragment" app:destination="@id/classOptionFragment" />
+    <fragment
+        android:id="@+id/classOptionRecordFragment"
+        android:name="com.patrick.fittracker.record.classoption.ClassOptionRecordFragment"
+        android:label="ClassOptionRecordFragment" >
+        <argument
+            android:name="classoptionKey"
+            app:argType="com.patrick.fittracker.data.ClassOption" />
+    </fragment>
+    <action android:id="@+id/action_global_classOptionRecordFragment" app:destination="@id/classOptionRecordFragment" />
 </navigation>

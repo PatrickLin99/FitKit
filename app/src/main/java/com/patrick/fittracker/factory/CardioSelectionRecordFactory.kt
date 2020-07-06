@@ -2,28 +2,22 @@ package com.patrick.fittracker.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.patrick.fittracker.data.Cardio
 import com.patrick.fittracker.data.source.FitTrackerRepository
-import com.patrick.fittracker.group.GroupViewModel
-import com.patrick.fittracker.group.MuscleGroupTypeFilter
+import com.patrick.fittracker.record.cardio.CardioRecordViewModel
 
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- *
- * Factory for all ViewModels.
- */
 @Suppress("UNCHECKED_CAST")
-class SelectedMuscleViewModelFactory(
+class CardioSelectionRecordViewModelFactory(
     private val repository: FitTrackerRepository,
-    private val group: MuscleGroupTypeFilter
+    private val cardio: Cardio
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
-        if (modelClass.isAssignableFrom(GroupViewModel::class.java)) {
-            return GroupViewModel(repository, group) as T
+        if (modelClass.isAssignableFrom(CardioRecordViewModel::class.java)) {
+            return CardioRecordViewModel(repository, cardio) as T
         }
-
 
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

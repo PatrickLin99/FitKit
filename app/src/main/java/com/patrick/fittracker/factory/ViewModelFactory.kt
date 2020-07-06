@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.patrick.fittracker.MainViewModel
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
+import com.patrick.fittracker.classoption.ClassOptionViewModel
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.record.cardio.CardioRecordViewModel
 
@@ -28,8 +29,8 @@ class ViewModelFactory constructor(
                         repository
                     )
 
-                isAssignableFrom(CardioRecordViewModel::class.java) ->
-                    CardioRecordViewModel(
+                isAssignableFrom(ClassOptionViewModel::class.java) ->
+                    ClassOptionViewModel(
                         repository
                     )
 

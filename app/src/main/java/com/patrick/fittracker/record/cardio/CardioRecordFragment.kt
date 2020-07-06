@@ -14,11 +14,11 @@ import com.patrick.fittracker.R
 import com.patrick.fittracker.databinding.CardioRecordFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.group.GroupViewModel
+import kotlinx.android.synthetic.main.cardio_record_fragment.*
 
 class CardioRecordFragment : Fragment() {
 
-
-    private val viewModel by viewModels <CardioRecordViewModel> {getVmFactory()}
+    private val viewModel by viewModels <CardioRecordViewModel> { getVmFactory(CardioRecordFragmentArgs.fromBundle(requireArguments()).cardioKey) }
 
 
     override fun onCreateView(
@@ -30,9 +30,6 @@ class CardioRecordFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
-        val cardio = CardioRecordFragmentArgs.fromBundle(requireArguments()).cardioKey
-//        Log.d("cardio key safe args","$cardio")
 
 
 

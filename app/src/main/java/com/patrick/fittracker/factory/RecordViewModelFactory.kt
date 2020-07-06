@@ -3,9 +3,7 @@ package com.patrick.fittracker.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.patrick.fittracker.data.source.FitTrackerRepository
-import com.patrick.fittracker.group.GroupViewModel
-import com.patrick.fittracker.group.MuscleGroupTypeFilter
-import com.patrick.fittracker.record.RecordViewModel
+import com.patrick.fittracker.record.selftraining.RecordViewModel
 import com.patrick.fittracker.record.SetOrderFilter
 
 /**
@@ -22,7 +20,10 @@ class RecordViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
         if (modelClass.isAssignableFrom(RecordViewModel::class.java)) {
-            return RecordViewModel(repository, groupp) as T
+            return RecordViewModel(
+                repository,
+                groupp
+            ) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

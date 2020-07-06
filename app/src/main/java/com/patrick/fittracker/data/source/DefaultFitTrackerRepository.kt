@@ -20,6 +20,10 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         return remoteDataSource.getCardioSelection()
     }
 
+    override suspend fun getClassOption(): Result<List<ClassOption>> {
+        return remoteDataSource.getClassOption()
+    }
+
 
 //    override suspend fun loginMockData(id: String): Result<Author> {
 //        return localDataSource.login(id)

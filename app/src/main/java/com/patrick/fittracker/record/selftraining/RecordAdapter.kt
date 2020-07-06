@@ -1,19 +1,18 @@
-package com.patrick.fittracker.record
+package com.patrick.fittracker.record.selftraining
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.patrick.fittracker.databinding.ItemMusclePostureBinding
 import com.patrick.fittracker.databinding.ItemRecordAddSetBinding
-import com.patrick.fittracker.poseselect.PostSelectAdapter
-
 
 
 //class RecordAdapter(val onClickListener: OnClickListener):
 class RecordAdapter():
-    ListAdapter<String, RecordAdapter.RecordViewHolder>(DiffCallback){
+    ListAdapter<String, RecordAdapter.RecordViewHolder>(
+        DiffCallback
+    ){
 
     class RecordViewHolder(private var binding: ItemRecordAddSetBinding):
         RecyclerView.ViewHolder(binding.root){
@@ -35,8 +34,10 @@ class RecordAdapter():
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder{
-        return RecordViewHolder(ItemRecordAddSetBinding.inflate(LayoutInflater.from(parent.context)))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
+        return RecordViewHolder(
+            ItemRecordAddSetBinding.inflate(LayoutInflater.from(parent.context))
+        )
     }
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int){

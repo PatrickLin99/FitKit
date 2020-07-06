@@ -13,6 +13,9 @@ interface FitTrackerDataSource {
 
     suspend fun getCardioSelection (): Result<List<Cardio>>
 
+    suspend fun getClassOption (): Result<List<ClassOption>>
+
+
 //    suspend fun login(id: String): Result<Author>
 //
 //    suspend fun getArticles(): Result<List<Article>>
