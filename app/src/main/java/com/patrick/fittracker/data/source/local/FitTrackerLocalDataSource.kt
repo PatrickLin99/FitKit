@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerDataSource
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
-import com.patrick.fittracker.record.SetOrderFilter
+import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
     override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> {
@@ -24,36 +24,16 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
-//    override suspend fun login(id: String): Result<Author> {
-//        return when (id) {
-//            "waynechen323" -> Result.Success((Author(
-//                id,
-//                "AKA小安老師",
-//                "wayne@school.appworks.tw"
-//            )))
-//            "dlwlrma" -> Result.Success((Author(
-//                id,
-//                "IU",
-//                "dlwlrma@school.appworks.tw"
-//            )))
-//            //TODO add your profile here
-//            else -> Result.Fail("You have to add $id info in local data source")
-//        }
-//    }
-//
-//    override suspend fun getArticles(): Result<List<Article>> {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-//
-//    override fun getLiveArticles(): MutableLiveData<List<Article>> {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-//
-//    override suspend fun publish(article: Article): Result<Boolean> {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-//
-//    override suspend fun delete(article: Article): Result<Boolean> {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
+    override suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
 }

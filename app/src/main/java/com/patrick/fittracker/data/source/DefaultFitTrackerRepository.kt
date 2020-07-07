@@ -3,7 +3,7 @@ package com.patrick.fittracker.data.source
 import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
-import com.patrick.fittracker.record.SetOrderFilter
+import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSource,
                                   private val localDataSource: FitTrackerDataSource
@@ -23,6 +23,23 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
     override suspend fun getClassOption(): Result<List<ClassOption>> {
         return remoteDataSource.getClassOption()
     }
+
+    override suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
+        return remoteDataSource.addRecord(addTrainingRecord)
+    }
+
+//    override fun getLiveRecord(): MutableLiveData<List<AddTrainingRecord>> {
+//        return  remoteDataSource.getLiveRecord()
+//    }
+
+    override suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>> {
+        return remoteDataSource.getRecord(muscleKey)
+    }
+
+    override suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
+        return remoteDataSource.addClassRecord(addTrainingRecord)
+    }
+
 
 
 //    override suspend fun loginMockData(id: String): Result<Author> {

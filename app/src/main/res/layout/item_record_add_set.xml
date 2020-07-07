@@ -8,99 +8,84 @@
             name="viewModel"
             type="com.patrick.fittracker.record.selftraining.RecordViewModel" />
         <variable
-            name="orderNum"
-            type="String" />
+            name="add"
+            type="com.patrick.fittracker.data.AddTrainingRecord" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/record_order_title"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="8dp"-->
-        <!--            android:text="次數"-->
-        <!--            android:textSize="18dp"-->
-        <!--            app:layout_constraintEnd_toStartOf="@+id/record_weight_title"-->
-        <!--            app:layout_constraintHorizontal_bias="0.5"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/record_weight_title"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="重量"-->
-        <!--            android:textSize="18dp"-->
-        <!--            app:layout_constraintBaseline_toBaselineOf="@+id/record_order_title"-->
-        <!--            app:layout_constraintEnd_toStartOf="@+id/record_set_title"-->
-        <!--            app:layout_constraintHorizontal_bias="0.5"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/record_order_title" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/record_set_title"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="組數"-->
-        <!--            android:textSize="18dp"-->
-        <!--            app:layout_constraintBaseline_toBaselineOf="@+id/record_weight_title"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintHorizontal_bias="0.5"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/record_weight_title" />-->
+        <TextView
+            android:id="@+id/order_title_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{String.valueOf(add.order_title)}"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/weight_result"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="yyy"/>
 
         <TextView
-            android:id="@+id/textView24"
+            android:id="@+id/weight_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:ems="5"
-            android:text="@{String.valueOf(orderNum)}"
-            android:textAlignment="center"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="56dp"
+            android:text="@{String.valueOf(add.weight)}"
+            android:textColor="@color/colorLightBlack"
             android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/order_title_result"
+            app:layout_constraintEnd_toStartOf="@+id/orderset_result"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/order_title_result"
+            tools:text="yyy" />
 
-        <EditText
-            android:id="@+id/editText"
+        <TextView
+            android:id="@+id/orderset_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="5"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="5"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
+            android:text="@{String.valueOf(add.orderSet)}"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="18dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/weight_result"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editText"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/weight_result"
+            tools:text="yyy" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
+        <TextView
+            android:id="@+id/order_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.53"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="No. "
+            app:layout_constraintBaseline_toBaselineOf="@+id/order_title_result"
+            app:layout_constraintEnd_toStartOf="@+id/order_title_result" />
 
+        <TextView
+            android:id="@+id/weight_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="kg"
+            app:layout_constraintBaseline_toBaselineOf="@+id/weight_result"
+            app:layout_constraintStart_toEndOf="@+id/weight_result" />
 
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="reps"
+            app:layout_constraintBaseline_toBaselineOf="@+id/orderset_result"
+            app:layout_constraintStart_toEndOf="@+id/orderset_result" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

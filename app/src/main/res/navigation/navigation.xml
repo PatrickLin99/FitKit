@@ -91,4 +91,14 @@
             app:argType="com.patrick.fittracker.data.ClassOption" />
     </fragment>
     <action android:id="@+id/action_global_classOptionRecordFragment" app:destination="@id/classOptionRecordFragment" />
+    <fragment
+        android:id="@+id/innerRecordFragment"
+        android:name="com.patrick.fittracker.record.classoption.inner.InnerRecordFragment"
+        android:label="inner_record_fragment"
+        tools:layout="@layout/inner_record_fragment" >
+        <argument
+            android:name="classKey"
+            app:argType="string" />
+    </fragment>
+    <action android:id="@+id/action_global_innerRecordFragment" app:destination="@id/innerRecordFragment" />
 </navigation>

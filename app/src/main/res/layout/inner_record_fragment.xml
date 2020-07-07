@@ -6,9 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.patrick.fittracker.record.selftraining.RecordViewModel" />
+            type="com.patrick.fittracker.record.classoption.inner.InnerRecordViewModel" />
+
         <variable
-            name="record"
+            name="add"
             type="com.patrick.fittracker.data.AddTrainingRecord" />
 
     </data>
@@ -74,23 +75,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{String.valueOf(viewModel.addTrainingRecordd.weight)}"
                     android:textSize="22dp"
+                    android:text="@{String.valueOf(viewModel.addTrainingRecordd.weight)}"
                     android:textColor="@color/colorLightBlack"
                     app:layout_constraintEnd_toEndOf="@+id/textView22"
                     app:layout_constraintStart_toStartOf="@+id/textView22"
-                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView22"
+                    tools:text="aaaa"/>
 
                 <TextView
                     android:id="@+id/set_to_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.convertLongToString(viewModel.addTrainingRecordd.orderSet)}"
                     android:textSize="22dp"
+                    android:text="@{String.valueOf(viewModel.addTrainingRecordd.orderSet)}"
                     android:textColor="@color/colorLightBlack"
                     app:layout_constraintBaseline_toBaselineOf="@+id/weight_to_add"
                     app:layout_constraintEnd_toEndOf="@+id/textView23"
-                    app:layout_constraintStart_toStartOf="@+id/textView23" />
+                    app:layout_constraintStart_toStartOf="@+id/textView23"
+                    tools:text="aaa"/>
 
                 <ImageView
                     android:id="@+id/weight_add_button"
@@ -158,7 +161,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/upload_record_button" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_show_add_list"
+                    android:id="@+id/classOption_recyclerView_show_add_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"

@@ -1,9 +1,10 @@
 package com.patrick.fittracker.data.source
 
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.util.MultiClassKey
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
-import com.patrick.fittracker.record.SetOrderFilter
+import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 interface FitTrackerRepository {
 
@@ -14,6 +15,15 @@ interface FitTrackerRepository {
     suspend fun getCardioSelection (): Result<List<Cardio>>
 
     suspend fun getClassOption (): Result<List<ClassOption>>
+
+    suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
+
+//     fun getLiveRecord(): MutableLiveData<List<AddTrainingRecord>>
+
+    suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>>
+
+    suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
+
 
 
 //    suspend fun loginMockData(id: String): Result<Author>

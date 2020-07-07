@@ -1,4 +1,4 @@
-package com.patrick.fittracker.record.selftraining
+package com.patrick.fittracker.record.classoption.inner
 
 import android.util.Log
 import androidx.databinding.InverseMethod
@@ -18,11 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class RecordViewModel(private val repository: FitTrackerRepository,
-//                      private val addTrainingRecord: AddTrainingRecord
-                      private val muscleKey: String
-) : ViewModel() {
-
+class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
     private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
         value = AddTrainingRecord()
@@ -31,17 +27,6 @@ class RecordViewModel(private val repository: FitTrackerRepository,
     val addTrainingRecordd: LiveData<AddTrainingRecord>
         get() = _addTrainingRecordd
 
-    var liveRecord = MutableLiveData<List<AddTrainingRecord>>()
-
-    private val _add = MutableLiveData<List<AddTrainingRecord>>()
-
-    val add: LiveData<List<AddTrainingRecord>>
-        get() = _add
-
-    private var _navigateToPoseSelect = MutableLiveData<RecordSetOrder>()
-
-    val navigateToPoseSelect : LiveData<RecordSetOrder>
-        get() = _navigateToPoseSelect
 
 
     //---------------------------------------------------------------------------------------------------
@@ -84,11 +69,11 @@ class RecordViewModel(private val repository: FitTrackerRepository,
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-            getLiveRecordResult(muscleKey)
-        } else {
+//        if (FitTrackerApplication.instance.isLiveDataDesign()) {
+//            getLiveRecordResult(muscleKey)
+//        } else {
 //            getArticlesResult()
-        }
+//        }
     }
 
     fun uploadRecordData(addTrainingRecord: AddTrainingRecord) {
@@ -98,7 +83,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addRecord(addTrainingRecord)) {
+            when (val result = repository.addClassRecord(addTrainingRecord)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -120,46 +105,6 @@ class RecordViewModel(private val repository: FitTrackerRepository,
         }
     }
 
-//    fun getLiveRecordResult() {
-//        liveRecord = repository.getLiveRecord()
-//        _status.value = LoadApiStatus.DONE
-//        _refreshStatus.value = false
-//    }
-
-    fun getLiveRecordResult(muscleKey: String) {
-
-        coroutineScope.launch {
-
-            _status.value = LoadApiStatus.LOADING
-
-            val result = repository.getRecord(muscleKey)
-
-            _add.value = when (result) {
-                is Result.Success -> {
-                    _error.value = null
-                    _status.value = LoadApiStatus.DONE
-                    result.data
-                }
-                is Result.Fail -> {
-                    _error.value = result.error
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                is Result.Error -> {
-                    _error.value = result.exception.toString()
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-            }
-            _refreshStatus.value = false
-        }
-    }
-
 
     fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
@@ -167,24 +112,6 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 
     fun onLeft() {
         _leave.value = null
-    }
-
-    @InverseMethod("convertLongToString")
-    fun convertStringToLong(value: String): Long {
-        return try {
-            value.toLong().let {
-                when (it) {
-                    0L -> 1
-                    else -> it
-                }
-            }
-        } catch (e: NumberFormatException) {
-            1
-        }
-    }
-
-    fun convertLongToString(value: Long): String {
-        return value.toString()
     }
 
     fun plusWeight() {

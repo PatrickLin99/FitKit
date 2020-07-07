@@ -1,80 +1,92 @@
 package com.patrick.fittracker.record.selftraining
 
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
+import com.patrick.fittracker.data.AddTrainingRecord
+import com.patrick.fittracker.data.User
 import com.patrick.fittracker.databinding.RecordFragmentTestBinding
 import com.patrick.fittracker.ext.getVmFactory
-import com.patrick.fittracker.record.selftraining.RecordFragmentArgs
-import com.patrick.fittracker.record.SetOrderFilter
+import java.io.ObjectStreamException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class RecordFragment : Fragment() {
 
-//    companion object {
-//        fun newInstance() = RecordFragment()
-//    }
-
-    var group: SetOrderFilter =
-        SetOrderFilter.ORDER_NUM
-
-//    private lateinit var viewModel: RecordViewModel
-    private val viewModel by viewModels<RecordViewModel> {getVmFactory(group)}
+    var group: SetOrderFilter = SetOrderFilter.ORDER_NUM
+    private val viewModel by viewModels<RecordViewModel> { getVmFactory( RecordFragmentArgs.fromBundle(requireArguments()).muscleKey ) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        return inflater.inflate(R.layout.record_fragment, container, false)
         val binding = RecordFragmentTestBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         val adapter = RecordAdapter()
-        binding.recyclerViewAddList.adapter = adapter
+//        binding.recyclerViewAddList.adapter = adapter
 
-        viewModel.getMuscleGroupResult(group)
+//        val adapter = AdapterTwo()
+        binding.recyclerViewShowAddList.adapter = adapter
 
-        viewModel.navigateToPoseSelect.observe(viewLifecycleOwner, Observer {
+        viewModel.add.observe(viewLifecycleOwner, Observer {
             it?.let {
-//                Log.d("test 666666","$it   ${it.orderNum}  ${it.unknown}")
-                adapter.submitList(it.orderNum)
+                Log.d("99999999999999999","$it")
+                adapter.submitList(it)
             }
         })
 
 
 
-        val movement = RecordFragmentArgs.fromBundle(
-            requireArguments()
-        ).muscleKey
+//        viewModel.navigateToPoseSelect.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                adapter.submitList(it.orderNum)
+//            }
+//        })
 
-        binding.recordMuscleMainTitle.text = "${movement}"
 
-        binding.button2.setOnClickListener{
-            findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
+
+        val muscleKey = RecordFragmentArgs.fromBundle(requireArguments()).muscleKey
+        binding.recordMuscleMainTitle.text = "${muscleKey}"
+        binding.weightAddButton.setOnClickListener {
+            viewModel.plusWeight()
         }
-        binding.button.setOnClickListener {
-//            findNavController().navigate(NavigationDirections.actionGlobalAddSuccessFragment())
+        binding.weightMinButton.setOnClickListener {
+            viewModel.minusWeight()
+        }
+        binding.setAddButton.setOnClickListener {
+            viewModel.plusOrderSet()
+        }
+        binding.setMinButton.setOnClickListener {
+            viewModel.minusOrderSet()
+            Toast.makeText(requireContext(),"${Calendar.getInstance()}",Toast.LENGTH_LONG).show()
         }
 
-//        var setNum : Int = 1
-//        binding.setNumber.text = "第 $setNum 組"
 
+        var order_title : Long = 0
+        binding.uploadRecordButton.setOnClickListener {
 
+            viewModel.getLiveRecordResult(muscleKey)
+            adapter.notifyDataSetChanged()
+            viewModel.addTrainingRecordd.value?.let { it1 -> viewModel.uploadRecordData(it1) }
+            viewModel.addTrainingRecordd.value?.category_title = muscleKey
+            order_title +=1
+            viewModel.addTrainingRecordd.value?.order_title = order_title
+
+        }
 
         return binding.root
     }
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
-//        // TODO: Use the ViewModel
-//    }
 
 }

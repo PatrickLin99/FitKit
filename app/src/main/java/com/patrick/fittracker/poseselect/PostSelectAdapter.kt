@@ -36,7 +36,7 @@ class PostSelectAdapter(val onClickListener: OnClickListener):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostSelectViewHolder{
-        return PostSelectViewHolder(ItemMusclePostureBinding.inflate(LayoutInflater.from(parent.context)))
+        return PostSelectViewHolder(ItemMusclePostureBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: PostSelectViewHolder, position: Int){

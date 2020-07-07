@@ -7,16 +7,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.databinding.ItemRecordAddSetBinding
+import com.patrick.fittracker.databinding.ItemRecordTwoBinding
 
+class AdapterTwo():
+    ListAdapter<AddTrainingRecord, AdapterTwo.RecordViewHolder>(
+        DiffCallback
+    ){
 
-//class RecordAdapter(val onClickListener: OnClickListener):
-class RecordAdapter():
-    ListAdapter<AddTrainingRecord, RecordAdapter.RecordViewHolder>(DiffCallback){
-
-    class RecordViewHolder(private var binding: ItemRecordAddSetBinding):
+    class RecordViewHolder(private var binding: ItemRecordTwoBinding):
         RecyclerView.ViewHolder(binding.root){
-        fun bind(add: AddTrainingRecord){
-            binding.add = add
+        fun bind(addTrainingRecord: AddTrainingRecord){
+            binding.add = addTrainingRecord
             binding.executePendingBindings()
 
         }
@@ -35,7 +36,7 @@ class RecordAdapter():
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         return RecordViewHolder(
-            ItemRecordAddSetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemRecordTwoBinding.inflate(LayoutInflater.from(parent.context))
         )
     }
 
@@ -47,7 +48,7 @@ class RecordAdapter():
         holder.bind(menu)
     }
 
-    class OnClickListener(val clickListener: (add: AddTrainingRecord) -> Unit) {
-        fun onClick(add: AddTrainingRecord) = clickListener(add)
+    class OnClickListener(val clickListener: (menu: String) -> Unit) {
+        fun onClick(menu: String) = clickListener(menu)
     }
 }

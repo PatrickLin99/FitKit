@@ -7,6 +7,8 @@ import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.classoption.ClassOptionViewModel
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.record.cardio.CardioRecordViewModel
+import com.patrick.fittracker.record.classoption.inner.InnerRecordViewModel
+import com.patrick.fittracker.record.selftraining.RecordViewModel
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -31,6 +33,11 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(ClassOptionViewModel::class.java) ->
                     ClassOptionViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(InnerRecordViewModel::class.java) ->
+                    InnerRecordViewModel(
                         repository
                     )
 

@@ -3,7 +3,7 @@ package com.patrick.fittracker.data.source
 import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
-import com.patrick.fittracker.record.SetOrderFilter
+import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 interface FitTrackerDataSource {
 
@@ -14,6 +14,14 @@ interface FitTrackerDataSource {
     suspend fun getCardioSelection (): Result<List<Cardio>>
 
     suspend fun getClassOption (): Result<List<ClassOption>>
+
+    suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
+
+//     fun getLiveRecord(): MutableLiveData<List<AddTrainingRecord>>
+
+    suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>>
+
+    suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
 
 
 //    suspend fun login(id: String): Result<Author>

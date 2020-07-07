@@ -9,4 +9,6 @@
     <color name="colorBlack">#000000</color>
     <color name="colorDarkGray">#717171</color>
     <color name="colorLightBlack">#383838</color>
+    <color name="translucent_80">#cc000000</color>
+
 </resources>
