@@ -23,6 +23,9 @@ interface FitTrackerDataSource {
 
     suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
 
+    suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>>
+
+
 
 //    suspend fun login(id: String): Result<Author>
 //

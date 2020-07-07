@@ -67,7 +67,7 @@
         android:name="com.patrick.fittracker.cardio.selection.CardioSelectionFragment"
         android:label="CardioSelectionFragment" />
     <action android:id="@+id/action_global_cardioSelectionFragment" app:destination="@id/cardioSelectionFragment" />
-    <fragment
+    <dialog
         android:id="@+id/cardioRecordFragment"
         android:name="com.patrick.fittracker.record.cardio.CardioRecordFragment"
         android:label="cardio_record_fragment"
@@ -75,7 +75,7 @@
         <argument
             android:name="cardioKey"
             app:argType="com.patrick.fittracker.data.Cardio" />
-    </fragment>
+    </dialog>
     <action android:id="@+id/action_global_cardioRecordFragment" app:destination="@id/cardioRecordFragment" />
     <fragment
         android:id="@+id/classOptionFragment"

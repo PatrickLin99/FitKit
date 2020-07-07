@@ -224,5 +224,35 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             }
     }
 
+    override suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>> = suspendCoroutine { continuation ->
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES_USER)
+            .whereEqualTo("category_title", classKey)
+//            .whereEqualTo("createdTime","${Calendar.getInstance().timeInMillis} + 600000")
+            .orderBy("order_title",Query.Direction.ASCENDING)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<AddTrainingRecord>()
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " => " + document.data)
+
+                        val add = document.toObject(AddTrainingRecord::class.java)
+                        list.add(add)
+                    }
+                    continuation.resume(Result.Success(list))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
 
 }

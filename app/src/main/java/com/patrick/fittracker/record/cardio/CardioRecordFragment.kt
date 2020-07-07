@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 import com.patrick.fittracker.R
 import com.patrick.fittracker.databinding.CardioRecordFragmentBinding
@@ -16,7 +18,7 @@ import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.group.GroupViewModel
 import kotlinx.android.synthetic.main.cardio_record_fragment.*
 
-class CardioRecordFragment : Fragment() {
+class CardioRecordFragment : DialogFragment() {
 
     private val viewModel by viewModels <CardioRecordViewModel> { getVmFactory(CardioRecordFragmentArgs.fromBundle(requireArguments()).cardioKey) }
 
@@ -25,7 +27,6 @@ class CardioRecordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        return inflater.inflate(R.layout.cardio_record_fragment, container, false)
         val binding = CardioRecordFragmentBinding.inflate(inflater, container,false)
 
         binding.lifecycleOwner = viewLifecycleOwner

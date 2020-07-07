@@ -27,6 +27,10 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
     val addTrainingRecordd: LiveData<AddTrainingRecord>
         get() = _addTrainingRecordd
 
+    private val _add = MutableLiveData<List<AddTrainingRecord>>()
+
+    val add: LiveData<List<AddTrainingRecord>>
+        get() = _add
 
 
     //---------------------------------------------------------------------------------------------------
@@ -102,6 +106,40 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
                     _status.value = LoadApiStatus.ERROR
                 }
             }
+        }
+    }
+
+    fun getClassInnerRecordResult(classKey: String) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getClassRecord(classKey)
+
+            _add.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
         }
     }
 

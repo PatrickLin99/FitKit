@@ -38,6 +38,17 @@ class InnerRecordFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+
+        val adapter = InnerRecordAdapter()
+        binding.classOptionRecyclerViewShowAddList.adapter = adapter
+
+        viewModel.add.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                    adapter.submitList(it)
+            }
+        })
+
+
         binding.recordMuscleMainTitle.text = InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey
 
         binding.weightAddButton.setOnClickListener {
@@ -56,6 +67,9 @@ class InnerRecordFragment : Fragment() {
 
         var order_title : Long = 0
         binding.uploadRecordButton.setOnClickListener {
+
+            viewModel.getClassInnerRecordResult(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey)
+            adapter.notifyDataSetChanged()
 
             viewModel.addTrainingRecordd.value?.category_title = InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey
             viewModel.addTrainingRecordd.value?.let { it1 -> viewModel.uploadRecordData(it1) }

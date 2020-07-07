@@ -36,4 +36,8 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>> {
+        TODO("Not yet implemented")
+    }
+
 }

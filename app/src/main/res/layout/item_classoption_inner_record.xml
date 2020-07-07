@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.patrick.fittracker.record.classoption.inner.InnerRecordViewModel" />
+        <variable
+            name="add"
+            type="com.patrick.fittracker.data.AddTrainingRecord" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/order_title_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{String.valueOf(add.order_title)}"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/weight_result"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="yyy"/>
+
+        <TextView
+            android:id="@+id/weight_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="56dp"
+            android:text="@{String.valueOf(add.weight)}"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="18dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/order_title_result"
+            app:layout_constraintEnd_toStartOf="@+id/orderset_result"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/order_title_result"
+            tools:text="yyy" />
+
+        <TextView
+            android:id="@+id/orderset_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(add.orderSet)}"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="18dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/weight_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/weight_result"
+            tools:text="yyy" />
+
+        <TextView
+            android:id="@+id/order_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. "
+            app:layout_constraintBaseline_toBaselineOf="@+id/order_title_result"
+            app:layout_constraintEnd_toStartOf="@+id/order_title_result" />
+
+        <TextView
+            android:id="@+id/weight_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="kg"
+            app:layout_constraintBaseline_toBaselineOf="@+id/weight_result"
+            app:layout_constraintStart_toEndOf="@+id/weight_result" />
+
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="reps"
+            app:layout_constraintBaseline_toBaselineOf="@+id/orderset_result"
+            app:layout_constraintStart_toEndOf="@+id/orderset_result" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
