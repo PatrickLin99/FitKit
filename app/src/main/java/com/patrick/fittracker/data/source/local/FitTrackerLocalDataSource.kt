@@ -40,4 +40,8 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun addCardioRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
 }

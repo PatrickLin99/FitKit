@@ -226,10 +226,15 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
     override suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>> = suspendCoroutine { continuation ->
 
+        var timeNow : Long = Calendar.getInstance().timeInMillis
+        var timePeriod : Long = timeNow + 600000
+
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
             .whereEqualTo("category_title", classKey)
-//            .whereEqualTo("createdTime","${Calendar.getInstance().timeInMillis} + 600000")
+//            .orderBy("createdTime")
+//            .whereGreaterThan("createdTime",timeNow)
+//            .whereLessThan("createdTime",timePeriod)
             .orderBy("order_title",Query.Direction.ASCENDING)
             .get()
             .addOnCompleteListener { task ->
@@ -242,6 +247,33 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
                         list.add(add)
                     }
                     continuation.resume(Result.Success(list))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
+    override suspend fun addCardioRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> = suspendCoroutine { continuation ->
+
+        val user = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
+        val document = user.document()
+
+        addTrainingRecord.id = document.id
+        addTrainingRecord.createdTime = Calendar.getInstance().timeInMillis
+
+        document
+            .set(addTrainingRecord)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Logger.i("FitTracker: $addTrainingRecord")
+
+                    continuation.resume(Result.Success(true))
                 } else {
                     task.exception?.let {
 

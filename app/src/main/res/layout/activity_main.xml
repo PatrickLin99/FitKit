@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toTopOf="@+id/myNavHostFragment"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/circle_temp" />
+            app:srcCompat="@drawable/icons_24px_drawer" />
 
         <TextView
             android:id="@+id/main_title"

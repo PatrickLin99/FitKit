@@ -26,6 +26,8 @@ interface FitTrackerRepository {
 
     suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>>
 
+    suspend fun addCardioRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
+
 
 
 

@@ -8,8 +8,8 @@
             name="viewModel"
             type="com.patrick.fittracker.record.cardio.CardioRecordViewModel" />
         <variable
-            name="cardio"
-            type="com.patrick.fittracker.data.Cardio" />
+            name="add"
+            type="com.patrick.fittracker.data.AddTrainingRecord" />
 
     </data>
 
@@ -85,6 +85,7 @@
                 android:ems="8"
                 android:inputType="number"
                 android:hint="時間"
+                android:text="@={viewModel.convertLongToString(viewModel.addTrainingRecordd.duration)}"
                 android:textAlignment="center"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
                 app:layout_constraintStart_toEndOf="@+id/textView5" />
@@ -95,11 +96,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:ems="8"
-                android:inputType="number"
                 android:hint="Cal"
+                android:text="@={viewModel.convertLongToString(viewModel.addTrainingRecordd.burnFat)}"
+                android:inputType="number"
                 android:textAlignment="center"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
                 app:layout_constraintStart_toEndOf="@+id/textView24" />
+
+            <ImageView
+                android:id="@+id/upload_cardio_record_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/contract"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editText2"
+                app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

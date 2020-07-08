@@ -120,12 +120,6 @@ class RecordViewModel(private val repository: FitTrackerRepository,
         }
     }
 
-//    fun getLiveRecordResult() {
-//        liveRecord = repository.getLiveRecord()
-//        _status.value = LoadApiStatus.DONE
-//        _refreshStatus.value = false
-//    }
-
     fun getLiveRecordResult(muscleKey: String) {
 
         coroutineScope.launch {
@@ -197,6 +191,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
             _addTrainingRecordd.value = _addTrainingRecordd.value
         }
     }
+
     fun minusWeight() {
         _addTrainingRecordd.value?.let {
             it.weight = it.weight.minus(5)

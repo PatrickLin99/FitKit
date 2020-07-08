@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 import com.patrick.fittracker.R
+import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.databinding.CardioRecordFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.group.GroupViewModel
@@ -33,8 +34,12 @@ class CardioRecordFragment : DialogFragment() {
         binding.viewModel = viewModel
 
 
+        binding.uploadCardioRecordButton.setOnClickListener {
 
+            viewModel.uploadCardioStatusRecord()
+            viewModel.addTrainingRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
 
+        }
 
 
 

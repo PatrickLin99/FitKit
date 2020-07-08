@@ -79,9 +79,10 @@ class RecordFragment : Fragment() {
 
             viewModel.getLiveRecordResult(muscleKey)
             adapter.notifyDataSetChanged()
+
             viewModel.addTrainingRecordd.value?.let { it1 -> viewModel.uploadRecordData(it1) }
             viewModel.addTrainingRecordd.value?.category_title = muscleKey
-            order_title +=1
+            order_title += 1
             viewModel.addTrainingRecordd.value?.order_title = order_title
 
         }

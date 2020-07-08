@@ -13,5 +13,6 @@ data class AddTrainingRecord(
     var orderSet: Long = 0,
     var duration: Long = 0,
     var classField: String = "",
+    var burnFat: Long = 0,
     var user: User? = null
 ) : Parcelable
