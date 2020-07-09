@@ -3,6 +3,7 @@ package com.patrick.fittracker.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.patrick.fittracker.MainViewModel
+import com.patrick.fittracker.analysis.AnalysisViewModel
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.classoption.ClassOptionViewModel
 import com.patrick.fittracker.data.source.FitTrackerRepository
@@ -68,6 +69,11 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(ClassOptionFinishViewModel::class.java) ->
                     ClassOptionFinishViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(AnalysisViewModel::class.java) ->
+                    AnalysisViewModel(
                         repository
                     )
 

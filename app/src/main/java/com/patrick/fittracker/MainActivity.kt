@@ -66,7 +66,8 @@ class MainActivity : AppCompatActivity() {
                     return true
                 }
                 R.id.navigation_analysis -> {
-                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
+//                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAnalysisFragment())
                     return true
                 }
             }

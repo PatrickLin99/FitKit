@@ -39,6 +39,9 @@ android {
             buildConfigField("Boolean", "LOGGER_VISIABLE", "true")
         }
     }
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 
 }
 
@@ -100,4 +103,9 @@ dependencies {
 
     //Lottie
     implementation 'com.airbnb.android:lottie:3.0.0'
+
+    //LineChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+
 }
