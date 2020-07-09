@@ -40,7 +40,7 @@ class ClassOptionAdapter(val onClickListener: OnClickListener):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassOptionViewHolder {
         return ClassOptionViewHolder(
-            ItemClassOptionBinding.inflate(LayoutInflater.from(parent.context))
+            ItemClassOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

@@ -30,6 +30,8 @@ interface FitTrackerRepository {
 
     suspend fun addUserInfo(addTrainingRecord: AddTrainingRecord): Result<Boolean>
 
+    suspend fun addProfileInfo (addTrainingRecord: AddTrainingRecord): Result<Boolean>
+
 
 
 

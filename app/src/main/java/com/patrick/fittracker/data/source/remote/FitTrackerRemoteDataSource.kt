@@ -313,5 +313,32 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             }
     }
 
+    override suspend fun addProfileInfo(addTrainingRecord: AddTrainingRecord): Result<Boolean>  = suspendCoroutine { continuation ->
+
+        val user = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
+        val document = user.document()
+
+        addTrainingRecord.id = document.id
+        addTrainingRecord.createdTime = Calendar.getInstance().timeInMillis
+
+        document
+            .set(addTrainingRecord)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Logger.i("FitTracker: $addTrainingRecord")
+
+                    continuation.resume(Result.Success(true))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
 
 }

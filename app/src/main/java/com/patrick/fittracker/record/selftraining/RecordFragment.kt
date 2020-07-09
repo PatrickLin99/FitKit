@@ -86,6 +86,15 @@ class RecordFragment : Fragment() {
 
         }
 
+        binding.finishRecord.setOnClickListener {
+            findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
+        }
+
+        binding.recordAnother.setOnClickListener {
+            findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
+        }
+
+
         return binding.root
     }
 

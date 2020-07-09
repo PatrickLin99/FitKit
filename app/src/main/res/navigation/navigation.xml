@@ -21,7 +21,8 @@
         android:id="@+id/profileFragment"
         android:name="com.patrick.fittracker.profile.ProfileFragment"
         android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/profile_fragment" >
+    </fragment>
     <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
     <fragment
         android:id="@+id/analysisFragment"
@@ -108,5 +109,10 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.patrick.fittracker.profile.edit.EditProfileFragment"
-        android:label="EditProfileFragment" /><action android:id="@+id/action_global_editProfileFragment" app:destination="@id/editProfileFragment"/>
+        android:label="EditProfileFragment" />
+    <action android:id="@+id/action_global_editProfileFragment" app:destination="@id/editProfileFragment" />
+    <fragment
+        android:id="@+id/finishRecordFragment"
+        android:name="com.patrick.fittracker.finish.FinishRecordFragment"
+        android:label="FinishRecordFragment" /><action android:id="@+id/action_global_finishRecordFragment" app:destination="@id/finishRecordFragment"/>
 </navigation>

@@ -52,6 +52,10 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         return remoteDataSource.addUserInfo(addTrainingRecord)
     }
 
+    override suspend fun addProfileInfo(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
+        return remoteDataSource.addProfileInfo(addTrainingRecord)
+    }
+
 
 
 //    override suspend fun loginMockData(id: String): Result<Author> {

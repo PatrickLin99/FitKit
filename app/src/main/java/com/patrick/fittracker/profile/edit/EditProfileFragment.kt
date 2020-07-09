@@ -8,6 +8,10 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.patrick.fittracker.NavigationDirections
+import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.databinding.EditProfileFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.xw.repo.BubbleSeekBar
@@ -26,25 +30,16 @@ class EditProfileFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-//        binding.seekBarHeight.onProgressChangedListener(object : SeekBar.OnSeekBarChangeListener {
-//
-//            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-//
-//            }
-//
-//            override fun onStartTrackingTouch(p0: SeekBar?) {
-//
-//            }
-//            override fun onStopTrackingTouch(p0: SeekBar?) {
-//
-//            }
-//        })
+        var profile_height : Long = 0
+        var profile_weight : Long = 0
+        var profile_bodyFat : Long = 0
 
 
         binding.seekBarHeight.onProgressChangedListener = object :
             BubbleSeekBar.OnProgressChangedListener {
             override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
                 Toast.makeText(requireContext(), "身高為$progress", Toast.LENGTH_LONG).show()
+                profile_height = progress.toLong()
             }
             override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
             }
@@ -56,6 +51,7 @@ class EditProfileFragment : Fragment() {
             BubbleSeekBar.OnProgressChangedListener {
             override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
                 Toast.makeText(requireContext(), "體重為$progress", Toast.LENGTH_LONG).show()
+                profile_weight= progress.toLong()
             }
             override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
             }
@@ -67,6 +63,7 @@ class EditProfileFragment : Fragment() {
             BubbleSeekBar.OnProgressChangedListener {
             override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
                 Toast.makeText(requireContext(), "體脂肪為$progress", Toast.LENGTH_LONG).show()
+                profile_bodyFat = progress.toLong()
             }
             override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
             }
@@ -74,9 +71,16 @@ class EditProfileFragment : Fragment() {
             }
         }
 
+        binding.updateInfoImage.setOnClickListener {
 
+            viewModel.infoNameandAge()
+            viewModel.addTrainingRecordd.value?.info_height = profile_height
+            viewModel.addTrainingRecordd.value?.info_weight = profile_weight
+            viewModel.addTrainingRecordd.value?.info_BodyFat = profile_bodyFat
+            viewModel.addTrainingRecordd.value?.let { viewModel.uploadProfileInfo(it) }
 
-
+            findNavController().navigate(NavigationDirections.actionGlobalProfileFragment())
+        }
 
 
         return binding.root

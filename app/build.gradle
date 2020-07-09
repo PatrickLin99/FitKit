@@ -98,4 +98,6 @@ dependencies {
     //Seekbar
     implementation "com.xw.repo:bubbleseekbar:3.20-lite"
 
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.0.0'
 }

@@ -14,5 +14,12 @@ data class AddTrainingRecord(
     var duration: Long = 0,
     var classField: String = "",
     var burnFat: Long = 0,
-    var user: User? = null
+    var user: User? = null,
+    var info_name: String = "",
+    var info_BMI: Long = 0,
+    var info_BodyFat : Long = 0,
+    var info_weight : Long = 0,
+    var info_height : Long = 0,
+    var info_age : Long = 0,
+    var info_image: String = ""
 ) : Parcelable
