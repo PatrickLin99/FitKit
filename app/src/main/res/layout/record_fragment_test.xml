@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
@@ -166,6 +166,7 @@
                     android:layout_marginEnd="16dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view3"
                     tools:listitem="@layout/item_record_add_set" />
@@ -181,51 +182,53 @@
                     app:layout_constraintStart_toStartOf="@+id/upload_record_button"
                     app:layout_constraintTop_toBottomOf="@+id/upload_record_button" />
 
-                <ImageView
-                    android:id="@+id/imageView19"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/finish_record"
-                    app:layout_constraintEnd_toStartOf="@+id/finish_record"
-                    app:layout_constraintTop_toTopOf="@+id/finish_record"
-                    app:srcCompat="@drawable/achievement" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/imageView19"-->
+                <!--                    android:layout_width="32dp"-->
+                <!--                    android:layout_height="32dp"-->
+                <!--                    android:layout_marginEnd="4dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/finish_record"-->
+                <!--                    app:layout_constraintEnd_toStartOf="@+id/finish_record"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/finish_record"-->
+                <!--                    app:srcCompat="@drawable/achievement" />-->
 
-                <TextView
-                    android:id="@+id/finish_record"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="紀錄完成"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view7" />
+                <!--                <Button-->
+                <!--                    android:id="@+id/finish_record"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="12dp"-->
+                <!--                    android:layout_marginEnd="16dp"-->
+                <!--                    android:text="紀錄完成"-->
+                <!--                    android:textColor="@color/colorLightBlack"-->
+                <!--                    android:background="@drawable/button_round"-->
+                <!--                    android:textSize="18sp"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/view7" />-->
 
-                <TextView
-                    android:id="@+id/record_another"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="繼續運動"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView21"
-                    app:layout_constraintTop_toBottomOf="@+id/view7" />
+                <!--                <Button-->
+                <!--                    android:id="@+id/record_another"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="4dp"-->
+                <!--                    android:layout_marginTop="12dp"-->
+                <!--                    android:layout_marginBottom="16dp"-->
+                <!--                    android:text="繼續運動"-->
+                <!--                    android:textColor="@color/colorLightBlack"-->
+                <!--                    android:background="@drawable/button_round"-->
+                <!--                    android:textSize="18sp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/imageView21"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/view7" />-->
 
-                <ImageView
-                    android:id="@+id/imageView21"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/record_another"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/record_another"
-                    app:srcCompat="@drawable/strong" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/imageView21"-->
+                <!--                    android:layout_width="32dp"-->
+                <!--                    android:layout_height="32dp"-->
+                <!--                    android:layout_marginStart="16dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/record_another"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/record_another"-->
+                <!--                    app:srcCompat="@drawable/strong" />-->
 
                 <View
                     android:id="@+id/view7"
@@ -238,6 +241,55 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerView_show_add_list" />
+
+                <View
+                    android:id="@+id/view8"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view7" />
+
+                <View
+                    android:id="@+id/view9"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view7" />
+
+                <TextView
+                    android:id="@+id/record_another"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="記錄其他"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view8"
+                    app:layout_constraintEnd_toEndOf="@+id/view8"
+                    app:layout_constraintHorizontal_bias="0.535"
+                    app:layout_constraintStart_toStartOf="@+id/view8"
+                    app:layout_constraintTop_toTopOf="@+id/view8" />
+
+                <TextView
+                    android:id="@+id/finish_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="記錄完成"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view9"
+                    app:layout_constraintEnd_toEndOf="@+id/view9"
+                    app:layout_constraintStart_toStartOf="@+id/view9"
+                    app:layout_constraintTop_toTopOf="@+id/view9" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

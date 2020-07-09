@@ -13,7 +13,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.R
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
@@ -48,6 +50,13 @@ class InnerRecordFragment : Fragment() {
             }
         })
 
+        binding.view3.visibility = View.INVISIBLE
+        binding.view7.visibility = View.INVISIBLE
+        binding.view8.visibility = View.INVISIBLE
+        binding.view9.visibility = View.INVISIBLE
+        binding.recordAnother.visibility = View.INVISIBLE
+        binding.finishRecord.visibility = View.INVISIBLE
+
 
         binding.recordMuscleMainTitle.text = InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey
 
@@ -76,6 +85,21 @@ class InnerRecordFragment : Fragment() {
 
             order_title += 1
             viewModel.addTrainingRecordd.value?.order_title = order_title
+
+            binding.view3.visibility = View.VISIBLE
+            binding.view7.visibility = View.VISIBLE
+            binding.view8.visibility = View.VISIBLE
+            binding.view9.visibility = View.VISIBLE
+            binding.recordAnother.visibility = View.VISIBLE
+            binding.finishRecord.visibility = View.VISIBLE
+        }
+
+        binding.recordAnother.setOnClickListener {
+            findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
+        }
+
+        binding.finishRecord.setOnClickListener {
+            findNavController().navigate(NavigationDirections.actionGlobalClassOptionFinishFragment())
         }
 
 

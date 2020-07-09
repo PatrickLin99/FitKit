@@ -55,6 +55,13 @@ class RecordFragment : Fragment() {
 //            }
 //        })
 
+        binding.view3.visibility = View.INVISIBLE
+        binding.view7.visibility = View.INVISIBLE
+        binding.view8.visibility = View.INVISIBLE
+        binding.view9.visibility = View.INVISIBLE
+        binding.recordAnother.visibility = View.INVISIBLE
+        binding.finishRecord.visibility = View.INVISIBLE
+
 
 
         val muscleKey = RecordFragmentArgs.fromBundle(requireArguments()).muscleKey
@@ -83,6 +90,13 @@ class RecordFragment : Fragment() {
             viewModel.addTrainingRecordd.value?.category_title = muscleKey
             order_title += 1
             viewModel.addTrainingRecordd.value?.order_title = order_title
+
+            binding.view3.visibility = View.VISIBLE
+            binding.view7.visibility = View.VISIBLE
+            binding.view8.visibility = View.VISIBLE
+            binding.view9.visibility = View.VISIBLE
+            binding.recordAnother.visibility = View.VISIBLE
+            binding.finishRecord.visibility = View.VISIBLE
 
         }
 

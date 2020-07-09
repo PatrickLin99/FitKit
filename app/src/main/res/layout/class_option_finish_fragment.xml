@@ -6,22 +6,19 @@
     <data>
         <variable
             name="viewModel"
-            type="com.patrick.fittracker.finish.FinishRecordViewModel" />
+            type="com.patrick.fittracker.finish.classoption.ClassOptionFinishViewModel" />
 
     </data>
-
-
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".finish.FinishFragment">
+        tools:context=".finish.classoption.ClassOptionFinishFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorWhite">
-
 
             <TextView
                 android:id="@+id/finish_slogon"
@@ -45,7 +42,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/warm_up_guy_gympass" />
+                app:lottie_rawRes="@raw/chinup_animation" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

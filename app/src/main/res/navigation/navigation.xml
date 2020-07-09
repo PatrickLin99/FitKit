@@ -114,5 +114,10 @@
     <fragment
         android:id="@+id/finishRecordFragment"
         android:name="com.patrick.fittracker.finish.FinishRecordFragment"
-        android:label="FinishRecordFragment" /><action android:id="@+id/action_global_finishRecordFragment" app:destination="@id/finishRecordFragment"/>
+        android:label="FinishRecordFragment" />
+    <action android:id="@+id/action_global_finishRecordFragment" app:destination="@id/finishRecordFragment" />
+    <fragment
+        android:id="@+id/classOptionFinishFragment"
+        android:name="com.patrick.fittracker.finish.classoption.ClassOptionFinishFragment"
+        android:label="ClassOptionFinishFragment" /><action android:id="@+id/action_global_classOptionFinishFragment" app:destination="@id/classOptionFinishFragment"/>
 </navigation>

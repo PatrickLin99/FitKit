@@ -1,4 +1,4 @@
-package com.patrick.fittracker.finish
+package com.patrick.fittracker.finish.classoption
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -9,28 +9,28 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 
 import com.patrick.fittracker.R
-import com.patrick.fittracker.databinding.FinishRecordFragmentBinding
-import com.patrick.fittracker.databinding.RecordFragmentTestBinding
+import com.patrick.fittracker.databinding.ClassOptionFinishFragmentBinding
+import com.patrick.fittracker.databinding.ClassOptionFragmentBinding
+import com.patrick.fittracker.databinding.InnerRecordFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
-import com.patrick.fittracker.record.selftraining.RecordFragmentArgs
 
-class FinishRecordFragment : Fragment() {
+class ClassOptionFinishFragment : Fragment() {
 
-//    private lateinit var viewModel: FinishRecordViewModel
-    private val viewModel by viewModels<FinishRecordViewModel> { getVmFactory() }
+
+    private val viewModel by viewModels <ClassOptionFinishViewModel> {getVmFactory()}
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FinishRecordFragmentBinding.inflate(inflater, container,false)
-
+        val binding = ClassOptionFinishFragmentBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
 
         return binding.root
     }
+
 
 }
