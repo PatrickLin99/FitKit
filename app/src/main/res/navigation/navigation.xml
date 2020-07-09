@@ -101,4 +101,12 @@
             app:argType="string" />
     </fragment>
     <action android:id="@+id/action_global_innerRecordFragment" app:destination="@id/innerRecordFragment" />
+    <dialog
+        android:id="@+id/loginFragment"
+        android:name="com.patrick.fittracker.login.LoginFragment"
+        android:label="LoginFragment" /><action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.patrick.fittracker.profile.edit.EditProfileFragment"
+        android:label="EditProfileFragment" /><action android:id="@+id/action_global_editProfileFragment" app:destination="@id/editProfileFragment"/>
 </navigation>

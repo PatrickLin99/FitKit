@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.patrick.fittracker.profile.edit.EditProfileViewModel" />
+
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".profile.edit.EditProfileFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite">
+
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/circle_temp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/enter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="8"
+                android:inputType="textPersonName"
+                android:hint="暱稱"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+            <EditText
+                android:id="@+id/enter_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="6"
+                android:inputType="number"
+                android:hint="年齡"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/enter_name" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorLightGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/enter_age" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/measurement"
+                app:layout_constraintBottom_toTopOf="@+id/imageView18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/weight"
+                app:layout_constraintBottom_toTopOf="@+id/imageView20"
+                app:layout_constraintStart_toStartOf="@+id/imageView17"
+                app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+
+            <ImageView
+                android:id="@+id/imageView20"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginBottom="72dp"
+                android:src="@drawable/caliper"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView18"
+                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+
+<!--            <SeekBar-->
+<!--                android:id="@+id/seekBar_height"-->
+<!--                android:layout_width="240dp"-->
+<!--                android:layout_height="28dp"-->
+<!--                android:min="120"-->
+<!--                android:max="220"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/imageView17"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/enter_name"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/enter_name"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/imageView17" />-->
+
+<!--            <SeekBar-->
+<!--                android:id="@+id/seekBar_weight"-->
+<!--                android:layout_width="240dp"-->
+<!--                android:layout_height="28dp"-->
+<!--                android:max="160"-->
+<!--                android:min="20"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/imageView18"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/seekBar_height"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/seekBar_height"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/imageView18" />-->
+
+<!--            <SeekBar-->
+<!--                android:id="@+id/seekBar_bodyFat"-->
+<!--                android:layout_width="240dp"-->
+<!--                android:layout_height="28dp"-->
+<!--                android:min="0"-->
+<!--                android:max="50"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/imageView20"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/seekBar_weight"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/seekBar_weight"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/imageView20" />-->
+
+
+            <com.xw.repo.BubbleSeekBar
+                android:id="@+id/seekBar_weight"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:bsb_bubble_color="@color/colorSeaBlue"
+                app:bsb_bubble_text_color="@color/colorLightGray"
+                app:bsb_max="120"
+                app:bsb_min="0"
+                app:bsb_progress="0"
+                app:bsb_second_track_color="@color/colorSeaBlue"
+                app:bsb_section_text_position="bottom_sides"
+                app:bsb_show_progress_in_float="true"
+                app:bsb_show_thumb_text="true"
+                app:bsb_track_color="@color/colorLightGray"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+                app:layout_constraintEnd_toEndOf="@+id/seekBar_height"
+                app:layout_constraintStart_toStartOf="@+id/seekBar_height"
+                app:layout_constraintTop_toTopOf="@+id/imageView18" />
+
+            <com.xw.repo.BubbleSeekBar
+                android:id="@+id/seekBar_height"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:bsb_bubble_color="@color/colorSeaBlue"
+                app:bsb_bubble_text_color="@color/colorLightGray"
+                app:bsb_max="200"
+                app:bsb_min="0"
+                app:bsb_progress="0"
+                app:bsb_second_track_color="@color/colorSeaBlue"
+                app:bsb_section_text_position="bottom_sides"
+                app:bsb_show_progress_in_float="true"
+                app:bsb_show_thumb_text="true"
+                app:bsb_track_color="@color/colorLightGray"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+                app:layout_constraintEnd_toEndOf="@+id/enter_name"
+                app:layout_constraintStart_toStartOf="@+id/enter_name"
+                app:layout_constraintTop_toTopOf="@+id/imageView17"  />
+
+            <com.xw.repo.BubbleSeekBar
+                android:id="@+id/seekBar_bodyFat"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:bsb_bubble_color="@color/colorSeaBlue"
+                app:bsb_bubble_text_color="@color/colorLightGray"
+                app:bsb_max="50"
+                app:bsb_min="0"
+                app:bsb_progress="0"
+                app:bsb_second_track_color="@color/colorSeaBlue"
+                app:bsb_section_text_position="bottom_sides"
+                app:bsb_show_progress_in_float="true"
+                app:bsb_show_thumb_text="true"
+                app:bsb_track_color="@color/colorLightGray"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView20"
+                app:layout_constraintEnd_toEndOf="@+id/seekBar_weight"
+                app:layout_constraintStart_toStartOf="@+id/seekBar_weight"
+                app:layout_constraintTop_toTopOf="@+id/imageView20" />
+
+
+            <TextView
+                android:id="@+id/unit_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="cm"
+                android:textColor="@color/colorLightGray"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBar_height"
+                app:layout_constraintStart_toEndOf="@+id/seekBar_height" />
+
+            <TextView
+                android:id="@+id/unit_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="kg"
+                android:textColor="@color/colorLightGray"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBar_weight"
+                app:layout_constraintStart_toEndOf="@+id/seekBar_weight" />
+
+            <TextView
+                android:id="@+id/unit_bodyFat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="%"
+                android:textColor="@color/colorLightGray"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBar_bodyFat"
+                app:layout_constraintStart_toEndOf="@+id/seekBar_bodyFat" />
+
+            <TextView
+                android:id="@+id/title_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="身高"
+                android:textSize="16sp"
+                android:textColor="@color/colorLightBlack"
+                app:layout_constraintEnd_toEndOf="@+id/imageView17"
+                app:layout_constraintStart_toStartOf="@+id/imageView17"
+                app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+
+            <TextView
+                android:id="@+id/title_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="體重"
+                android:textSize="16sp"
+                android:textColor="@color/colorLightBlack"
+                app:layout_constraintEnd_toEndOf="@+id/imageView18"
+                app:layout_constraintStart_toStartOf="@+id/imageView18"
+                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="體脂肪"
+                android:textSize="16sp"
+                android:textColor="@color/colorLightBlack"
+                app:layout_constraintEnd_toEndOf="@+id/imageView20"
+                app:layout_constraintStart_toStartOf="@+id/imageView20"
+                app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

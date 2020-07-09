@@ -1,8 +1,8 @@
-package com.patrick.fittracker.profile
+package com.patrick.fittracker.profile.edit
 
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.data.source.FitTrackerRepository
 
-class ProfileViewModel(private val repository: FitTrackerRepository) : ViewModel() {
+class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewModel() {
     // TODO: Implement the ViewModel
 }

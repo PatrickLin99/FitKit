@@ -7,16 +7,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.R
 import com.patrick.fittracker.databinding.HomeFragmentBinding
+import com.patrick.fittracker.ext.getVmFactory
 
 class HomeFragment : Fragment() {
 
-    private lateinit var viewModel: HomeViewModel
+//    private lateinit var viewModel: HomeViewModel
+    private val viewModel by viewModels <HomeViewModel> {getVmFactory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,10 +56,10 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+//        // TODO: Use the ViewModel
+//    }
 
 }

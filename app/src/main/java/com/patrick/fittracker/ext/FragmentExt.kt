@@ -5,6 +5,7 @@ import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.Cardio
 import com.patrick.fittracker.data.ClassOption
+import com.patrick.fittracker.data.User
 import com.patrick.fittracker.factory.*
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import com.patrick.fittracker.record.selftraining.SetOrderFilter
@@ -43,5 +44,11 @@ fun Fragment.getVmFactory(muscleKey: String): RecordViewModelFactory {
     val repository = (requireContext().applicationContext as FitTrackerApplication).repository
     return RecordViewModelFactory(repository, muscleKey)
 }
+
+fun Fragment.getVmFactory(user: User): LoginViewModelFactory {
+    val repository = (requireContext().applicationContext as FitTrackerApplication).repository
+    return LoginViewModelFactory(repository, user)
+}
+
 
 

@@ -58,7 +58,7 @@ class RecordFragment : Fragment() {
 
 
         val muscleKey = RecordFragmentArgs.fromBundle(requireArguments()).muscleKey
-        binding.recordMuscleMainTitle.text = "${muscleKey}"
+        binding.recordMuscleMainTitle.text = muscleKey
         binding.weightAddButton.setOnClickListener {
             viewModel.plusWeight()
         }
@@ -70,7 +70,6 @@ class RecordFragment : Fragment() {
         }
         binding.setMinButton.setOnClickListener {
             viewModel.minusOrderSet()
-            Toast.makeText(requireContext(),"${Calendar.getInstance()}",Toast.LENGTH_LONG).show()
         }
 
 

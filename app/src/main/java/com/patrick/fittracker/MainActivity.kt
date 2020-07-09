@@ -54,19 +54,19 @@ class MainActivity : AppCompatActivity() {
 //
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_homeFragment)
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
                     return true
                 }
                 R.id.navigation_calendar -> {
-                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_calendarFragment)
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalCalendarFragment())
                     return true
                 }
                 R.id.navigation_profile -> {
-                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_profileFragment)
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalProfileFragment())
                     return true
                 }
                 R.id.navigation_analysis -> {
-                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_analysisFragment)
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
                     return true
                 }
             }

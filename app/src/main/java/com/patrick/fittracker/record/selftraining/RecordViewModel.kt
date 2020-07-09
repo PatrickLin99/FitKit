@@ -185,8 +185,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 //        Log.d("Patrick", "plusWeight")
 //        Log.d("Patrick", "_addTrainingRecordd.value=${_addTrainingRecordd.value}")
         _addTrainingRecordd.value?.let {
-
-//            Log.d("Patrick", "it.weight=${it.weight}")
+//        Log.d("Patrick", "it.weight=${it.weight}")
             it.weight = it.weight.plus(5)
             _addTrainingRecordd.value = _addTrainingRecordd.value
         }

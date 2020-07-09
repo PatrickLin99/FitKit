@@ -6,28 +6,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.R
+import com.patrick.fittracker.databinding.EditProfileFragmentBinding
+import com.patrick.fittracker.databinding.ProfileFragmentBinding
+import com.patrick.fittracker.ext.getVmFactory
+import com.patrick.fittracker.profile.edit.EditProfileViewModel
 
 class ProfileFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
+    private val viewModel by viewModels<ProfileViewModel> { getVmFactory() }
 
-    private lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.profile_fragment, container, false)
-    }
+        val binding = ProfileFragmentBinding.inflate(inflater, container,false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+
+        binding.imageView14.setOnClickListener {
+            findNavController().navigate(NavigationDirections.actionGlobalEditProfileFragment())
+        }
+
+
+        return binding.root
     }
 
 }
