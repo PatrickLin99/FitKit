@@ -13,24 +13,24 @@ import com.patrick.fittracker.databinding.ItemRecordAddSetBinding
 
 //class RecordAdapter(val onClickListener: OnClickListener):
 class RecordAdapter():
-    ListAdapter<InsertRecord, RecordAdapter.RecordViewHolder>(DiffCallback){
+    ListAdapter<FitDetail, RecordAdapter.RecordViewHolder>(DiffCallback){
 
     class RecordViewHolder(private var binding: ItemRecordAddSetBinding):
         RecyclerView.ViewHolder(binding.root){
-        fun bind(insertRecord: InsertRecord){
-            binding.insertRecord = insertRecord
+        fun bind(fitDetail: FitDetail){
+            binding.fitDetail = fitDetail
             binding.executePendingBindings()
 
         }
     }
 
 
-    companion object DiffCallback: DiffUtil.ItemCallback<InsertRecord>(){
-        override fun areContentsTheSame(oldItem: InsertRecord, newItem: InsertRecord): Boolean {
+    companion object DiffCallback: DiffUtil.ItemCallback<FitDetail>(){
+        override fun areContentsTheSame(oldItem: FitDetail, newItem: FitDetail): Boolean {
             return oldItem == newItem
         }
 
-        override fun areItemsTheSame(oldItem: InsertRecord, newItem: InsertRecord): Boolean {
+        override fun areItemsTheSame(oldItem: FitDetail, newItem: FitDetail): Boolean {
             return oldItem == newItem
         }
     }

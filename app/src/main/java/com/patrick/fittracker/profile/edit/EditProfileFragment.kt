@@ -81,7 +81,20 @@ class EditProfileFragment : Fragment() {
             UserManger.userData.userProfile?.info_weight = profile_weight
             UserManger.userData.userProfile?.info_bodyFat = profile_bodyFat
 
+            val profile_BMI: Long = (profile_bodyFat)/(profile_height*10000)
+
+            viewModel.addUserInfo.value?.info_height = profile_height
+            viewModel.addUserInfo.value?.info_weight = profile_weight
+            viewModel.addUserInfo.value?.info_bodyFat = profile_bodyFat
+            viewModel.addUserInfo.value?.info_BMI = profile_BMI
+
+//            viewModel.addUserInfo.value?.let { it2 -> UserManger.userData.name }?.let{ it4 -> profile_weight}?.let { it5 -> UserManger.userData.userProfile?.info_height }?.let { it7 -> UserManger.userData.userProfile?.info_bodyFat }
+
+
+
             Log.d("usermanager","${UserManger.userData}")
+            Log.d("usermanager","${viewModel.addUserInfo.value}")
+            Log.d("usermanager","${profile_BMI}")
 
 
 //            viewModel.infoNameandAge()

@@ -41,20 +41,28 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 
     //------------------------------------------------------------------------------------------------------------------------------------------------
 
-    private val _addOne = MutableLiveData<InsertRecord>().apply {
-        value = InsertRecord(fitDetail = FitDetail())
+    private val _addOne = MutableLiveData<FitDetail>().apply {
+        value = FitDetail()
     }
 
-    val addOne: LiveData<InsertRecord>
+    val addOne: LiveData<FitDetail>
         get() = _addOne
 
 
-    private val _addInsert = MutableLiveData<MutableList<InsertRecord>>().apply {
+    private val _addInsert = MutableLiveData<MutableList<FitDetail>>().apply {
         value = mutableListOf()
     }
 
-    val addInsert: LiveData<MutableList<InsertRecord>>
+    val addInsert: LiveData<MutableList<FitDetail>>
         get() = _addInsert
+
+
+    private val _addInsertTest = MutableLiveData<MutableList<InsertRecord>>().apply {
+        value = mutableListOf()
+    }
+
+    val addInsertTest: LiveData<MutableList<InsertRecord>>
+        get() = _addInsertTest
 
 
     private var _navigateToPoseSelect = MutableLiveData<RecordSetOrder>()
@@ -140,16 +148,16 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 //        }
 //    }
 
-    fun recyclverSho(insertRecord: InsertRecord){
-        _addInsert.value?.add(0, insertRecord)
+    fun recyclverSho(fitDetail: FitDetail){
+        _addInsert.value?.add(0, fitDetail)
         _addInsert.value = _addInsert.value
     }
 
 
     fun uploadRecord(insertRecord: InsertRecord) {
 
-        _addInsert.value?.add(0, insertRecord)
-        _addInsert.value = _addInsert.value
+//        _addInsert.value?.add(0, insertRecord)
+//        _addInsert.value = _addInsert.value
 
         coroutineScope.launch {
 
@@ -250,7 +258,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 //            it.weight = it.weight.plus(5)
 //            _addTrainingRecordd.value = _addTrainingRecordd.value
 //        }
-            _addOne.value?.fitDetail?.let {
+            _addOne.value?.let {
 //        Log.d("Patrick", "it.weight=${it.weight}")
                 it.weight = it.weight.plus(5)
                 _addOne.value = _addOne.value
@@ -261,7 +269,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 //        _addTrainingRecordd.value?.let {
 //            it.weight = it.weight.minus(5)
 //            _addTrainingRecordd.value = _addTrainingRecordd.value
-            _addOne.value?.fitDetail?.let {
+            _addOne.value?.let {
                 it.weight = it.weight.minus(5)
                 _addOne.value = _addOne.value
             }
@@ -271,7 +279,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 //        _addTrainingRecordd.value?.let {
 //            it.orderSet = it.orderSet.plus(1)
 //            _addTrainingRecordd.value = _addTrainingRecordd.value
-            _addOne.value?.fitDetail?.let {
+            _addOne.value?.let {
                 it.orderSet = it.orderSet.plus(1)
                 _addOne.value = _addOne.value
             }
@@ -281,7 +289,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 //        _addTrainingRecordd.value?.let {
 //            it.orderSet = it.orderSet.minus(1)
 //            _addTrainingRecordd.value = _addTrainingRecordd.value
-            _addOne.value?.fitDetail?.let {
+            _addOne.value?.let {
                 it.orderSet = it.orderSet.minus(1)
                 _addOne.value = _addOne.value
             }

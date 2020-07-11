@@ -44,8 +44,7 @@
                 android:src="@drawable/circle_temp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/profile_name_title"
@@ -59,7 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView13"
-                tools:text="姓名"/>
+                tools:text="姓名" />
 
             <TextView
                 android:id="@+id/profile_membership"
@@ -72,12 +71,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_name_title"
-                tools:text="aaa"/>
+                tools:text="aaa" />
 
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:alpha="0.6"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/imageView9"
@@ -90,6 +90,7 @@
                 android:id="@+id/imageView9"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:alpha="0.6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="@+id/imageView5"
@@ -99,7 +100,8 @@
                 android:id="@+id/imageView11"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="32dp"
+                android:alpha="0.6"
+                android:layout_marginTop="36dp"
                 app:layout_constraintEnd_toStartOf="@+id/imageView12"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,6 +122,7 @@
                 android:id="@+id/imageView15"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:alpha="0.6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imageView14"
@@ -130,7 +133,8 @@
                 android:id="@+id/imageView14"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="36dp"
+                android:alpha="0.6"
                 app:layout_constraintEnd_toStartOf="@+id/imageView15"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +149,7 @@
                 android:text="身高"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="18dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView5"
                 app:layout_constraintStart_toStartOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5" />
@@ -158,7 +162,7 @@
                 android:text="體重"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="18dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView9"
                 app:layout_constraintStart_toStartOf="@+id/imageView9"
                 app:layout_constraintTop_toBottomOf="@+id/imageView9" />
@@ -171,7 +175,7 @@
                 android:text="BMI"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="18dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView11"
                 app:layout_constraintStart_toStartOf="@+id/imageView11"
                 app:layout_constraintTop_toBottomOf="@+id/imageView11" />
@@ -184,7 +188,7 @@
                 android:text="體脂肪"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="18dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView12"
                 app:layout_constraintStart_toStartOf="@+id/imageView12"
                 app:layout_constraintTop_toBottomOf="@+id/imageView12" />
@@ -197,7 +201,7 @@
                 android:text="編輯"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="18dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView14"
                 app:layout_constraintStart_toStartOf="@+id/imageView14"
                 app:layout_constraintTop_toBottomOf="@+id/imageView14" />
@@ -210,7 +214,7 @@
                 android:text="會員"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="18dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView15"
                 app:layout_constraintStart_toStartOf="@+id/imageView15"
                 app:layout_constraintTop_toBottomOf="@+id/imageView15" />
@@ -219,12 +223,51 @@
                 android:id="@+id/textView32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:text="@{String.valueOf(UserManger.INSTANCE.userData.userProfile.info_height)}"
+                android:textSize="18sp"
+                android:textColor="@color/colorLightBlack"
                 app:layout_constraintEnd_toEndOf="@+id/textView7"
                 app:layout_constraintStart_toStartOf="@+id/textView7"
                 app:layout_constraintTop_toBottomOf="@+id/textView7"
-                tools:text = "180"/>
+                tools:text="180" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(UserManger.INSTANCE.userData.userProfile.info_weight)}"
+                android:textColor="@color/colorLightBlack"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView32"
+                app:layout_constraintEnd_toEndOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                tools:text="75"/>
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{String.valueOf(UserManger.INSTANCE.userData.userProfile.info_BMI)}"
+                android:textSize="18sp"
+                android:textColor="@color/colorLightBlack"
+                app:layout_constraintEnd_toEndOf="@+id/textView9"
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/textView9"
+                tools:text="BMI"/>
+
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(UserManger.INSTANCE.userData.userProfile.info_bodyFat)}"
+                android:textColor="@color/colorLightBlack"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView34"
+                app:layout_constraintEnd_toEndOf="@+id/textView10"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                tools:text="bodyfat"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

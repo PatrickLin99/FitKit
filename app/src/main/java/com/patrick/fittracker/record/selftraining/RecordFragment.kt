@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.L
 import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.data.InsertRecord
@@ -93,17 +94,21 @@ class RecordFragment : Fragment() {
 
             //---------------------------------------------------------------------
 //
-            val newRecord = InsertRecord(fitDetail = FitDetail())
-            newRecord.name = muscleKey
-            newRecord.fitDetail?.count = orderNum
-            newRecord.fitDetail?.weight = viewModel.addOne.value?.fitDetail?.weight ?: 0
-            newRecord.fitDetail?.orderSet = viewModel.addOne.value?.fitDetail?.orderSet ?: 0
+            val newRecord = FitDetail()
+//            newRecord.name = muscleKey
+            newRecord?.count = orderNum
+            newRecord?.weight = viewModel.addOne.value?.weight ?: 0
+            newRecord?.orderSet = viewModel.addOne.value?.orderSet ?: 0
 
-            Log.d("test newRecord.fitDetail?.weight","${newRecord.fitDetail?.weight}")
+            Log.d("test newRecord.fitDetail?.weight","${newRecord?.weight}")
 
-            viewModel.uploadRecord(newRecord)
+            viewModel.recyclverSho(newRecord)
+//            Log.d("test 01", "${viewModel.addInsert.value}")
+
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
 
             adapter.notifyDataSetChanged()
+
 //            viewModel.addTrainingRecordd.value?.category_title = muscleKey
 //            order_title += 1
 //            viewModel.addTrainingRecordd.value?.order_title = order_title

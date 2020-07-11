@@ -23,9 +23,7 @@ import kotlinx.coroutines.launch
 class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
     private val _addUserInfo = MutableLiveData<UserProfile>().apply {
-        value = UserProfile(
-
-        )
+        value = UserProfile()
     }
 
     val addUserInfo: LiveData<UserProfile>
