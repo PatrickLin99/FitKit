@@ -36,7 +36,7 @@ class AdapterTwo():
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         return RecordViewHolder(
-            ItemRecordTwoBinding.inflate(LayoutInflater.from(parent.context))
+            ItemRecordTwoBinding.inflate(LayoutInflater.from(parent.context), false)
         )
     }
 

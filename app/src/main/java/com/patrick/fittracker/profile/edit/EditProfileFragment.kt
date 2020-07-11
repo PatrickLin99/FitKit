@@ -1,6 +1,7 @@
 package com.patrick.fittracker.profile.edit
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
+import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.data.AddTrainingRecord
+import com.patrick.fittracker.data.User
+import com.patrick.fittracker.data.UserProfile
 import com.patrick.fittracker.databinding.EditProfileFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.xw.repo.BubbleSeekBar
@@ -73,11 +77,20 @@ class EditProfileFragment : Fragment() {
 
         binding.updateInfoImage.setOnClickListener {
 
-            viewModel.infoNameandAge()
-            viewModel.addTrainingRecordd.value?.info_height = profile_height
-            viewModel.addTrainingRecordd.value?.info_weight = profile_weight
-            viewModel.addTrainingRecordd.value?.info_BodyFat = profile_bodyFat
-            viewModel.addTrainingRecordd.value?.let { viewModel.uploadProfileInfo(it) }
+            UserManger.userData.userProfile?.info_height = profile_height
+            UserManger.userData.userProfile?.info_weight = profile_weight
+            UserManger.userData.userProfile?.info_bodyFat = profile_bodyFat
+
+            Log.d("usermanager","${UserManger.userData}")
+
+
+//            viewModel.infoNameandAge()
+//            viewModel.addUserInfo.value?.info_height = profile_height
+//            viewModel.addUserInfo.value?.info_weight = profile_weight
+//            viewModel.addUserInfo.value?.info_bodyFat = profile_bodyFat
+//            viewModel.addUserInfo.value?.info_BMI = (profile_bodyFat/(profile_height * 10000))
+//            viewModel.addUserInfo.value?.let { viewModel.uploadProfileInfo(it)
+
 
             findNavController().navigate(NavigationDirections.actionGlobalProfileFragment())
         }

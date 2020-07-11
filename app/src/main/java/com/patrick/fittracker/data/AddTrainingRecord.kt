@@ -11,6 +11,7 @@ data class AddTrainingRecord(
     var order_title: Long = 1,
     var weight: Long = 5,
     var orderSet: Long = 0,
+    var orderNum: Long = 0,
     var duration: Long = 0,
     var classField: String = "",
     var burnFat: Long = 0,

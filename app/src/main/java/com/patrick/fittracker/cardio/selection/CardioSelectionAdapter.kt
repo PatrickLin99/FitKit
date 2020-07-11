@@ -39,7 +39,7 @@ class CardioSelectionAdapter(val onClickListener: OnClickListener):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardioSelectionViewHolder {
         return CardioSelectionViewHolder(
-            ItemCardioSelectionBinding.inflate(LayoutInflater.from(parent.context))
+            ItemCardioSelectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

@@ -8,8 +8,9 @@
             name="viewModel"
             type="com.patrick.fittracker.profile.ProfileViewModel" />
         <variable
-            name="user"
-            type="com.patrick.fittracker.data.User" />
+            name="profileInfo"
+            type="com.patrick.fittracker.data.UserProfile" />
+        <import type="com.patrick.fittracker.UserManger"/>
 
     </data>
 
@@ -43,32 +44,35 @@
                 android:src="@drawable/circle_temp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <TextView
                 android:id="@+id/profile_name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:text="@{UserManger.INSTANCE.userData.name}"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightBlack"
                 android:textSize="22dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView13"
+                tools:text="姓名"/>
 
             <TextView
                 android:id="@+id/profile_membership"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Age"
+                android:text="@{UserManger.INSTANCE.userData.email}"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_name_title" />
+                app:layout_constraintTop_toBottomOf="@+id/profile_name_title"
+                tools:text="aaa"/>
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -210,6 +214,17 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView15"
                 app:layout_constraintStart_toStartOf="@+id/imageView15"
                 app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{String.valueOf(UserManger.INSTANCE.userData.userProfile.info_height)}"
+                app:layout_constraintEnd_toEndOf="@+id/textView7"
+                app:layout_constraintStart_toStartOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/textView7"
+                tools:text = "180"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

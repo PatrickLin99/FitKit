@@ -7,8 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
+import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.Result
+import com.patrick.fittracker.data.User
+import com.patrick.fittracker.data.UserProfile
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Logger
@@ -19,17 +22,19 @@ import kotlinx.coroutines.launch
 
 class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-    private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
-        value = AddTrainingRecord()
+    private val _addUserInfo = MutableLiveData<UserProfile>().apply {
+        value = UserProfile(
+
+        )
     }
 
-    val addTrainingRecordd: LiveData<AddTrainingRecord>
-        get() = _addTrainingRecordd
+    val addUserInfo: LiveData<UserProfile>
+        get() = _addUserInfo
 
 
-    private val _add = MutableLiveData<List<AddTrainingRecord>>()
+    private val _add = MutableLiveData<User>()
 
-    val add: LiveData<List<AddTrainingRecord>>
+    val add: LiveData<User>
         get() = _add
 
     //---------------------------------------------------------------------------------------------------
@@ -74,14 +79,14 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
 
     }
 
-    fun uploadProfileInfo(addTrainingRecord: AddTrainingRecord) {
+    fun uploadProfileInfo(user: User) {
 
-        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$addTrainingRecordd")
+
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addProfileInfo(addTrainingRecord)) {
+            when (val result = repository.addUserInfo(user)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -130,8 +135,8 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
     }
 
     fun infoNameandAge(){
-        _addTrainingRecordd.value?.let { it.info_name = it.info_name }
-        _addTrainingRecordd.value?.let { it.info_age = it.info_age }
+        _addUserInfo.value?.let { it.info_name = it.info_name }
+        _addUserInfo.value?.let { it.info_age = it.info_age }
     }
 
 

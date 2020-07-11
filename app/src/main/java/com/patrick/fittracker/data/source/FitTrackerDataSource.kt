@@ -27,9 +27,15 @@ interface FitTrackerDataSource {
 
     suspend fun addCardioRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
 
-    suspend fun addUserInfo(addTrainingRecord: AddTrainingRecord): Result<Boolean>
+    suspend fun addUserInfo(user: User): Result<Boolean>
 
-    suspend fun addProfileInfo (addTrainingRecord: AddTrainingRecord): Result<Boolean>
+    suspend fun addProfileInfo (userProfile: UserProfile): Result<Boolean>
+
+    suspend fun getProfileInfo (userProfile: UserProfile): Result<List<UserProfile>>
+
+    suspend fun addRecordTest(insertRecord: InsertRecord): Result<Boolean>
+
+
 
 
 

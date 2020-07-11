@@ -1,24 +1,19 @@
 package com.patrick.fittracker.record.selftraining
 
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
-import com.patrick.fittracker.data.AddTrainingRecord
-import com.patrick.fittracker.data.User
+import com.patrick.fittracker.data.FitDetail
+import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.RecordFragmentTestBinding
 import com.patrick.fittracker.ext.getVmFactory
-import java.io.ObjectStreamException
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 class RecordFragment : Fragment() {
@@ -40,20 +35,13 @@ class RecordFragment : Fragment() {
 //        val adapter = AdapterTwo()
         binding.recyclerViewShowAddList.adapter = adapter
 
-        viewModel.add.observe(viewLifecycleOwner, Observer {
+        viewModel.addInsert.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Log.d("99999999999999999","$it")
+//                Log.d("99999999999999999","$it")
                 adapter.submitList(it)
             }
         })
 
-
-
-//        viewModel.navigateToPoseSelect.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                adapter.submitList(it.orderNum)
-//            }
-//        })
 
         binding.view3.visibility = View.INVISIBLE
         binding.view7.visibility = View.INVISIBLE
@@ -80,16 +68,47 @@ class RecordFragment : Fragment() {
         }
 
 
-        var order_title : Long = 0
+        var orderNum : Long = 0
         binding.uploadRecordButton.setOnClickListener {
 
-            viewModel.getLiveRecordResult(muscleKey)
-            adapter.notifyDataSetChanged()
+            orderNum += 1
 
-            viewModel.addTrainingRecordd.value?.let { it1 -> viewModel.uploadRecordData(it1) }
-            viewModel.addTrainingRecordd.value?.category_title = muscleKey
-            order_title += 1
-            viewModel.addTrainingRecordd.value?.order_title = order_title
+//            val newRecord = AddTrainingRecord()
+//            newRecord.order_title = orderNum
+//            newRecord.weight = viewModel.addTrainingRecordd.value?.weight ?: 0
+//            newRecord.orderSet = viewModel.addTrainingRecordd.value?.orderSet ?: 0
+//
+//            viewModel.uploadRecordData(newRecord)
+
+
+
+//            val newRecord = FitDetail()
+//            newRecord.count = orderNum
+//            newRecord.weight = viewModel.addOne.value?.weight ?:0
+//            newRecord.orderSet = viewModel.addOne.value?.orderSet ?: 0
+//
+//            Log.d("test newRecord.fitDetail?.weight","${newRecord?.weight}")
+
+
+
+            //---------------------------------------------------------------------
+//
+            val newRecord = InsertRecord(fitDetail = FitDetail())
+            newRecord.name = muscleKey
+            newRecord.fitDetail?.count = orderNum
+            newRecord.fitDetail?.weight = viewModel.addOne.value?.fitDetail?.weight ?: 0
+            newRecord.fitDetail?.orderSet = viewModel.addOne.value?.fitDetail?.orderSet ?: 0
+
+            Log.d("test newRecord.fitDetail?.weight","${newRecord.fitDetail?.weight}")
+
+            viewModel.uploadRecord(newRecord)
+
+            adapter.notifyDataSetChanged()
+//            viewModel.addTrainingRecordd.value?.category_title = muscleKey
+//            order_title += 1
+//            viewModel.addTrainingRecordd.value?.order_title = order_title
+
+//            viewModel.uploadRecord(insertRecord = InsertRecord())
 
             binding.view3.visibility = View.VISIBLE
             binding.view7.visibility = View.VISIBLE

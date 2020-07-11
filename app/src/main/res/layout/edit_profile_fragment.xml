@@ -8,8 +8,8 @@
             name="viewModel"
             type="com.patrick.fittracker.profile.edit.EditProfileViewModel" />
         <variable
-            name="add"
-            type="com.patrick.fittracker.data.AddTrainingRecord" />
+            name="userProfile"
+            type="com.patrick.fittracker.data.UserProfile" />
 
 
     </data>
@@ -42,7 +42,7 @@
                 android:layout_marginTop="16dp"
                 android:ems="8"
                 android:hint="暱稱"
-                android:text="@={viewModel.addTrainingRecordd.info_name}"
+                android:text="@={viewModel.addUserInfo.info_name}"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
                 android:layout_marginTop="8dp"
                 android:ems="6"
                 android:hint="年齡"
-                android:text="@={viewModel.convertLongToString(viewModel.addTrainingRecordd.info_age)}"
+                android:text="@={viewModel.convertLongToString(viewModel.addUserInfo.info_age)}"
                 android:inputType="number"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"

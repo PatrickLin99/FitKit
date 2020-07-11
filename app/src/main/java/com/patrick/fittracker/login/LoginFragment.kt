@@ -27,6 +27,7 @@ import com.patrick.fittracker.BaseActivity
 import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.R
+import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.classoption.ClassOptionViewModel
 import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.User
@@ -79,18 +80,24 @@ class LoginFragment : BottomSheetDialogFragment() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                Log.d("patrick login success", "${account}")
-                Log.d("patrick login success", "${account.account}")
-                Log.d("patrick login success", "${account.email}")
-                Log.d("patrick login success", "${account.idToken}")
-                Log.d("patrick login success", "${account.photoUrl}")
+//                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+//                Log.d("patrick login success", "${account}")
+//                Log.d("patrick login success", "${account.account}")
+//                Log.d("patrick login success", "${account.email}")
+//                Log.d("patrick login success", "${account.idToken}")
+//                Log.d("patrick login success", "${account.photoUrl}")
 
-                viewModel.addUnserInfo.value?.user?.info_image = "${account.photoUrl}"
-                viewModel.addUnserInfo.value?.user?.name = "${account.displayName}"
-                viewModel.addUnserInfo.value?.user?.id = "${account.id}"
+                viewModel.addUnserInfo.value?.name = "${account.displayName}"
+                viewModel.addUnserInfo.value?.id = "${account.id}"
+                viewModel.addUnserInfo.value?.email = "${account.email}"
+                viewModel.addUnserInfo.value?.userProfile?.info_name = "${account.displayName}"
+                viewModel.addUnserInfo.value?.userProfile?.info_image = "${account.photoUrl}"
+                viewModel.addUnserInfo.value?.userProfile?.id = "${account.id}"
 
-                Log.d("00000000000000000","${viewModel.addUnserInfo.value?.user?.id}")
+                UserManger.userData.name = "${account.displayName}"
+
+
+                Log.d("00000000000000000","${viewModel.addUnserInfo.value?.id}")
 
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
@@ -109,12 +116,11 @@ class LoginFragment : BottomSheetDialogFragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth?.currentUser
-                    viewModel.addUnserInfo.value?.user?.id?.let { User(it) }?.let { viewModel.userAdd(user = it) }
-                    viewModel.addUnserInfo.value?.user?.name?.let { User(it) }?.let { viewModel.userAdd(user = it) }
-                    viewModel.addUnserInfo.value?.user?.info_image?.let { User(it) }?.let { viewModel.userAdd(user = it) }
-                    Log.d("00000000000000000","${viewModel.addUnserInfo.value?.user?.name}")
+                    viewModel.addUnserInfo.value?.id?.let { User(it) }?.let { viewModel.userAdd(user = it) }
+                    viewModel.addUnserInfo.value?.name?.let { User(it) }?.let { viewModel.userAdd(user = it) }
+                    Log.d("00000000000000000","${viewModel.addUnserInfo.value?.name}")
 
-                    viewModel.uploadUserInfo(addTrainingRecord = AddTrainingRecord())
+                    viewModel.addUnserInfo.value?.let { viewModel.uploadUserInfo(user = it) }
 
                 } else {
                     // If sign in fails, display a message to the user.
@@ -132,6 +138,9 @@ class LoginFragment : BottomSheetDialogFragment() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth?.currentUser
+        if (currentUser != null){
+//            findNavController().navigate(NavigationDirections.actionGlobalAnalysisFragment())
+        }
     }
 
 

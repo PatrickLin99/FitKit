@@ -2,6 +2,7 @@ package com.patrick.fittracker.profile
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.R
+import com.patrick.fittracker.UserManger
+import com.patrick.fittracker.data.User
 import com.patrick.fittracker.databinding.EditProfileFragmentBinding
 import com.patrick.fittracker.databinding.ProfileFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
@@ -33,6 +36,7 @@ class ProfileFragment : Fragment() {
         binding.imageView14.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalEditProfileFragment())
         }
+
 
 
 

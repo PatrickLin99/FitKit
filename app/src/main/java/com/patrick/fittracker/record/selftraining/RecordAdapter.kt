@@ -6,29 +6,31 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.patrick.fittracker.data.AddTrainingRecord
+import com.patrick.fittracker.data.FitDetail
+import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.ItemRecordAddSetBinding
 
 
 //class RecordAdapter(val onClickListener: OnClickListener):
 class RecordAdapter():
-    ListAdapter<AddTrainingRecord, RecordAdapter.RecordViewHolder>(DiffCallback){
+    ListAdapter<InsertRecord, RecordAdapter.RecordViewHolder>(DiffCallback){
 
     class RecordViewHolder(private var binding: ItemRecordAddSetBinding):
         RecyclerView.ViewHolder(binding.root){
-        fun bind(add: AddTrainingRecord){
-            binding.add = add
+        fun bind(insertRecord: InsertRecord){
+            binding.insertRecord = insertRecord
             binding.executePendingBindings()
 
         }
     }
 
 
-    companion object DiffCallback: DiffUtil.ItemCallback<AddTrainingRecord>(){
-        override fun areContentsTheSame(oldItem: AddTrainingRecord, newItem: AddTrainingRecord): Boolean {
+    companion object DiffCallback: DiffUtil.ItemCallback<InsertRecord>(){
+        override fun areContentsTheSame(oldItem: InsertRecord, newItem: InsertRecord): Boolean {
             return oldItem == newItem
         }
 
-        override fun areItemsTheSame(oldItem: AddTrainingRecord, newItem: AddTrainingRecord): Boolean {
+        override fun areItemsTheSame(oldItem: InsertRecord, newItem: InsertRecord): Boolean {
             return oldItem == newItem
         }
     }

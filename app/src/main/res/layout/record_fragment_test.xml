@@ -75,23 +75,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{String.valueOf(viewModel.addTrainingRecordd.weight)}"
+                    android:text="@{String.valueOf(viewModel.addOne.fitDetail.weight)}"
                     android:textColor="@color/colorLightBlack"
                     android:textSize="22dp"
                     app:layout_constraintEnd_toEndOf="@+id/textView22"
                     app:layout_constraintStart_toStartOf="@+id/textView22"
-                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView22"
+                    tools:text="重量"/>
 
                 <TextView
                     android:id="@+id/set_to_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.convertLongToString(viewModel.addTrainingRecordd.orderSet)}"
+                    android:text="@={viewModel.convertLongToString(viewModel.addOne.fitDetail.orderSet)}"
                     android:textColor="@color/colorLightBlack"
                     android:textSize="22dp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/weight_to_add"
                     app:layout_constraintEnd_toEndOf="@+id/textView23"
-                    app:layout_constraintStart_toStartOf="@+id/textView23" />
+                    app:layout_constraintStart_toStartOf="@+id/textView23"
+                    tools:text="組數"/>
 
                 <ImageView
                     android:id="@+id/weight_add_button"

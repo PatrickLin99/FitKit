@@ -10,6 +10,13 @@
         <variable
             name="add"
             type="com.patrick.fittracker.data.AddTrainingRecord" />
+        <variable
+            name="insertRecord"
+            type="com.patrick.fittracker.data.InsertRecord" />
+        <variable
+            name="fitDetail"
+            type="com.patrick.fittracker.data.FitDetail" />
+
 
     </data>
 
@@ -25,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@{String.valueOf(add.order_title)}"
+            android:text="@{String.valueOf(insertRecord.fitDetail.count)}"
             android:textColor="@color/colorLightBlack"
             android:textSize="18dp"
             app:layout_constraintEnd_toStartOf="@+id/weight_result"
@@ -40,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginEnd="56dp"
-            android:text="@{String.valueOf(add.weight)}"
+            android:text="@{String.valueOf(insertRecord.fitDetail.weight)}"
             android:textColor="@color/colorLightBlack"
             android:textSize="18dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/order_title_result"
@@ -53,7 +60,7 @@
             android:id="@+id/orderset_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(add.orderSet)}"
+            android:text="@{String.valueOf(insertRecord.fitDetail.orderSet)}"
             android:textColor="@color/colorLightBlack"
             android:textSize="18dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/weight_result"

@@ -9,6 +9,7 @@ import com.patrick.fittracker.R
 import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.User
+import com.patrick.fittracker.data.UserProfile
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Logger
@@ -21,14 +22,15 @@ import kotlin.coroutines.suspendCoroutine
 
 class LoginViewModel(private val repository: FitTrackerRepository, private var user: User) : ViewModel() {
 
-    private val _addUnserInfo = MutableLiveData<AddTrainingRecord>().apply {
-        value = AddTrainingRecord(
-            user = user
+    private val _addUserInfo = MutableLiveData<User>().apply {
+        value = User(
+            userProfile = UserProfile()
         )
+
     }
 
-    val addUnserInfo: LiveData<AddTrainingRecord>
-        get() = _addUnserInfo
+    val addUnserInfo: LiveData<User>
+        get() = _addUserInfo
 
     private val _userTT = MutableLiveData<User>()
 
@@ -75,18 +77,17 @@ class LoginViewModel(private val repository: FitTrackerRepository, private var u
         Logger.i("------------------------------------")
     }
 
-    fun uploadUserInfo(addTrainingRecord: AddTrainingRecord) {
+    fun uploadUserInfo(user: User) {
 
-//        addTrainingRecord.user?.name = "${addUnserInfo.value?.user?.name}"
-//        Log.d("Patrick", "uploadRecordData, addTrainingRecord=${addTrainingRecord.user?.name}")
-//        Log.d("Patrick", "uploadRecordData, addTrainingRecord=${addTrainingRecord}")
+        _addUserInfo.value = _addUserInfo.value
+
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
 
-            when (val result = repository.addUserInfo(addTrainingRecord)) {
+            when (val result = repository.addUserInfo(user)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -112,9 +113,9 @@ class LoginViewModel(private val repository: FitTrackerRepository, private var u
 
 
     fun userAdd (user: User){
-        Log.d("test viewmodel","${_addUnserInfo.value?.user}")
-        _addUnserInfo.value?.user = _addUnserInfo.value?.user
-        Log.d("test viewmodel","${_addUnserInfo.value?.user}")
+        Log.d("test viewmodel","${_addUserInfo.value}")
+        _addUserInfo.value = _addUserInfo.value
+        Log.d("test viewmodel","${_addUserInfo.value}")
 
     }
 
