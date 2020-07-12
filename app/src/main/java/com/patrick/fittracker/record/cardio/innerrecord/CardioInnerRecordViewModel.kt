@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
 import com.patrick.fittracker.data.AddTrainingRecord
+import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
@@ -71,14 +72,14 @@ class CardioInnerRecordViewModel(private val repository: FitTrackerRepository) :
 
     }
 
-    fun uploadCardioRecordData(addTrainingRecord: AddTrainingRecord) {
+    fun uploadCardioRecordData(cardioRecord: CardioRecord) {
 
-        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$addTrainingRecordd")
+        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$cardioRecord")
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addCardioRecord(addTrainingRecord)) {
+            when (val result = repository.addCardioRecord(cardioRecord)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE

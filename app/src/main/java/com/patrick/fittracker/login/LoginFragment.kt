@@ -139,7 +139,7 @@ class LoginFragment : BottomSheetDialogFragment() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth?.currentUser
         if (currentUser != null){
-//            findNavController().navigate(NavigationDirections.actionGlobalAnalysisFragment())
+//            findNavController().navigate(NavigationDirections.actionGlobalProfileFragment())
         }
     }
 

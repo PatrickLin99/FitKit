@@ -20,6 +20,8 @@ import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.R
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.data.AddTrainingRecord
+import com.patrick.fittracker.data.FitDetail
+import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.InnerRecordFragmentBinding
 import com.patrick.fittracker.databinding.PoseSelectFragmentBinding
 import com.patrick.fittracker.databinding.RecordFragmentTestBinding
@@ -44,7 +46,7 @@ class InnerRecordFragment : Fragment() {
         val adapter = InnerRecordAdapter()
         binding.classOptionRecyclerViewShowAddList.adapter = adapter
 
-        viewModel.add.observe(viewLifecycleOwner, Observer {
+        viewModel.addInsert.observe(viewLifecycleOwner, Observer {
             it?.let {
                     adapter.submitList(it)
             }
@@ -74,17 +76,24 @@ class InnerRecordFragment : Fragment() {
         }
 
 
-        var order_title : Long = 0
+        var orderNum : Long = 0
+
         binding.uploadRecordButton.setOnClickListener {
 
-            viewModel.getClassInnerRecordResult(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey)
+            orderNum += 1
+            val newRecord = FitDetail()
+            newRecord?.count = orderNum
+            newRecord?.weight = viewModel.addOne.value?.weight ?: 0
+            newRecord?.orderSet = viewModel.addOne.value?.orderSet ?: 0
+
+
+            viewModel.recyclverSho(newRecord)
+
+//            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+
+
             adapter.notifyDataSetChanged()
 
-            viewModel.addTrainingRecordd.value?.category_title = InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey
-            viewModel.addTrainingRecordd.value?.let { it1 -> viewModel.uploadRecordData(it1) }
-
-            order_title += 1
-            viewModel.addTrainingRecordd.value?.order_title = order_title
 
             binding.view3.visibility = View.VISIBLE
             binding.view7.visibility = View.VISIBLE
@@ -95,11 +104,21 @@ class InnerRecordFragment : Fragment() {
         }
 
         binding.recordAnother.setOnClickListener {
-            findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+            if (viewModel.addInsert.value != null) {
+                findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
+            } else {
+                Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
+            }
         }
 
         binding.finishRecord.setOnClickListener {
-            findNavController().navigate(NavigationDirections.actionGlobalClassOptionFinishFragment())
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+            if (viewModel.addInsert.value != null) {
+                findNavController().navigate(NavigationDirections.actionGlobalClassOptionFinishFragment())
+            } else {
+                Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
+            }
         }
 
 

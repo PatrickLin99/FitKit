@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
         toolbar?.setDisplayHomeAsUpEnabled(true)
 
         bottomNavVIew.setOnNavigationItemSelectedListener(listener)
+//        binding.toolbar.setBackgroundColor(applicationContext.getColor(R.color.colorBlack))
+//        binding.mainTitleTwo.setTextColor((applicationContext.getColor(R.color.colorWhite)))
 
 //        setupToolbar()
 
@@ -55,6 +57,8 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
+//                    binding.toolbar.setBackgroundColor(applicationContext.getColor(R.color.colorWhite))
+//                    binding.mainTitleTwo.setTextColor((applicationContext.getColor(R.color.colorLightBlack)))
                     return true
                 }
                 R.id.navigation_calendar -> {

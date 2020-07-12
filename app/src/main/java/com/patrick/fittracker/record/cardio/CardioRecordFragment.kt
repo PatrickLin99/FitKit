@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.R
 import com.patrick.fittracker.data.AddTrainingRecord
@@ -34,10 +37,16 @@ class CardioRecordFragment : DialogFragment() {
         binding.viewModel = viewModel
 
 
-        binding.uploadCardioRecordButton.setOnClickListener {
+        binding.viewFinish.setOnClickListener {
 
             viewModel.uploadCardioStatusRecord()
-            viewModel.addTrainingRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
+            viewModel.addCardioRecordd.value?.name = viewModel.cardioItem.value?.cardio_title.toString()
+            viewModel.addCardioRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
+            if (viewModel.addCardioRecordd.value != null) {
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+            } else {
+                Toast.makeText(requireContext(),"Something went wrong. Please wait!",Toast.LENGTH_LONG).show()
+            }
 
         }
 

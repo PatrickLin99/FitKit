@@ -9,6 +9,7 @@ import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
 import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.Cardio
+import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
@@ -29,12 +30,12 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
 
 
 
-    private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
-        value = AddTrainingRecord()
+    private val _addCardioRecordd = MutableLiveData<CardioRecord>().apply {
+        value = CardioRecord()
     }
 
-    val addTrainingRecordd: LiveData<AddTrainingRecord>
-        get() = _addTrainingRecordd
+    val addCardioRecordd: LiveData<CardioRecord>
+        get() = _addCardioRecordd
 
 
 
@@ -81,14 +82,14 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
 
     }
 
-    fun uploadCardioRecordData(addTrainingRecord: AddTrainingRecord) {
+    fun uploadCardioRecordData(cardioRecord: CardioRecord) {
 
-        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$addTrainingRecordd")
+        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$cardioRecord")
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addCardioRecord(addTrainingRecord)) {
+            when (val result = repository.addCardioRecord(cardioRecord)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -111,13 +112,13 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     }
 
     fun uploadCardioStatusRecord() {
-                Log.d("Patrick", "_addTrainingRecordd.value=${_addTrainingRecordd.value}")
+                Log.d("Patrick", "_addTrainingRecordd.value=${_addCardioRecordd.value}")
 
-        _addTrainingRecordd.value?.let {
+        _addCardioRecordd.value?.let {
 //            it.weight = it.weight.minus(5)
             it.burnFat = it.burnFat
             it.duration = it.duration
-            _addTrainingRecordd.value = _addTrainingRecordd.value
+            _addCardioRecordd.value = _addCardioRecordd.value
         }
     }
 

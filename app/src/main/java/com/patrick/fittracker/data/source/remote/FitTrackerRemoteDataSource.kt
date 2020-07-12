@@ -339,19 +339,22 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             }
     }
 
-    override suspend fun addCardioRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> = suspendCoroutine { continuation ->
+    override suspend fun addCardioRecord(cardioRecord: CardioRecord): Result<Boolean> = suspendCoroutine { continuation ->
 
         val user = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
-        val document = user.document()
+        val document = user.document("JJx43PDXIrF8tGF0fpcU")
 
-        addTrainingRecord.id = document.id
-        addTrainingRecord.createdTime = Calendar.getInstance().timeInMillis
+//        cardioRecord.id = document.id
+        cardioRecord.createdTime = Calendar.getInstance().timeInMillis
 
         document
-            .set(addTrainingRecord)
+            .collection("menu")
+            .document("self")
+            .collection("record")
+            .add(cardioRecord)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Logger.i("FitTracker: $addTrainingRecord")
+                    Logger.i("FitTracker: $cardioRecord")
 
                     continuation.resume(Result.Success(true))
                 } else {

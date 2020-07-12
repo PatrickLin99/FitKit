@@ -7,9 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.AddTrainingRecord
-import com.patrick.fittracker.data.RecordSetOrder
-import com.patrick.fittracker.data.Result
+import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Logger
@@ -31,6 +29,29 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
 
     val add: LiveData<List<AddTrainingRecord>>
         get() = _add
+
+    //---------------------------------------------------------------------------------------------------
+
+
+    private val _addOne = MutableLiveData<FitDetail>().apply {
+        value = FitDetail()
+    }
+
+    val addOne: LiveData<FitDetail>
+        get() = _addOne
+
+
+    private val _addInsert = MutableLiveData<MutableList<FitDetail>>().apply {
+        value = mutableListOf()
+    }
+
+    val addInsert: LiveData<MutableList<FitDetail>>
+        get() = _addInsert
+
+
+    private val _addInsertTest = MutableLiveData<MutableList<InsertRecord>>().apply {
+        value = mutableListOf()
+    }
 
 
     //---------------------------------------------------------------------------------------------------
@@ -80,14 +101,16 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
 //        }
     }
 
-    fun uploadRecordData(addTrainingRecord: AddTrainingRecord) {
+    fun uploadClassRecord(insertRecord: InsertRecord) {
 
-        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$addTrainingRecordd")
+//        _addInsert.value?.add(0, insertRecord)
+//        _addInsert.value = _addInsert.value
+
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addClassRecord(addTrainingRecord)) {
+            when (val result = repository.addRecordTest(insertRecord)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -107,7 +130,38 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
                 }
             }
         }
+
     }
+
+
+//    fun uploadRecordData(addTrainingRecord: AddTrainingRecord) {
+//
+//        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$addTrainingRecordd")
+//        coroutineScope.launch {
+//
+//            _status.value = LoadApiStatus.LOADING
+//
+//            when (val result = repository.addClassRecord(addTrainingRecord)) {
+//                is Result.Success -> {
+//                    _error.value = null
+//                    _status.value = LoadApiStatus.DONE
+//                    leave(true)
+//                }
+//                is Result.Fail -> {
+//                    _error.value = result.error
+//                    _status.value = LoadApiStatus.ERROR
+//                }
+//                is Result.Error -> {
+//                    _error.value = result.exception.toString()
+//                    _status.value = LoadApiStatus.ERROR
+//                }
+//                else -> {
+//                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+//                    _status.value = LoadApiStatus.ERROR
+//                }
+//            }
+//        }
+//    }
 
     fun getClassInnerRecordResult(classKey: String) {
 
@@ -152,33 +206,38 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
         _leave.value = null
     }
 
+    fun recyclverSho(fitDetail: FitDetail){
+        _addInsert.value?.add(0, fitDetail)
+        _addInsert.value = _addInsert.value
+    }
+
     fun plusWeight() {
 //        Log.d("Patrick", "plusWeight")
 //        Log.d("Patrick", "_addTrainingRecordd.value=${_addTrainingRecordd.value}")
-        _addTrainingRecordd.value?.let {
+        _addOne.value?.let {
 
 //            Log.d("Patrick", "it.weight=${it.weight}")
             it.weight = it.weight.plus(5)
-            _addTrainingRecordd.value = _addTrainingRecordd.value
+            _addOne.value = _addOne.value
         }
     }
     fun minusWeight() {
-        _addTrainingRecordd.value?.let {
+        _addOne.value?.let {
             it.weight = it.weight.minus(5)
-            _addTrainingRecordd.value = _addTrainingRecordd.value
+            _addOne.value = _addOne.value
         }
     }
 
     fun plusOrderSet() {
-        _addTrainingRecordd.value?.let {
+        _addOne.value?.let {
             it.orderSet = it.orderSet.plus(1)
-            _addTrainingRecordd.value = _addTrainingRecordd.value
+            _addOne.value = _addOne.value
         }
     }
     fun minusOrderSet() {
-        _addTrainingRecordd.value?.let {
+        _addOne.value?.let {
             it.orderSet = it.orderSet.minus(1)
-            _addTrainingRecordd.value = _addTrainingRecordd.value
+            _addOne.value = _addOne.value
         }
     }
 

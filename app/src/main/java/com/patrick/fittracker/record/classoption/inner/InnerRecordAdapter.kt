@@ -6,28 +6,29 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.patrick.fittracker.data.AddTrainingRecord
+import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.databinding.ItemClassoptionInnerRecordBinding
 import com.patrick.fittracker.databinding.ItemRecordAddSetBinding
 
 class InnerRecordAdapter():
-    ListAdapter<AddTrainingRecord, InnerRecordAdapter.InnerRecordViewHolder>(DiffCallback){
+    ListAdapter<FitDetail, InnerRecordAdapter.InnerRecordViewHolder>(DiffCallback){
 
     class InnerRecordViewHolder(private var binding: ItemClassoptionInnerRecordBinding):
         RecyclerView.ViewHolder(binding.root){
-        fun bind(add: AddTrainingRecord){
-            binding.add = add
+        fun bind(fitDetail: FitDetail){
+            binding.fitDetail = fitDetail
             binding.executePendingBindings()
 
         }
     }
 
 
-    companion object DiffCallback: DiffUtil.ItemCallback<AddTrainingRecord>(){
-        override fun areContentsTheSame(oldItem: AddTrainingRecord, newItem: AddTrainingRecord): Boolean {
+    companion object DiffCallback: DiffUtil.ItemCallback<FitDetail>(){
+        override fun areContentsTheSame(oldItem: FitDetail, newItem: FitDetail): Boolean {
             return oldItem == newItem
         }
 
-        override fun areItemsTheSame(oldItem: AddTrainingRecord, newItem: AddTrainingRecord): Boolean {
+        override fun areItemsTheSame(oldItem: FitDetail, newItem: FitDetail): Boolean {
             return oldItem == newItem
         }
     }
@@ -45,8 +46,8 @@ class InnerRecordAdapter():
 //        }
         holder.bind(menu)
     }
-
-    class OnClickListener(val clickListener: (add: AddTrainingRecord) -> Unit) {
-        fun onClick(add: AddTrainingRecord) = clickListener(add)
-    }
+//
+//    class OnClickListener(val clickListener: (fitDetail: FitDetail) -> Unit) {
+//        fun onClick(fitDetail: FitDetail) = clickListener(fitDetail)
+//    }
 }

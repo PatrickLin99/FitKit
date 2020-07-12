@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -38,7 +39,6 @@ class RecordFragment : Fragment() {
 
         viewModel.addInsert.observe(viewLifecycleOwner, Observer {
             it?.let {
-//                Log.d("99999999999999999","$it")
                 adapter.submitList(it)
             }
         })
@@ -105,7 +105,7 @@ class RecordFragment : Fragment() {
             viewModel.recyclverSho(newRecord)
 //            Log.d("test 01", "${viewModel.addInsert.value}")
 
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+//            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
 
             adapter.notifyDataSetChanged()
 
@@ -125,11 +125,21 @@ class RecordFragment : Fragment() {
         }
 
         binding.finishRecord.setOnClickListener {
-            findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+            if (viewModel.addInsert.value != null) {
+                findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
+            } else{
+                Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.recordAnother.setOnClickListener {
-            findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+            if (viewModel.addInsert.value != null) {
+                findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
+            } else{
+                Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_SHORT).show()
+            }
         }
 
 
