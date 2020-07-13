@@ -1,26 +1,25 @@
 package com.patrick.fittracker.analysis
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.github.mikephil.charting.animation.Easing
+import androidx.lifecycle.Observer
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
-
 import com.patrick.fittracker.R
 import com.patrick.fittracker.databinding.AnalysisFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
-import kotlinx.android.synthetic.main.analysis_fragment.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AnalysisFragment : Fragment() {
 
@@ -38,30 +37,80 @@ class AnalysisFragment : Fragment() {
 
 
 
+        viewModel.getTrainingRecordResult()
 
 
+        viewModel.record.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                for(i in 0..5) {
+                    Log.d("record created time9999999",
+                        "${viewModel.record.value?.sortedBy { it.createdTime }
+                            ?.get(i)?.createdTime?.toFloat()?.div(1000000000.0)}"
+                    )
+                    Log.d("record created time9999999",
+                        "${viewModel.record.value?.sortedBy { it.createdTime }
+                            ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}"
+                    )
+                }
+
+            }
+        })
+
+        val pattern = "yyyyMMdd"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        val date: String = simpleDateFormat.format(Date())
 
 
+//        Log.d("simpledateformat", simpleDateFormat.format((viewModel.record.value?.createdTime)))
 
-        fun setData() {
+        viewModel.record.observe(viewLifecycleOwner, Observer {
+            it?.let {
+
+
+        fun setData(){
             val entries: MutableList<Entry> = ArrayList()
-            entries.add(Entry(0f, 0f))
-            entries.add(Entry(1f, 1f))
-            entries.add(Entry(2f, 4f))
-            entries.add(Entry(3f, 9f))
-            entries.add(Entry(4f, 16f))
-            entries.add(Entry(5f, 25f))
-            entries.add(Entry(6f, 36f))
-            entries.add(Entry(7f, 49f))
-            entries.add(Entry(8f, 64f))
-            entries.add(Entry(9f, 81f))
-            entries.add(Entry(10f, 100f))
-            entries.add(Entry(11f, 121f))
-            entries.add(Entry(12f, 144f))
-            entries.add(Entry(13f, 169f))
-            entries.add(Entry(14f, 6f))
-            entries.add(Entry(15f, 8f))
-            entries.add(Entry(16f, 3f))
+//
+            for (i in 0..5){
+                ((viewModel.record.value?.sortedBy { it.createdTime }?.get(i)?.fitDetail?.maxBy { it.weight }?.weight)?.toFloat()!!).let {(i.toFloat())
+//                    (viewModel.record.value?.sortedBy { it.createdTime }?.get(i)?.fitDetail?.maxBy { it.weight }?.weight)?.toFloat()
+                        ?.let { it1 ->
+                            Entry(
+                                it1,
+                                it
+                            )
+                        }
+                }?.let { entries.add(it )}
+                Log.d("loop println","${viewModel.record.value?.sortedBy { it.createdTime }?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}")
+            }
+//        }
+
+
+//        serDataTest()
+
+
+
+//        fun setData() {
+//            val entries: MutableList<Entry> = ArrayList()
+//            viewModel.record.value?.fitDetail?.maxBy { it.weight }?.weight?.toFloat()?.let {
+//                Entry(
+//                    it, simpleDateFormat.format(viewModel.record.value!!.createdTime).toFloat())
+//            }?.let { entries.add(it) }
+//            entries.add(Entry(1f, 1f))
+//            entries.add(Entry(2f, 4f))
+//            entries.add(Entry(3f, 9f))
+//            entries.add(Entry(4f, 16f))
+//            entries.add(Entry(5f, 25f))
+//            entries.add(Entry(6f, 36f))
+//            entries.add(Entry(7f, 49f))
+//            entries.add(Entry(8f, 64f))
+//            entries.add(Entry(9f, 81f))
+//            entries.add(Entry(10f, 100f))
+//            entries.add(Entry(11f, 121f))
+//            entries.add(Entry(12f, 144f))
+//            entries.add(Entry(13f, 169f))
+//            entries.add(Entry(14f, 6f))
+//            entries.add(Entry(15f, 8f))
+//            entries.add(Entry(16f, 3f))
 
             val dataSet = LineDataSet(entries, "Customized values")
             dataSet.color = ContextCompat.getColor(requireContext(), R.color.colorAccent)
@@ -97,7 +146,8 @@ class AnalysisFragment : Fragment() {
 
         setData()
 
-
+            }
+        })
             return binding.root
         }
 

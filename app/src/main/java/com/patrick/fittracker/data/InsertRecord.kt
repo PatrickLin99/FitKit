@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class InsertRecord(
     var name: String = "",
-    var fitDetail: List<FitDetail>,
-    var createdTime: String = ""
+    var fitDetail: List<FitDetail> = listOf(),
+    var createdTime: Long = 0
 ) : Parcelable
 
 

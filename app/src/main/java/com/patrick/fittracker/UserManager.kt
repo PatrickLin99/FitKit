@@ -5,7 +5,7 @@ import android.util.Log
 import com.patrick.fittracker.data.User
 import com.patrick.fittracker.data.UserProfile
 
-
+//val google_id: String? = userID
 object UserManger {
     val userData = User(userProfile = UserProfile())
 

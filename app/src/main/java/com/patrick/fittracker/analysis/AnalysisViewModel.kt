@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
+import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.source.FitTrackerRepository
@@ -19,14 +20,22 @@ import kotlinx.coroutines.launch
 class AnalysisViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
 
-    private val _add = MutableLiveData<List<InsertRecord>>().apply {
-        value = mutableListOf()
-    }
+//    private val _record = MutableLiveData<InsertRecord>().apply {
+//        value = InsertRecord(
+//            fitDetail = listOf()
+//        )
+//    }
+//
+//    val record: LiveData<InsertRecord>
+//        get() = _record
 
-    val add: LiveData<List<InsertRecord>>
-        get() = _add
+
+    //As a list
+    private val _record = MutableLiveData<List<InsertRecord>>()
 
 
+    val record: LiveData<List<InsertRecord>>
+        get() = _record
 
     //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
@@ -88,7 +97,7 @@ class AnalysisViewModel(private val repository: FitTrackerRepository) : ViewMode
 
             val result = repository.getTrainingRecord()
 
-            _add.value = when (result) {
+            _record.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
