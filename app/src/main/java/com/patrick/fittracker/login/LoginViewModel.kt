@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.AddTrainingRecord
-import com.patrick.fittracker.data.Result
-import com.patrick.fittracker.data.User
-import com.patrick.fittracker.data.UserProfile
+import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Logger
@@ -36,6 +33,11 @@ class LoginViewModel(private val repository: FitTrackerRepository, private var u
 
     val userTT: LiveData<User>
         get() = _userTT
+
+    private var _navigateToProfile = MutableLiveData<User>()
+
+    val navigateToProfile : LiveData<User>
+        get() = _navigateToProfile
 
     private val _leave = MutableLiveData<Boolean>()
 

@@ -14,6 +14,7 @@ import com.patrick.fittracker.R
 import com.patrick.fittracker.data.SelectedMuscleGroup
 import com.patrick.fittracker.databinding.GroupFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
+import kotlinx.android.synthetic.main.group_fragment.*
 
 class GroupFragment() : Fragment() {
 
@@ -43,6 +44,19 @@ class GroupFragment() : Fragment() {
             }
         })
 
+        binding.muscleChestColorImage.visibility = View.GONE
+        binding.muscleGroupBicepsColor.visibility = View.GONE
+        binding.muscleGroupDeltoidsColor.visibility = View.GONE
+
+        binding.muscleChestColorImage.setOnClickListener {
+            binding.muscleChestColorImage.visibility = View.GONE
+        }
+        binding.muscleGroupBicepsColor.setOnClickListener {
+            binding.muscleGroupBicepsColor.visibility = View.GONE
+        }
+        binding.muscleGroupDeltoidsColor.setOnClickListener {
+            binding.muscleGroupDeltoidsColor.visibility = View.GONE
+        }
 
 
 
@@ -65,12 +79,15 @@ class GroupFragment() : Fragment() {
         when (it.id) {
             R.id.muscle_chest_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.CHEST)
+                muscle_chest_color_image.visibility = View.VISIBLE
             }
             R.id.muscle_biceps_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.BICEPS)
+                muscle_group_biceps_color.visibility = View.VISIBLE
             }
             R.id.muscle_deltoids_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.DELTOIDS)
+                muscle_group_deltoids_color.visibility = View.VISIBLE
             }
             R.id.muscle_lowerback_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.LOWERBACK)

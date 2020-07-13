@@ -10,6 +10,10 @@
         <variable
             name="userProfile"
             type="com.patrick.fittracker.data.UserProfile" />
+        <variable
+            name="user"
+            type="com.patrick.fittracker.data.User" />
+        <import type="com.patrick.fittracker.UserManger"/>
 
 
     </data>
@@ -29,41 +33,43 @@
                 android:id="@+id/imageView13"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
+                android:outlineProvider="@{viewModel.outlineProvider}"
                 android:src="@drawable/circle_temp"
+                app:image="@{UserManger.INSTANCE.userData.userProfile.info_image}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <TextView
                 android:id="@+id/enter_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:ems="8"
-                android:hint="暱稱"
-                android:text="@={viewModel.addUserInfo.info_name}"
-                android:inputType="textPersonName"
+                android:text="@{UserManger.INSTANCE.userData.name}"
+                android:textSize="22sp"
+                android:textColor="@color/colorLightBlack"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView13"
+                tools:text="姓名"/>
 
 
 
-            <EditText
+            <TextView
                 android:id="@+id/enter_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:ems="6"
-                android:hint="年齡"
-                android:text="@={viewModel.convertLongToString(viewModel.addUserInfo.info_age)}"
-                android:inputType="number"
+                android:text="@{UserManger.INSTANCE.userData.email}"
+                android:textSize="16sp"
+                android:textColor="@color/colorDarkGray"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/enter_name" />
+                app:layout_constraintTop_toBottomOf="@+id/enter_name"
+                tools:text="email"/>
 
 
 
@@ -85,6 +91,7 @@
                 android:layout_height="36dp"
                 android:layout_marginStart="24dp"
                 android:src="@drawable/measurement"
+                android:alpha="0.68"
                 app:layout_constraintBottom_toTopOf="@+id/imageView18"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view6" />
@@ -94,6 +101,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/weight"
+                android:alpha="0.68"
                 app:layout_constraintBottom_toTopOf="@+id/imageView20"
                 app:layout_constraintStart_toStartOf="@+id/imageView17"
                 app:layout_constraintTop_toBottomOf="@+id/imageView17" />
@@ -104,6 +112,7 @@
                 android:layout_height="36dp"
                 android:layout_marginBottom="72dp"
                 android:src="@drawable/caliper"
+                android:alpha="0.68"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageView18"
                 app:layout_constraintTop_toBottomOf="@+id/imageView18" />
@@ -281,6 +290,7 @@
                 android:layout_height="36dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
+                android:alpha="0.8"
                 android:src="@drawable/loop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/unit_bodyFat" />

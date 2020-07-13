@@ -43,15 +43,12 @@ class CardioRecordFragment : DialogFragment() {
             viewModel.addCardioRecordd.value?.name = viewModel.cardioItem.value?.cardio_title.toString()
             viewModel.addCardioRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
             if (viewModel.addCardioRecordd.value != null) {
-                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+                findNavController().navigate(NavigationDirections.actionGlobalCardioFinishFragment())
             } else {
                 Toast.makeText(requireContext(),"Something went wrong. Please wait!",Toast.LENGTH_LONG).show()
             }
 
         }
-
-
-
 
         return binding.root
     }

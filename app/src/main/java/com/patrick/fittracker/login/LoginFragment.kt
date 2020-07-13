@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.Auth
@@ -82,10 +83,6 @@ class LoginFragment : BottomSheetDialogFragment() {
                 val account = task.getResult(ApiException::class.java)!!
 //                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
 //                Log.d("patrick login success", "${account}")
-//                Log.d("patrick login success", "${account.account}")
-//                Log.d("patrick login success", "${account.email}")
-//                Log.d("patrick login success", "${account.idToken}")
-//                Log.d("patrick login success", "${account.photoUrl}")
 
                 viewModel.addUnserInfo.value?.name = "${account.displayName}"
                 viewModel.addUnserInfo.value?.id = "${account.id}"
@@ -94,7 +91,12 @@ class LoginFragment : BottomSheetDialogFragment() {
                 viewModel.addUnserInfo.value?.userProfile?.info_image = "${account.photoUrl}"
                 viewModel.addUnserInfo.value?.userProfile?.id = "${account.id}"
 
+//                UserManger.userID = account.id
+
                 UserManger.userData.name = "${account.displayName}"
+                UserManger.userData.email = "${account.email}"
+                UserManger.userData.id = "${account.id}"
+                UserManger.userData.userProfile?.info_image = "${account.photoUrl}"
 
 
                 Log.d("00000000000000000","${viewModel.addUnserInfo.value?.id}")
@@ -121,6 +123,12 @@ class LoginFragment : BottomSheetDialogFragment() {
                     Log.d("00000000000000000","${viewModel.addUnserInfo.value?.name}")
 
                     viewModel.addUnserInfo.value?.let { viewModel.uploadUserInfo(user = it) }
+
+//                    viewModel.navigateToProfile.observe(viewLifecycleOwner, Observer {
+//                        it?.let {
+//                            findNavController().navigate(NavigationDirections.actionGlobalProfileFragment(it))
+//                        }
+//                    })
 
                 } else {
                     // If sign in fails, display a message to the user.

@@ -8,6 +8,7 @@ import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.classoption.ClassOptionViewModel
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.finish.FinishRecordViewModel
+import com.patrick.fittracker.finish.cardiofinish.CardioFinishViewModel
 import com.patrick.fittracker.finish.classoption.ClassOptionFinishViewModel
 import com.patrick.fittracker.home.HomeViewModel
 import com.patrick.fittracker.login.LoginViewModel
@@ -74,6 +75,11 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(AnalysisViewModel::class.java) ->
                     AnalysisViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(CardioFinishViewModel::class.java) ->
+                    CardioFinishViewModel(
                         repository
                     )
 

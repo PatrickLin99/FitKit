@@ -34,9 +34,11 @@ class EditProfileFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        var profile_height : Long = 0
-        var profile_weight : Long = 0
-        var profile_bodyFat : Long = 0
+        var profile_height : Long = 1
+        var profile_weight : Long = 1
+        var profile_bodyFat : Long = 1
+
+//        viewModel.getLoginInfoResult(user = User())
 
 
         binding.seekBarHeight.onProgressChangedListener = object :
@@ -81,16 +83,32 @@ class EditProfileFragment : Fragment() {
             UserManger.userData.userProfile?.info_weight = profile_weight
             UserManger.userData.userProfile?.info_bodyFat = profile_bodyFat
 
-            val profile_BMI: Long = (profile_bodyFat)/(profile_height*10000)
+            var profile_BMI: Double = ((profile_weight).div(profile_height*10000)).toDouble()
+//            Log.d("test999999","profile_BMI: $profile_BMI, profile_weight: $profile_weight  profile_height:$profile_height")
 
-            viewModel.addUserInfo.value?.info_height = profile_height
-            viewModel.addUserInfo.value?.info_weight = profile_weight
-            viewModel.addUserInfo.value?.info_bodyFat = profile_bodyFat
-            viewModel.addUserInfo.value?.info_BMI = profile_BMI
+            viewModel.addUserInfo.value?.email = UserManger.userData.email
+            viewModel.addUserInfo.value?.name = UserManger.userData.name
+            viewModel.addUserInfo.value?.createdTime = UserManger.userData.createdTime
+            viewModel.addUserInfo.value?.id = UserManger.userData.id
 
-//            viewModel.addUserInfo.value?.let { it2 -> UserManger.userData.name }?.let{ it4 -> profile_weight}?.let { it5 -> UserManger.userData.userProfile?.info_height }?.let { it7 -> UserManger.userData.userProfile?.info_bodyFat }
+            viewModel.addUserInfo.value?.userProfile?.info_height = profile_height
+            viewModel.addUserInfo.value?.userProfile?.info_weight = profile_weight
+            viewModel.addUserInfo.value?.userProfile?.info_bodyFat = profile_bodyFat
+            viewModel.addUserInfo.value?.userProfile?.info_BMI = profile_BMI.toLong()
 
 
+            viewModel.uploadProfileInfo(user = User(
+                UserManger.userData.id,
+                UserManger.userData.name,
+                UserManger.userData.email,
+                UserManger.userData.createdTime,
+                UserManger.userData.userProfile?.info_image?.let { it1 ->
+                    UserProfile(UserManger.userData.id, UserManger.userData.createdTime,UserManger.userData.name,profile_weight,profile_height,profile_weight,profile_bodyFat,0,
+                        it1
+                    )
+                }
+            )
+            )
 
             Log.d("usermanager","${UserManger.userData}")
             Log.d("usermanager","${viewModel.addUserInfo.value}")

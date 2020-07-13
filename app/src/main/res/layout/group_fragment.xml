@@ -117,10 +117,28 @@
                 android:id="@+id/muscle_chest_color_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/muscle_chest_image"
                 app:layout_constraintStart_toStartOf="@+id/muscle_chest_image"
                 app:srcCompat="@drawable/muscle_group_chest_color" />
+
+            <ImageView
+                android:id="@+id/muscle_group_biceps_color"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/muscle_biceps_image"
+                app:layout_constraintTop_toTopOf="@+id/muscle_biceps_image"
+                app:srcCompat="@drawable/muscle_group_biceps_color" />
+
+            <ImageView
+                android:id="@+id/muscle_group_deltoids_color"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/muscle_deltoids_image"
+                app:layout_constraintTop_toTopOf="@+id/muscle_deltoids_image"
+                app:srcCompat="@drawable/muscle_group_deltoids_color" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

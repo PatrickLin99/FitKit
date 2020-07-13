@@ -120,4 +120,9 @@
         android:id="@+id/classOptionFinishFragment"
         android:name="com.patrick.fittracker.finish.classoption.ClassOptionFinishFragment"
         android:label="ClassOptionFinishFragment" /><action android:id="@+id/action_global_classOptionFinishFragment" app:destination="@id/classOptionFinishFragment"/>
+    <fragment
+        android:id="@+id/cardioFinishFragment"
+        android:name="com.patrick.fittracker.finish.cardiofinish.CardioFinishFragment"
+        android:label="CardioFinishFragment" />
+    <action android:id="@+id/action_global_cardioFinishFragment" app:destination="@id/cardioFinishFragment" />
 </navigation>

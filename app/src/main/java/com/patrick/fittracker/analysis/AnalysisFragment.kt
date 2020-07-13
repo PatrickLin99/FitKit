@@ -37,6 +37,12 @@ class AnalysisFragment : Fragment() {
 
 
 
+
+
+
+
+
+
         fun setData() {
             val entries: MutableList<Entry> = ArrayList()
             entries.add(Entry(0f, 0f))
@@ -91,54 +97,6 @@ class AnalysisFragment : Fragment() {
 
         setData()
 
-
-
-        //---------------------------------------
-
-////Part1
-//        val entries = ArrayList<Entry>()
-//
-////Part2
-//        entries.add(Entry(3f, 9f))
-//        entries.add(Entry(6f, 36f))
-//        entries.add(Entry(9f, 81f))
-//        entries.add(Entry(12f, 144f))
-//        entries.add(Entry(15f, 225f))
-//
-////Part3
-//        val vl = LineDataSet(entries, "My Type")
-//
-////Part4
-//        vl.setDrawValues(true)
-//        vl.setDrawFilled(true)
-//        vl.lineWidth = 8f
-//        vl.fillColor = R.color.colorLightGray
-//        vl.fillAlpha = R.color.colorLightBlack
-//
-////Part5
-//        binding.lineChart.xAxis.labelRotationAngle = 0f
-//
-////Part6
-//        binding.lineChart.data = LineData(vl)
-//
-////Part7
-//        binding.lineChart.axisRight.isEnabled = false
-//        binding.lineChart.xAxis.axisMaximum = 0.1f
-//
-////Part8
-//        binding.lineChart.setTouchEnabled(true)
-//        binding.lineChart.setPinchZoom(true)
-//
-////Part9
-//        binding.lineChart.description.text = "Days"
-//        binding.lineChart.setNoDataText("No forex yet!")
-//
-////Part10
-//        binding.lineChart.animateX(1800, Easing.EaseInExpo)
-//
-////Part11
-//        val markerView = CustomMarker(requireContext(), R.layout.marker_view)
-//        binding.lineChart.marker = markerView
 
             return binding.root
         }

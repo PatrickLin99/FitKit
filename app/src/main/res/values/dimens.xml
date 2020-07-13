@@ -5,5 +5,9 @@
     <dimen name="height_toolbar">80dp</dimen>
     <dimen name="height_status_bar_origin">24dp</dimen>
 
+    <!-- Profile -->
+    <dimen name="radius_profile_avatar">80dp</dimen>
+
+
 
 </resources>

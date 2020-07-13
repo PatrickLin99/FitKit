@@ -35,6 +35,11 @@ interface FitTrackerDataSource {
 
     suspend fun addRecordTest(insertRecord: InsertRecord): Result<Boolean>
 
+    suspend fun getTrainingRecord(): Result<List<InsertRecord>>
+
+    suspend fun getLoginInfo(): Result<User>
+
+
 
 
 

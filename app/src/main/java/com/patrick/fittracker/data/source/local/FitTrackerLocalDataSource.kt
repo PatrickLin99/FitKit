@@ -60,6 +60,12 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getLoginInfo(): Result<User> {
+        TODO("Not yet implemented")
+    }
 
+    override suspend fun getTrainingRecord(): Result<List<InsertRecord>> {
+        TODO("Not yet implemented")
+    }
 
 }

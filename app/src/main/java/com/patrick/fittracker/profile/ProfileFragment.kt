@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
 
@@ -33,14 +34,20 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+//        binding.user = viewModel.UserInfo.value
+
+        Log.d("ttttttt","${viewModel.UserInfo.value}")
+//        viewModel.UserInfo.observe(viewLifecycleOwner, Observer {
+//            Log.d("zzzzzzzzz","$it")
+//
+//
+//        })
+
         binding.imageView14.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalEditProfileFragment())
         }
 
-
-
-
-
+        viewModel.getLoginInfoResult()
 
 
         return binding.root
