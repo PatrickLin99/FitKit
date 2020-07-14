@@ -40,6 +40,8 @@ interface FitTrackerRepository {
 
     suspend fun getLoginInfo(): Result<User>
 
+    suspend fun getWeightTrainRecord(record: String): Result<List<InsertRecord>>
+
 
 
 

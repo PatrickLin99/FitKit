@@ -1,13 +1,14 @@
-package com.patrick.fittracker.analysis
+package com.patrick.fittracker.linechart
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.*
+import com.patrick.fittracker.data.FitDetail
+import com.patrick.fittracker.data.InsertRecord
+import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.source.FitTrackerRepository
-import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
@@ -15,25 +16,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class AnalysisViewModel(private val repository: FitTrackerRepository) : ViewModel() {
+class WeightChartViewModel(private val repository: FitTrackerRepository,
+                           private val recordKey: InsertRecord
+) : ViewModel() {
 
-
-//    private val _record = MutableLiveData<InsertRecord>().apply {
-//        value = InsertRecord(
-//            fitDetail = listOf()
-//        )
-//    }
-//
-//    val record: LiveData<InsertRecord>
-//        get() = _record
-
-
-    //As a list
     private val _record = MutableLiveData<List<InsertRecord>>()
-
 
     val record: LiveData<List<InsertRecord>>
         get() = _record
+
+    private val _test = _record.value?.distinct()
 
     private var _navigateToAnalysis = MutableLiveData<List<InsertRecord>>()
 
@@ -102,13 +94,13 @@ class AnalysisViewModel(private val repository: FitTrackerRepository) : ViewMode
     }
 
 
-    fun getTrainingRecordResult() {
+    fun getWeightRecordRecordResult(recordKey: InsertRecord) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getTrainingRecord()
+            val result = repository.getWeightTrainRecord(recordKey.name)
 
             _record.value = when (result) {
                 is Result.Success -> {
@@ -158,11 +150,5 @@ class AnalysisViewModel(private val repository: FitTrackerRepository) : ViewMode
     fun onLeft() {
         _leave.value = null
     }
-
-    fun navigateToAnalysis(insertRecord: InsertRecord) {
-        _navigateToAnalysis.value = listOf(insertRecord)
-    }
-
-
 
 }

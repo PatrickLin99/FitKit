@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.patrick.fittracker.MainViewModel
 import com.patrick.fittracker.analysis.AnalysisViewModel
+import com.patrick.fittracker.analysis.test.AnalysisTestViewModel
+import com.patrick.fittracker.analysis.weight.AnalysisWeightViewModel
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.classoption.ClassOptionViewModel
 import com.patrick.fittracker.data.source.FitTrackerRepository
@@ -11,6 +13,7 @@ import com.patrick.fittracker.finish.FinishRecordViewModel
 import com.patrick.fittracker.finish.cardiofinish.CardioFinishViewModel
 import com.patrick.fittracker.finish.classoption.ClassOptionFinishViewModel
 import com.patrick.fittracker.home.HomeViewModel
+import com.patrick.fittracker.linechart.WeightChartViewModel
 import com.patrick.fittracker.login.LoginViewModel
 import com.patrick.fittracker.profile.ProfileViewModel
 import com.patrick.fittracker.profile.edit.EditProfileViewModel
@@ -82,6 +85,21 @@ class ViewModelFactory constructor(
                     CardioFinishViewModel(
                         repository
                     )
+
+                isAssignableFrom(AnalysisTestViewModel::class.java) ->
+                    AnalysisTestViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(AnalysisWeightViewModel::class.java) ->
+                    AnalysisWeightViewModel(
+                        repository
+                    )
+
+//                isAssignableFrom(WeightChartViewModel::class.java) ->
+//                    WeightChartViewModel(
+//                        repository
+//                    )
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

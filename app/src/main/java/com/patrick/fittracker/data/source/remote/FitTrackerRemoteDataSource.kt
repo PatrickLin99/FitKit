@@ -551,7 +551,9 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             .collection("menu")
             .document("self")
             .collection("record")
-            .whereEqualTo("name","俯臥腿彎曲")
+//            .whereEqualTo("name","俯臥腿彎曲")
+//            .whereGreaterThan("createdTime","1594644296569")
+//            .whereLessThan("createdTime","1594649425984")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -630,6 +632,44 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
                         user1 = user
                     }
                     continuation.resume(Result.Success(user1))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
+    override suspend fun getWeightTrainRecord(recordKey: String): Result<List<InsertRecord>> = suspendCoroutine { continuation ->
+
+        var timeNow: Long = Calendar.getInstance().timeInMillis
+        var timePeriod: Long = timeNow + 60000000000
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES_USER)
+            .document(UserManger.userData.id)
+            .collection("menu")
+            .document("self")
+            .collection("record")
+            .whereEqualTo("name","$recordKey")
+//            .whereGreaterThan("createdTime","1594644296569")
+//            .whereLessThan("createdTime","1594649425984")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<InsertRecord>()
+                    for (document in task.result!!) {
+
+                        Logger.d(document.id + " => " + document.data)
+
+                        val inserRecord = document.toObject(InsertRecord::class.java)
+                        list.add(inserRecord)
+                    }
+                    continuation.resume(Result.Success(list))
                 } else {
                     task.exception?.let {
 

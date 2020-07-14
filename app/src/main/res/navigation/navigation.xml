@@ -125,4 +125,18 @@
         android:name="com.patrick.fittracker.finish.cardiofinish.CardioFinishFragment"
         android:label="CardioFinishFragment" />
     <action android:id="@+id/action_global_cardioFinishFragment" app:destination="@id/cardioFinishFragment" />
+    <fragment
+        android:id="@+id/weightChartFragment"
+        android:name="com.patrick.fittracker.linechart.WeightChartFragment"
+        android:label="WeightChartFragment" >
+        <argument
+            android:name="recordKey"
+            app:argType="com.patrick.fittracker.data.InsertRecord" />
+    </fragment>
+    <action android:id="@+id/action_global_weightChartFragment" app:destination="@id/weightChartFragment" />
+    <fragment
+        android:id="@+id/analysisTestFragment"
+        android:name="com.patrick.fittracker.analysis.test.AnalysisTestFragment"
+        android:label="AnalysisTestFragment" />
+    <action android:id="@+id/action_global_analysisTestFragment" app:destination="@id/analysisTestFragment" />
 </navigation>

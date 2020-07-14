@@ -17,11 +17,12 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.patrick.fittracker.R
 import com.patrick.fittracker.databinding.AnalysisFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
+import kotlinx.android.synthetic.main.analysis_fragment.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AnalysisFragment : Fragment() {
+class AnalysisFragment() : Fragment() {
 
     private val viewModel by viewModels<AnalysisViewModel> { getVmFactory() }
 
@@ -34,39 +35,63 @@ class AnalysisFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        val adapter = AnalysisAdapter(AnalysisAdapter.OnClickListener{
+            viewModel.navigateToAnalysis(it)
+        })
+        binding.recyclerViewWeightNameAnalysis.adapter = adapter
+        viewModel.record.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
+
+        val detailAdapter = AnalysisDetailAdapter()
+        binding.recyclerViewWeightDetailAnalysis.adapter = detailAdapter
+        viewModel.record.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                detailAdapter.submitList(it.get(0).fitDetail)
+                Log.d("detailAdapter.submitList(it)", "$it")
+            }
+        })
+        Log.d("detailAdapter.submitList(it)", "${viewModel.recordDetail.value}")
+
+
+
+
 
 
 
         viewModel.getTrainingRecordResult()
+        adapter.notifyDataSetChanged()
+//
+//
+//        viewModel.record.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                for(i in 0..5) {
+//                    Log.d("record created time9999999",
+//                        "${viewModel.record.value?.sortedBy { it.createdTime }
+//                            ?.get(i)?.createdTime?.toFloat()?.div(1000000000.0)}"
+//                    )
+//                    Log.d("record created time9999999",
+//                        "${viewModel.record.value?.sortedBy { it.createdTime }
+//                            ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}"
+//                    )
+//                }
+//
+//            }
+//        })
 
-
-        viewModel.record.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                for(i in 0..5) {
-                    Log.d("record created time9999999",
-                        "${viewModel.record.value?.sortedBy { it.createdTime }
-                            ?.get(i)?.createdTime?.toFloat()?.div(1000000000.0)}"
-                    )
-                    Log.d("record created time9999999",
-                        "${viewModel.record.value?.sortedBy { it.createdTime }
-                            ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}"
-                    )
-                }
-
-            }
-        })
-
-        val pattern = "yyyyMMdd"
-        val simpleDateFormat = SimpleDateFormat(pattern)
-        val date: String = simpleDateFormat.format(Date())
+//        val pattern = "yyyyMMdd"
+//        val simpleDateFormat = SimpleDateFormat(pattern)
+//        val date: String = simpleDateFormat.format(Date())
 
 
 //        Log.d("simpledateformat", simpleDateFormat.format((viewModel.record.value?.createdTime)))
 
         viewModel.record.observe(viewLifecycleOwner, Observer {
             it?.let {
-
-
+//
+//
         fun setData(){
             val entries: MutableList<Entry> = ArrayList()
 //
@@ -124,6 +149,9 @@ class AnalysisFragment : Fragment() {
             //Customizing x axis value
             val months = arrayOf("M", "T", "W", "T", "F", "S", "S","A","A","A")
 
+            //隔線關掉
+            binding.lineChart.xAxis.isEnabled = false
+
             val formatter = IAxisValueFormatter { value, axis -> months[value.toInt()] }
             xAxis.granularity = 1f // minimum axis-step (interval) is 1
 //            xAxis.valueFormatter = formatter
@@ -148,6 +176,8 @@ class AnalysisFragment : Fragment() {
 
             }
         })
+
+
             return binding.root
         }
 

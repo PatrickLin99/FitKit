@@ -50,20 +50,24 @@ class MainActivity : BaseActivity() {
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
 //                    binding.toolbar.setBackgroundColor(applicationContext.getColor(R.color.colorWhite))
 //                    binding.mainTitleTwo.setTextColor((applicationContext.getColor(R.color.colorLightBlack)))
+                    main_title_two.text = "SELECTION"
                     return true
                 }
                 R.id.navigation_calendar -> {
 //                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalCalendarFragment())
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
+                    main_title_two.text = "CALENDAR"
                     return true
                 }
                 R.id.navigation_profile -> {
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalProfileFragment())
+                    main_title_two.text = "PROFILE"
                     return true
                 }
                 R.id.navigation_analysis -> {
 //                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
-                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAnalysisFragment())
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAnalysisTestFragment())
+                    main_title_two.text = "ANALYSIS"
                     return true
                 }
             }

@@ -3,5 +3,10 @@
 
     <string name="you_know_nothing">You know nothing</string>
 
+    <string name="weight">重訓</string>
+    <string name="cardio">有氧</string>
+
+
+
 
 </resources>
