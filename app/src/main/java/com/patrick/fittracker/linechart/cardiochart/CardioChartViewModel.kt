@@ -1,10 +1,11 @@
-package com.patrick.fittracker.analysis.weight
+package com.patrick.fittracker.linechart.cardiochart
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
+import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.data.Result
@@ -16,18 +17,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class AnalysisWeightViewModel(private val repository: FitTrackerRepository) : ViewModel() {
+class CardioChartViewModel(private val repository: FitTrackerRepository,
+                           private val recordKey: CardioRecord
+) : ViewModel() {
 
 
-    private val _record = MutableLiveData<List<InsertRecord>>()
+    private val _record = MutableLiveData<List<CardioRecord>>()
 
-    val record: LiveData<List<InsertRecord>>
+    val record: LiveData<List<CardioRecord>>
         get() = _record
-
-    private var _navigateToAnalysis = MutableLiveData<List<InsertRecord>>()
-
-    val navigateToAnalysis : LiveData<List<InsertRecord>>
-        get() = _navigateToAnalysis
 
 
     //-------weight set count detail
@@ -91,13 +89,13 @@ class AnalysisWeightViewModel(private val repository: FitTrackerRepository) : Vi
     }
 
 
-    fun getTrainingRecordResult() {
+    fun getCardioRecordRecordResult(recordKey: CardioRecord) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getTrainingRecord()
+            val result = repository.getCardioTrainRecord(recordKey.name)
 
             _record.value = when (result) {
                 is Result.Success -> {
@@ -146,9 +144,4 @@ class AnalysisWeightViewModel(private val repository: FitTrackerRepository) : Vi
 
     fun onLeft() {
         _leave.value = null
-    }
-
-    fun navigateToAnalysis(insertRecord: InsertRecord) {
-        _navigateToAnalysis.value = listOf(insertRecord)
-    }
-}
+    }}

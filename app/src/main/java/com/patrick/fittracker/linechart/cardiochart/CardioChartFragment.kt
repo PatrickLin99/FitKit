@@ -1,4 +1,4 @@
-package com.patrick.fittracker.linechart
+package com.patrick.fittracker.linechart.cardiochart
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -14,65 +14,49 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
 
 import com.patrick.fittracker.R
-import com.patrick.fittracker.analysis.weight.AnalysisWeightViewModel
-import com.patrick.fittracker.databinding.AnalysisWeightFragmentBinding
-import com.patrick.fittracker.databinding.WeightChartFragmentBinding
+import com.patrick.fittracker.analysis.cardioanalysis.AnalysisCardioViewModel
+import com.patrick.fittracker.databinding.CardioChartFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 
-class WeightChartFragment : Fragment() {
+class CardioChartFragment : Fragment() {
 
-    private val viewModel by viewModels<WeightChartViewModel> {
-        getVmFactory(WeightChartFragmentArgs.fromBundle(requireArguments()).recordKey) }
-
+    private val viewModel by viewModels<CardioChartViewModel> { getVmFactory( CardioChartFragmentArgs.fromBundle(requireArguments()).recordKey ) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = WeightChartFragmentBinding.inflate(inflater, container, false)
+        val binding = CardioChartFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val recordKey = WeightChartFragmentArgs.fromBundle(requireArguments()).recordKey
+        val recordKey = CardioChartFragmentArgs.fromBundle(requireArguments()).recordKey
 
-        Log.d("recordKey", "${recordKey.name}")
-
-        viewModel.getWeightRecordRecordResult(recordKey)
+        viewModel.getCardioRecordRecordResult(recordKey)
 
         viewModel.record.observe(viewLifecycleOwner, Observer {
             it?.let {
 
                 Log.d("viewModel size", "${viewModel.record.value?.size}")
 
-                val weight_list_size: Int? = viewModel.record.value?.size?.minus(1)
+                val cardio_list_size: Int? = viewModel.record.value?.size?.minus(1)
 
                 fun setData() {
                     val entries: MutableList<Entry> = ArrayList()
-                    for (i in 0..weight_list_size!!) {
-                        Log.d("bbbbbbbbbbbbbbbb",
-                            "${viewModel.record.value?.sortedBy { it.createdTime }
-                                ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}"
-                        )
+                    for (i in 0..cardio_list_size!!) {
 
-                        viewModel.record.value?.sortedBy { it.createdTime }
-                            ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight?.toFloat()
-                            ?.let { it1 ->
-                                Entry(
-                                    i.toFloat(),
-                                    it1
-                                )
-                            }?.let { it2 ->
-                                entries.add(
-                                    it2
-                                )
-                            }
+                        viewModel.record.value?.get(i)?.duration?.toFloat()?.let { it1 ->
+                            Entry(i.toFloat(),
+                                it1
+                            )
+                        }?.let { it2 -> entries.add(it2) }
+
                     }
 
 
-                    val dataSet = LineDataSet(entries, "Weight (kg)")
+                    val dataSet = LineDataSet(entries, "Duration (minutes)")
                     dataSet.color =
                         ContextCompat.getColor(requireContext(), R.color.colorAccent)
                     dataSet.valueTextColor =
@@ -120,6 +104,19 @@ class WeightChartFragment : Fragment() {
 
             }
         })
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         return binding.root
     }

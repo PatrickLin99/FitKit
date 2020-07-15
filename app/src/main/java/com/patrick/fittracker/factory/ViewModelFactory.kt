@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.patrick.fittracker.MainViewModel
 import com.patrick.fittracker.analysis.AnalysisViewModel
+import com.patrick.fittracker.analysis.cardioanalysis.AnalysisCardioViewModel
 import com.patrick.fittracker.analysis.test.AnalysisTestViewModel
 import com.patrick.fittracker.analysis.weight.AnalysisWeightViewModel
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
@@ -14,6 +15,7 @@ import com.patrick.fittracker.finish.cardiofinish.CardioFinishViewModel
 import com.patrick.fittracker.finish.classoption.ClassOptionFinishViewModel
 import com.patrick.fittracker.home.HomeViewModel
 import com.patrick.fittracker.linechart.WeightChartViewModel
+import com.patrick.fittracker.linechart.cardiochart.CardioChartViewModel
 import com.patrick.fittracker.login.LoginViewModel
 import com.patrick.fittracker.profile.ProfileViewModel
 import com.patrick.fittracker.profile.edit.EditProfileViewModel
@@ -96,8 +98,13 @@ class ViewModelFactory constructor(
                         repository
                     )
 
-//                isAssignableFrom(WeightChartViewModel::class.java) ->
-//                    WeightChartViewModel(
+                isAssignableFrom(AnalysisCardioViewModel::class.java) ->
+                    AnalysisCardioViewModel(
+                        repository
+                    )
+
+//                isAssignableFrom(CardioChartViewModel::class.java) ->
+//                    CardioChartViewModel(
 //                        repository
 //                    )
 

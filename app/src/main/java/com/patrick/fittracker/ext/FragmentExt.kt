@@ -52,5 +52,10 @@ fun Fragment.getVmFactory(recordKey: InsertRecord): WeightChartViewModelFactory 
     return WeightChartViewModelFactory(repository, recordKey)
 }
 
+fun Fragment.getVmFactory(recordKey: CardioRecord): CardioChartViewModelFactory {
+    val repository = (requireContext().applicationContext as FitTrackerApplication).repository
+    return CardioChartViewModelFactory(repository, recordKey)
+}
+
 
 

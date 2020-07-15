@@ -139,4 +139,14 @@
         android:name="com.patrick.fittracker.analysis.test.AnalysisTestFragment"
         android:label="AnalysisTestFragment" />
     <action android:id="@+id/action_global_analysisTestFragment" app:destination="@id/analysisTestFragment" />
+    <fragment
+        android:id="@+id/cardioChartFragment"
+        android:name="com.patrick.fittracker.linechart.cardiochart.CardioChartFragment"
+        android:label="cardio_chart_fragment"
+        tools:layout="@layout/cardio_chart_fragment" >
+        <argument
+            android:name="recordKey"
+            app:argType="com.patrick.fittracker.data.CardioRecord" />
+    </fragment>
+    <action android:id="@+id/action_global_cardioChartFragment" app:destination="@id/cardioChartFragment" />
 </navigation>

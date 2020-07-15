@@ -76,6 +76,14 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         return remoteDataSource.getWeightTrainRecord(record)
     }
 
+    override suspend fun getTrainingCardioRecord(): Result<List<CardioRecord>> {
+        return remoteDataSource.getTrainingCardioRecord()
+    }
+
+    override suspend fun getCardioTrainRecord(record: String): Result<List<CardioRecord>> {
+        return remoteDataSource.getCardioTrainRecord(record)
+    }
+
 
 
 //    override suspend fun loginMockData(id: String): Result<Author> {

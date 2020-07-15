@@ -29,51 +29,99 @@ class EditProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = EditProfileFragmentBinding.inflate(inflater, container,false)
+        val binding = EditProfileFragmentBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        var profile_height : Long = 1
-        var profile_weight : Long = 1
-        var profile_bodyFat : Long = 1
+        var profile_height: Long = 1
+        var profile_weight: Long = 1
+        var profile_bodyFat: Long = 1
 
         viewModel.getLoginInfoResult()
 
 
         binding.seekBarHeight.onProgressChangedListener = object :
             BubbleSeekBar.OnProgressChangedListener {
-            override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+            override fun onProgressChanged(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float,
+                fromUser: Boolean
+            ) {
                 Toast.makeText(requireContext(), "身高為$progress", Toast.LENGTH_LONG).show()
                 profile_height = progress.toLong()
             }
-            override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
+
+            override fun getProgressOnActionUp(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float
+            ) {
             }
-            override fun getProgressOnFinally(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+
+            override fun getProgressOnFinally(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float,
+                fromUser: Boolean
+            ) {
             }
         }
 
         binding.seekBarWeight.onProgressChangedListener = object :
             BubbleSeekBar.OnProgressChangedListener {
-            override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+            override fun onProgressChanged(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float,
+                fromUser: Boolean
+            ) {
                 Toast.makeText(requireContext(), "體重為$progress", Toast.LENGTH_LONG).show()
-                profile_weight= progress.toLong()
+                profile_weight = progress.toLong()
             }
-            override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
+
+            override fun getProgressOnActionUp(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float
+            ) {
             }
-            override fun getProgressOnFinally(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+
+            override fun getProgressOnFinally(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float,
+                fromUser: Boolean
+            ) {
             }
         }
 
         binding.seekBarBodyFat.onProgressChangedListener = object :
             BubbleSeekBar.OnProgressChangedListener {
-            override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+            override fun onProgressChanged(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float,
+                fromUser: Boolean
+            ) {
                 Toast.makeText(requireContext(), "體脂肪為$progress", Toast.LENGTH_LONG).show()
                 profile_bodyFat = progress.toLong()
             }
-            override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
+
+            override fun getProgressOnActionUp(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float
+            ) {
             }
-            override fun getProgressOnFinally(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+
+            override fun getProgressOnFinally(
+                bubbleSeekBar: BubbleSeekBar?,
+                progress: Int,
+                progressFloat: Float,
+                fromUser: Boolean
+            ) {
             }
         }
 
@@ -83,7 +131,7 @@ class EditProfileFragment : Fragment() {
             UserManger.userData.userProfile?.info_weight = profile_weight
             UserManger.userData.userProfile?.info_bodyFat = profile_bodyFat
 
-            var profile_BMI: Double = ((profile_weight).div(profile_height*10000)).toDouble()
+            var profile_BMI: Double = ((profile_weight).div(profile_height * 10000)).toDouble()
 //            Log.d("test999999","profile_BMI: $profile_BMI, profile_weight: $profile_weight  profile_height:$profile_height")
 
             viewModel.addUserInfo.value?.email = "${UserManger.userEmail}"
@@ -103,12 +151,20 @@ class EditProfileFragment : Fragment() {
                 "${UserManger.userEmail}",
                 UserManger.userData.createdTime,
                 UserManger.userData.userProfile?.info_image?.let { it1 ->
-                    UserProfile("${UserManger.userID}", UserManger.userData.createdTime,"${UserManger.userName}",profile_weight,profile_height,profile_weight,profile_bodyFat,0,"${UserManger.userImage}"
+                    UserProfile(
+                        "${UserManger.userID}",
+                        UserManger.userData.createdTime,
+                        "${UserManger.userName}",
+                        profile_weight,
+                        profile_height,
+                        profile_weight,
+                        profile_bodyFat,
+                        0,
+                        "${UserManger.userImage}"
                     )
                 }
             )
             )
-
             findNavController().navigate(NavigationDirections.actionGlobalProfileFragment())
         }
 
@@ -117,8 +173,3 @@ class EditProfileFragment : Fragment() {
     }
 
 }
-
-//private operator fun Any.invoke(onSeekBarChangeListener: BubbleSeekBar.OnProgressChangedListener) {
-//
-//}
-

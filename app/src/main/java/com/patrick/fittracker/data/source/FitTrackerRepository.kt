@@ -38,9 +38,13 @@ interface FitTrackerRepository {
 
     suspend fun getTrainingRecord(): Result<List<InsertRecord>>
 
+    suspend fun getTrainingCardioRecord(): Result<List<CardioRecord>>
+
     suspend fun getLoginInfo(): Result<User>
 
     suspend fun getWeightTrainRecord(record: String): Result<List<InsertRecord>>
+
+    suspend fun getCardioTrainRecord(record: String): Result<List<CardioRecord>>
 
 
 

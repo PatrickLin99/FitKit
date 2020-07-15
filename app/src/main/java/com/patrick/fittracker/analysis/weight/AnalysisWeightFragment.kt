@@ -48,15 +48,16 @@ class AnalysisWeightFragment : Fragment() {
 
         binding.recyclerviewWeightRecord.adapter = adapter
 
-        viewModel.record.observe(viewLifecycleOwner, Observer {
+            viewModel.record.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                Log.d("record distinct","it.distinctBy { it.name }=${it.distinctBy { it.name }}")
+
+                adapter.submitList(it.distinctBy {
+                    it.name
+                })
+
             }
         })
-
-
-
-
 
 
         return binding.root
