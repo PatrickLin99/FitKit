@@ -209,7 +209,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
     override suspend fun addRecordTest (insertRecord: InsertRecord): Result<Boolean> = suspendCoroutine { continuation ->
 
         val user = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
-        val document = user.document(UserManger.userData.id)
+        val document = user.document("${UserManger.userID}")
 
 //        insertRecord.id = document.id
 //        insertRecord.createdTime = Calendar.getInstance().timeInMillis
@@ -400,15 +400,14 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
     override suspend fun addUserInfo(user: User): Result<Boolean> = suspendCoroutine { continuation ->
 
         val users = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
-        val document = users.document("${UserManger.userData.id}")
-        Log.d("usermanager9999999999","${UserManger.userData.id}")
+        val document = users.document("${UserManger.userID}")
 
 
         user.id = document.id
         user.createdTime = Calendar.getInstance().timeInMillis
 
         users
-            .whereEqualTo("email", UserManger.userData.email)
+            .whereEqualTo("id", "${UserManger.userID}")
             .get()
             .addOnSuccessListener {task ->
                 if (task.isEmpty) {
@@ -419,7 +418,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
                             if (task.isSuccessful) {
                                 Logger.i("FitTracker: $user")
 
-                                UserManger.userData.id = document.id
+//                                UserManger.userData.id = document.id
 
                                 continuation.resume(Result.Success(true))
                             } else {
@@ -448,7 +447,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
                             if (task.isSuccessful) {
                                 Logger.i("FitTracker: $user")
 
-                                UserManger.userData.id = document.id
+//                                UserManger.userData.id = document.id
 
                                 continuation.resume(Result.Success(true))
                             } else {
@@ -547,7 +546,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
-            .document(UserManger.userData.id)
+            .document("${UserManger.userID}")
             .collection("menu")
             .document("self")
             .collection("record")
@@ -619,7 +618,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
-            .whereEqualTo("email", UserManger.userData.email)
+            .whereEqualTo("id", "${UserManger.userID}")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -651,7 +650,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
-            .document(UserManger.userData.id)
+            .document("${UserManger.userID}")
             .collection("menu")
             .document("self")
             .collection("record")

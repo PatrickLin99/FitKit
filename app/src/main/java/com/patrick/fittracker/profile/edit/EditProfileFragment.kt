@@ -38,7 +38,7 @@ class EditProfileFragment : Fragment() {
         var profile_weight : Long = 1
         var profile_bodyFat : Long = 1
 
-//        viewModel.getLoginInfoResult(user = User())
+        viewModel.getLoginInfoResult()
 
 
         binding.seekBarHeight.onProgressChangedListener = object :
@@ -86,8 +86,8 @@ class EditProfileFragment : Fragment() {
             var profile_BMI: Double = ((profile_weight).div(profile_height*10000)).toDouble()
 //            Log.d("test999999","profile_BMI: $profile_BMI, profile_weight: $profile_weight  profile_height:$profile_height")
 
-            viewModel.addUserInfo.value?.email = UserManger.userData.email
-            viewModel.addUserInfo.value?.name = UserManger.userData.name
+            viewModel.addUserInfo.value?.email = "${UserManger.userEmail}"
+            viewModel.addUserInfo.value?.name = "${UserManger.userName}"
             viewModel.addUserInfo.value?.createdTime = UserManger.userData.createdTime
             viewModel.addUserInfo.value?.id = UserManger.userData.id
 
@@ -99,29 +99,15 @@ class EditProfileFragment : Fragment() {
 
             viewModel.uploadProfileInfo(user = User(
                 UserManger.userData.id,
-                UserManger.userData.name,
-                UserManger.userData.email,
+                "${UserManger.userName}",
+                "${UserManger.userEmail}",
                 UserManger.userData.createdTime,
                 UserManger.userData.userProfile?.info_image?.let { it1 ->
-                    UserProfile(UserManger.userData.id, UserManger.userData.createdTime,UserManger.userData.name,profile_weight,profile_height,profile_weight,profile_bodyFat,0,
-                        it1
+                    UserProfile("${UserManger.userID}", UserManger.userData.createdTime,"${UserManger.userName}",profile_weight,profile_height,profile_weight,profile_bodyFat,0,"${UserManger.userImage}"
                     )
                 }
             )
             )
-
-            Log.d("usermanager","${UserManger.userData}")
-            Log.d("usermanager","${viewModel.addUserInfo.value}")
-            Log.d("usermanager","${profile_BMI}")
-
-
-//            viewModel.infoNameandAge()
-//            viewModel.addUserInfo.value?.info_height = profile_height
-//            viewModel.addUserInfo.value?.info_weight = profile_weight
-//            viewModel.addUserInfo.value?.info_bodyFat = profile_bodyFat
-//            viewModel.addUserInfo.value?.info_BMI = (profile_bodyFat/(profile_height * 10000))
-//            viewModel.addUserInfo.value?.let { viewModel.uploadProfileInfo(it)
-
 
             findNavController().navigate(NavigationDirections.actionGlobalProfileFragment())
         }

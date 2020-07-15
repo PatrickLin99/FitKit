@@ -81,8 +81,6 @@ class LoginFragment : BottomSheetDialogFragment() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-//                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-//                Log.d("patrick login success", "${account}")
 
                 viewModel.addUnserInfo.value?.name = "${account.displayName}"
                 viewModel.addUnserInfo.value?.id = "${account.id}"
@@ -91,15 +89,15 @@ class LoginFragment : BottomSheetDialogFragment() {
                 viewModel.addUnserInfo.value?.userProfile?.info_image = "${account.photoUrl}"
                 viewModel.addUnserInfo.value?.userProfile?.id = "${account.id}"
 
-//                UserManger.userID = account.id
+                UserManger.userID = account.id
+                UserManger.userName = account.displayName
+                UserManger.userImage = "${account.photoUrl}"
+                UserManger.userEmail = "${account.email}"
 
                 UserManger.userData.name = "${account.displayName}"
                 UserManger.userData.email = "${account.email}"
                 UserManger.userData.id = "${account.id}"
                 UserManger.userData.userProfile?.info_image = "${account.photoUrl}"
-
-
-                Log.d("00000000000000000","${viewModel.addUnserInfo.value?.id}")
 
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
@@ -120,15 +118,9 @@ class LoginFragment : BottomSheetDialogFragment() {
                     val user = auth?.currentUser
                     viewModel.addUnserInfo.value?.id?.let { User(it) }?.let { viewModel.userAdd(user = it) }
                     viewModel.addUnserInfo.value?.name?.let { User(it) }?.let { viewModel.userAdd(user = it) }
-                    Log.d("00000000000000000","${viewModel.addUnserInfo.value?.name}")
-
                     viewModel.addUnserInfo.value?.let { viewModel.uploadUserInfo(user = it) }
 
-//                    viewModel.navigateToProfile.observe(viewLifecycleOwner, Observer {
-//                        it?.let {
-//                            findNavController().navigate(NavigationDirections.actionGlobalProfileFragment(it))
-//                        }
-//                    })
+                    findNavController().navigate(NavigationDirections.actionGlobalProfileFragment())
 
                 } else {
                     // If sign in fails, display a message to the user.
@@ -146,9 +138,6 @@ class LoginFragment : BottomSheetDialogFragment() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth?.currentUser
-        if (currentUser != null){
-//            findNavController().navigate(NavigationDirections.actionGlobalProfileFragment())
-        }
     }
 
 

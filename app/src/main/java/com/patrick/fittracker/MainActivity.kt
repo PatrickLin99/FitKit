@@ -54,20 +54,31 @@ class MainActivity : BaseActivity() {
                     return true
                 }
                 R.id.navigation_calendar -> {
-//                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalCalendarFragment())
-                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
-                    main_title_two.text = "CALENDAR"
+
+                    if(UserManger.isLogin()) {
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalCalendarFragment())
+                        main_title_two.text = "CALENDAR"
+                    } else{
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
+                    }
                     return true
                 }
                 R.id.navigation_profile -> {
-                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalProfileFragment())
-                    main_title_two.text = "PROFILE"
+                    if(UserManger.isLogin()) {
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalProfileFragment())
+                        main_title_two.text = "PROFILE"
+                    } else{
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
+                    }
                     return true
                 }
                 R.id.navigation_analysis -> {
-//                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
-                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAnalysisTestFragment())
-                    main_title_two.text = "ANALYSIS"
+                    if(UserManger.isLogin()) {
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAnalysisTestFragment())
+                        main_title_two.text = "ANALYSIS"
+                    } else{
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
+                    }
                     return true
                 }
             }

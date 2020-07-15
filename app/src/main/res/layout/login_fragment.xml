@@ -17,9 +17,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/bottom_sheet_behavior"
-            android:background="@drawable/login_rounded_dialog">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageView16"
@@ -37,10 +35,12 @@
                 android:id="@+id/view4"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@color/colorSeaBlue"
+                android:background="@drawable/rounded_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
 
             <TextView
                 android:id="@+id/textView"

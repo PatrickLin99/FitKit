@@ -117,15 +117,6 @@ class WeightChartFragment : Fragment() {
 
 
 
-
-
-
-
-
-
-
-
-
         return binding.root
     }
 
