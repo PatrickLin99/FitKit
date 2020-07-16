@@ -7,6 +7,7 @@ import com.patrick.fittracker.analysis.AnalysisViewModel
 import com.patrick.fittracker.analysis.cardioanalysis.AnalysisCardioViewModel
 import com.patrick.fittracker.analysis.test.AnalysisTestViewModel
 import com.patrick.fittracker.analysis.weight.AnalysisWeightViewModel
+import com.patrick.fittracker.calendar.CalendarViewModel
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.classoption.ClassOptionViewModel
 import com.patrick.fittracker.data.source.FitTrackerRepository
@@ -103,10 +104,10 @@ class ViewModelFactory constructor(
                         repository
                     )
 
-//                isAssignableFrom(CardioChartViewModel::class.java) ->
-//                    CardioChartViewModel(
-//                        repository
-//                    )
+                isAssignableFrom(CalendarViewModel::class.java) ->
+                    CalendarViewModel(
+                        repository
+                    )
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

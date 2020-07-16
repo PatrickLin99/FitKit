@@ -1,5 +1,6 @@
 package com.patrick.fittracker.linechart
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -25,7 +26,8 @@ import com.patrick.fittracker.ext.getVmFactory
 class WeightChartFragment : Fragment() {
 
     private val viewModel by viewModels<WeightChartViewModel> {
-        getVmFactory(WeightChartFragmentArgs.fromBundle(requireArguments()).recordKey) }
+        getVmFactory(WeightChartFragmentArgs.fromBundle(requireArguments()).recordKey)
+    }
 
 
     override fun onCreateView(
@@ -41,6 +43,7 @@ class WeightChartFragment : Fragment() {
         Log.d("recordKey", "${recordKey.name}")
 
         viewModel.getWeightRecordRecordResult(recordKey)
+        binding.analysisMuscleTitle.text = recordKey.name
 
         viewModel.record.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -52,10 +55,10 @@ class WeightChartFragment : Fragment() {
                 fun setData() {
                     val entries: MutableList<Entry> = ArrayList()
                     for (i in 0..weight_list_size!!) {
-                        Log.d("bbbbbbbbbbbbbbbb",
-                            "${viewModel.record.value?.sortedBy { it.createdTime }
-                                ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}"
-                        )
+//                        Log.d("bbbbbbbbbbbbbbbb",
+//                            "${viewModel.record.value?.sortedBy { it.createdTime }
+//                                ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}"
+//                        )
 
                         viewModel.record.value?.sortedBy { it.createdTime }
                             ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight?.toFloat()
@@ -79,8 +82,11 @@ class WeightChartFragment : Fragment() {
                         ContextCompat.getColor(requireContext(), R.color.colorLightBlack)
                     dataSet.valueTextSize = 12f
                     dataSet.lineWidth = 2f
-                    dataSet
 
+                    //Border
+                    binding.lineChart.setDrawBorders(true)
+                    binding.lineChart.setBorderColor(Color.parseColor("#717171"))
+                    binding.lineChart.setBorderWidth(0.5f)
 
                     //****
                     // Controlling X axis
@@ -89,15 +95,26 @@ class WeightChartFragment : Fragment() {
                     xAxis.position = XAxis.XAxisPosition.BOTTOM
                     //Customizing x axis value
 //                    val months = arrayOf("M", "T", "W", "T", "F", "S", "S", "A", "A", "A")
-                    //Set grid color
+                    //Grid property
                     xAxis.gridColor = ContextCompat.getColor(requireContext(), R.color.colorLightGray)
+                    xAxis.gridLineWidth = 1f
+
+                    //Y-axis line width
+                    binding.lineChart.axisLeft.axisLineWidth = 1f
+                    binding.lineChart.axisLeft.granularity = 20f
+                    binding.lineChart.axisLeft.setStartAtZero(true)
+                    binding.lineChart.axisLeft.setStartAtZero(true)
+                    binding.lineChart.axisLeft.setAxisMaxValue(100f)
 
 
-                    //off the xAxis line
-                    binding.lineChart.xAxis.isEnabled = false
+
+                    //xAxis grid lines
+                    binding.lineChart.xAxis.isEnabled = true
 
 //                    val formatter = IAxisValueFormatter { value, axis -> months[value.toInt()] }
                     xAxis.granularity = 1f // minimum axis-step (interval) is 1
+                    xAxis.isGranularityEnabled = true
+                    xAxis.mAxisRange = 1f
 //                    xAxis.valueFormatter = formatter
 
                     //***
@@ -114,6 +131,15 @@ class WeightChartFragment : Fragment() {
                     val data = LineData(dataSet)
                     binding.lineChart.data = data
                     binding.lineChart.invalidate()
+
+                    //Setting data line property
+                    data.setValueTextSize(12f)
+                    data.setValueTextColor(Color.parseColor("#717171"))
+
+                    //Setting Circle property
+                    dataSet.setCircleColors(Color.parseColor("#03DAC5"))
+//                    dataSet.circleHoleColor = Color.parseColor("#bfc0c0")
+                    dataSet.circleRadius = 4f
 
                 }
                 setData()

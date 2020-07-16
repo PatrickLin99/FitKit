@@ -36,6 +36,7 @@ class CardioSelectionFragment : Fragment() {
         binding.recyclerCardioSelection.adapter = adapter
 
 
+
         viewModel.cardio.observe(viewLifecycleOwner, Observer {
             it?.let {
 //                Log.d("getCardio result 00000", "$it")

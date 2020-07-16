@@ -80,4 +80,8 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getCalendarTrainingRecord(calendar: Long, endcalendar: Long): Result<List<InsertRecord>> {
+        TODO("Not yet implemented")
+    }
+
 }

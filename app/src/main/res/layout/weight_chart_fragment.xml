@@ -7,6 +7,10 @@
         <variable
             name="viewModel"
             type="com.patrick.fittracker.linechart.WeightChartViewModel" />
+        
+        <variable
+            name="insertrecord"
+            type="com.patrick.fittracker.data.InsertRecord" />
 
     </data>
 
@@ -19,17 +23,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/analysis_muscle_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:text=""
+                android:textColor="@color/colorLightBlack"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="測試文字" />
+
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:padding="9dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/analysis_muscle_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

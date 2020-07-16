@@ -45,6 +45,8 @@ interface FitTrackerDataSource {
 
     suspend fun getCardioTrainRecord(record: String): Result<List<CardioRecord>>
 
+    suspend fun getCalendarTrainingRecord(calendar: Long, endcalendar: Long): Result<List<InsertRecord>>
+
 
 
 
