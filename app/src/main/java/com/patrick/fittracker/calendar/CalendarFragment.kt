@@ -8,12 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.patrick.fittracker.TimeUtil
+import com.patrick.fittracker.calendar.events.CalendarEventAdapter
+import com.patrick.fittracker.calendar.events.CalendarEventCardioAdapter
 import com.patrick.fittracker.databinding.CalendarFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import java.security.Timestamp
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.time.milliseconds
 
 
 class CalendarFragment : Fragment() {
@@ -35,38 +39,48 @@ class CalendarFragment : Fragment() {
             var time : String = "$year$month$dayOfMonth"
 
 
-            val startDate = "$year-$month-$dayOfMonth 00:01"
-            var endDate = "$year-$month-$dayOfMonth 23:59"
+            val startDate = "$year-${month.plus(1)}-$dayOfMonth 00:01:00"
+            var endDate = "$year-${month.plus(1)}-$dayOfMonth 23:59:00"
 
-            val dateFormat_yyyyMMddHHmm = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.TAIWAN)
-            val startdate = dateFormat_yyyyMMddHHmm.parse(startDate)
-            val enddate = dateFormat_yyyyMMddHHmm.parse(endDate)
+            val dateFormat_yyyyMMddHHmmss = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.TAIWAN)
+
+            val startdate = dateFormat_yyyyMMddHHmmss.parse(startDate)
+            val enddate = dateFormat_yyyyMMddHHmmss.parse(endDate)
+
             val calendar = Calendar.getInstance()
             val endcalendar = Calendar.getInstance()
+
             calendar.time = startdate
             endcalendar.time = enddate
-            
-            var timestampStart = TimeStamp(startdate)
-            Log.d("calendar time","$startdate   ${calendar.timeInMillis}   ${endcalendar.timeInMillis}")
+
+//            val timestampStart = TimeUtil.DateToStamp(startDate, Locale.TAIWAN)
+//            val timestampEnd = TimeUtil.DateToStamp(endDate, Locale.TAIWAN)
 
             viewModel.getCalendarTrainingRecordResult(calendar.timeInMillis, endcalendar.timeInMillis)
+            viewModel.getCalendarTrainingCardioRecordResult(calendar.timeInMillis, endcalendar.timeInMillis)
 
         }
 
+
+        val adapter = CalendarEventAdapter()
+        binding.recyclerViewCalendarEvent.adapter = adapter
+
         viewModel.record.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
-//                Log.d("888888888","${viewModel.record.value?.sortedWith(200,300)}")
+                adapter.submitList(it.distinctBy { it.name })
             }
-
         })
 
+        val adapterCardio = CalendarEventCardioAdapter()
+        binding.recyclerViewCalendarEventCardio.adapter = adapterCardio
 
-//        val stringDate="2019-08-07 09:00:00"
-//        val dateFormat_yyyyMMddHHmmss = SimpleDateFormat(
-//            "yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
-//        val date = dateFormat_yyyyMMddHHmmss.parse(stringDate)
-//        val calendar = Calendar.getInstance()
-//        calendar.setTime(date)
+        viewModel.recordCardio.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                adapterCardio.submitList(it.distinctBy { it.name })
+            }
+        })
+
+        adapter.notifyDataSetChanged()
 
 
         return binding.root

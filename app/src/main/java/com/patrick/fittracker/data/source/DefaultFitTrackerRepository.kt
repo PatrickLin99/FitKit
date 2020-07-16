@@ -88,6 +88,10 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         return remoteDataSource.getCalendarTrainingRecord(calendar, endcalendar)
     }
 
+    override suspend fun getCalendarTrainingCardioRecord(calendar: Long, endcalendar: Long): Result<List<CardioRecord>> {
+        return remoteDataSource.getCalendarTrainingCardioRecord(calendar, endcalendar)
+    }
+
 
 
 //    override suspend fun loginMockData(id: String): Result<Author> {

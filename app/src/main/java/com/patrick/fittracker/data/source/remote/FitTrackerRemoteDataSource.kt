@@ -768,8 +768,8 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             .collection("record")
 //            .whereEqualTo("createdTime",1594649462560)
 //            .whereEqualTo("createdTime",1591804860000)
-//            .whereGreaterThan("createdTime",calendar)
-//            .whereLessThan("createdTime",endcalendar)
+            .whereGreaterThan("createdTime",calendar)
+            .whereLessThan("createdTime",endcalendar)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -780,6 +780,43 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
                         val inserRecord = document.toObject(InsertRecord::class.java)
                         list.add(inserRecord)
+                    }
+                    continuation.resume(Result.Success(list))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
+    override suspend fun getCalendarTrainingCardioRecord(calendar: Long, endcalendar: Long): Result<List<CardioRecord>>  = suspendCoroutine { continuation ->
+
+        var timeNow: Long = Calendar.getInstance().timeInMillis
+        var timePeriod: Long = timeNow + 60000000000
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES_USER)
+            .document("${UserManger.userID}")
+            .collection("cardio")
+            .document("self")
+            .collection("record")
+            .whereGreaterThan("createdTime",calendar)
+            .whereLessThan("createdTime",endcalendar)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<CardioRecord>()
+                    for (document in task.result!!) {
+
+                        Logger.d(document.id + " => " + document.data)
+
+                        val cardioRecord = document.toObject(CardioRecord::class.java)
+                        list.add(cardioRecord)
                     }
                     continuation.resume(Result.Success(list))
                 } else {
