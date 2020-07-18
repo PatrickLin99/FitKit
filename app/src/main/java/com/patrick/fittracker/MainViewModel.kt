@@ -11,14 +11,6 @@ import kotlinx.coroutines.Job
 
 class MainViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-//    private val _author = MutableLiveData<Author>().apply {
-//        value = Author(
-//            "waynechen323",
-//            "AKA小安老師",
-//            "wayne@school.appworks.tw"
-//        )
-//    }
-
     private val _refresh = MutableLiveData<Boolean>()
 
     val refresh: LiveData<Boolean>

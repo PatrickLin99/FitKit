@@ -14,14 +14,7 @@ import com.patrick.fittracker.databinding.PoseSelectFragmentBinding
 
 class PoseSelectFragment : BottomSheetDialogFragment() {
 
-    companion object {
-        fun newInstance() = PoseSelectFragment()
-    }
-
-//    private lateinit var viewModel: PoseSelectViewModel
-    val viewModel: PoseSelectViewModel by lazy {
-    ViewModelProvider(this).get(PoseSelectViewModel::class.java)
-}
+    val viewModel: PoseSelectViewModel by lazy { ViewModelProvider(this).get(PoseSelectViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,16 +35,15 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.muscleSelectPost.adapter = adapter
         movement?.let {
-            Log.d("test","7654321 $it")
+//            Log.d("test","7654321 $it")
             adapter.submitList(it.menu)
         }
 
 
-        binding.textView16.text = movement.category
+        binding.titleMuscleGroup.text = movement.category
 
         viewModel.navigateToRecord.observe(viewLifecycleOwner, Observer {
             it?.let {
-//                Log.d("test navigateToRecord", "$it")
                 this.findNavController().navigate(NavigationDirections.actionGlobalRecordFragment(it))
             }
         })
@@ -66,11 +58,5 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
 
         return binding.root
     }
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(PoseSelectViewModel::class.java)
-//        // TODO: Use the ViewModel
-//    }
 
 }

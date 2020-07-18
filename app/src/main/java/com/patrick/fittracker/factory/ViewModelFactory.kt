@@ -8,6 +8,8 @@ import com.patrick.fittracker.analysis.cardioanalysis.AnalysisCardioViewModel
 import com.patrick.fittracker.analysis.test.AnalysisTestViewModel
 import com.patrick.fittracker.analysis.weight.AnalysisWeightViewModel
 import com.patrick.fittracker.calendar.CalendarViewModel
+import com.patrick.fittracker.calendar.eventcardio.EventDetailCardioViewModel
+import com.patrick.fittracker.calendar.eventdetail.EventDetailViewModel
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.classoption.ClassOptionViewModel
 import com.patrick.fittracker.data.source.FitTrackerRepository
@@ -106,6 +108,16 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(CalendarViewModel::class.java) ->
                     CalendarViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(EventDetailViewModel ::class.java) ->
+                    EventDetailViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(EventDetailCardioViewModel ::class.java) ->
+                    EventDetailCardioViewModel(
                         repository
                     )
 

@@ -270,8 +270,13 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 //            it.weight = it.weight.minus(5)
 //            _addTrainingRecordd.value = _addTrainingRecordd.value
             _addOne.value?.let {
-                it.weight = it.weight.minus(5)
-                _addOne.value = _addOne.value
+                if (it.weight >=5 ) {
+                    it.weight = it.weight.minus(5)
+                    _addOne.value = _addOne.value
+                } else {
+                    it.weight = 5
+                    _addOne.value = _addOne.value
+                }
             }
         }
 
@@ -290,8 +295,13 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 //            it.orderSet = it.orderSet.minus(1)
 //            _addTrainingRecordd.value = _addTrainingRecordd.value
             _addOne.value?.let {
-                it.orderSet = it.orderSet.minus(1)
-                _addOne.value = _addOne.value
+                if (it.orderSet > 0) {
+                    it.orderSet = it.orderSet.minus(1)
+                    _addOne.value = _addOne.value
+                } else {
+                    it.orderSet = 1
+                    _addOne.value = _addOne.value
+                }
             }
         }
 

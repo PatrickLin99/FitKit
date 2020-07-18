@@ -6,8 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.MaterialCalendar
+import com.patrick.fittracker.NavigationDirections
+import com.patrick.fittracker.R
 import com.patrick.fittracker.TimeUtil
 import com.patrick.fittracker.calendar.events.CalendarEventAdapter
 import com.patrick.fittracker.calendar.events.CalendarEventCardioAdapter
@@ -23,6 +28,7 @@ import kotlin.time.milliseconds
 class CalendarFragment : Fragment() {
 
     private val viewModel by viewModels<CalendarViewModel> { getVmFactory() }
+    lateinit var test: CalendarView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +68,12 @@ class CalendarFragment : Fragment() {
         }
 
 
-        val adapter = CalendarEventAdapter()
+
+        val adapter = CalendarEventAdapter(CalendarEventAdapter.OnClickListener{
+            it?.let {
+                findNavController().navigate(NavigationDirections.actionGlobalEventDetailFragment(it))
+            }
+        })
         binding.recyclerViewCalendarEvent.adapter = adapter
 
         viewModel.record.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -71,7 +82,11 @@ class CalendarFragment : Fragment() {
             }
         })
 
-        val adapterCardio = CalendarEventCardioAdapter()
+        val adapterCardio = CalendarEventCardioAdapter(CalendarEventCardioAdapter.OnClickListener{
+            it?.let {
+                findNavController().navigate(NavigationDirections.actionGlobalEventDetailCardioFragment(it))
+            }
+        })
         binding.recyclerViewCalendarEventCardio.adapter = adapterCardio
 
         viewModel.recordCardio.observe(viewLifecycleOwner, androidx.lifecycle.Observer {

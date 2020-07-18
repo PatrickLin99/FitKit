@@ -12,8 +12,8 @@ import com.patrick.fittracker.databinding.ItemCalendarEvenCardioBinding
 import com.patrick.fittracker.databinding.ItemCalendarEventBinding
 import java.util.*
 
-//class CalendarEventAdapter(val onClickListener: OnClickListener):
-class CalendarEventCardioAdapter():
+class CalendarEventCardioAdapter(val onClickListener: OnClickListener):
+//class CalendarEventCardioAdapter():
     ListAdapter<CardioRecord, CalendarEventCardioAdapter.CalendarEventCardioViewHolder>(DiffCallback){
 
     class CalendarEventCardioViewHolder(private var binding: ItemCalendarEvenCardioBinding):
@@ -45,13 +45,13 @@ class CalendarEventCardioAdapter():
 
     override fun onBindViewHolder(holder: CalendarEventCardioViewHolder, position: Int){
         val menu = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(menu)
-//        }
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(menu)
+        }
         holder.bind(menu)
     }
 
-    class OnClickListener(val clickListener: (menu: String) -> Unit) {
-        fun onClick(menu: String) = clickListener(menu)
+    class OnClickListener(val clickListener: (menu: CardioRecord) -> Unit) {
+        fun onClick(menu: CardioRecord) = clickListener(menu)
     }
 }

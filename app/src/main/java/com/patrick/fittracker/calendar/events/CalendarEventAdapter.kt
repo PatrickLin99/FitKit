@@ -12,8 +12,8 @@ import com.patrick.fittracker.databinding.ItemMusclePostureBinding
 import java.util.*
 
 
-//class CalendarEventAdapter(val onClickListener: OnClickListener):
-class CalendarEventAdapter():
+class CalendarEventAdapter(val onClickListener: OnClickListener):
+//class CalendarEventAdapter():
     ListAdapter<InsertRecord, CalendarEventAdapter.CalendarEventViewHolder>(DiffCallback){
 
     class CalendarEventViewHolder(private var binding: ItemCalendarEventBinding):
@@ -45,13 +45,13 @@ class CalendarEventAdapter():
 
     override fun onBindViewHolder(holder: CalendarEventViewHolder, position: Int){
         val menu = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(menu)
-//        }
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(menu)
+        }
         holder.bind(menu)
     }
 
-    class OnClickListener(val clickListener: (menu: String) -> Unit) {
-        fun onClick(menu: String) = clickListener(menu)
+    class OnClickListener(val clickListener: (menu: InsertRecord) -> Unit) {
+        fun onClick(menu: InsertRecord) = clickListener(menu)
     }
 }

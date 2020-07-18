@@ -22,14 +22,25 @@
             android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="16dp"
             android:text="@{insertrecord.name}"
-            android:textColor="@color/colorLightBlack"
+            android:textColor="@color/colorDarkGray"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="測試文字測試文字"/>
+            tools:text="測試文字測試文字" />
+
+        <ImageView
+            android:id="@+id/imageView23"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:alpha="0.4"
+            app:layout_constraintBottom_toBottomOf="@+id/textView28"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView28"
+            app:srcCompat="@drawable/goal" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

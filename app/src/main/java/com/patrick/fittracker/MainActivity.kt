@@ -34,10 +34,6 @@ class MainActivity : BaseActivity() {
         toolbar?.setDisplayHomeAsUpEnabled(true)
 
         bottomNavVIew.setOnNavigationItemSelectedListener(listener)
-//        binding.toolbar.setBackgroundColor(applicationContext.getColor(R.color.colorBlack))
-//        binding.mainTitleTwo.setTextColor((applicationContext.getColor(R.color.colorWhite)))
-
-//        setupToolbar()
 
     }
 

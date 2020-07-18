@@ -140,6 +140,60 @@
                 app:layout_constraintTop_toTopOf="@+id/muscle_deltoids_image"
                 app:srcCompat="@drawable/muscle_group_deltoids_color" />
 
+            <ImageView
+                android:id="@+id/muscle_group_lowerback_color"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/muscle_lowerback_image"
+                app:layout_constraintTop_toTopOf="@+id/muscle_lowerback_image"
+                app:srcCompat="@drawable/muscle_group_lowerback_color" />
+
+            <ImageView
+                android:id="@+id/muscle_group_abs_color"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/muscle_abs_image"
+                app:layout_constraintTop_toTopOf="@+id/muscle_abs_image"
+                app:srcCompat="@drawable/muscle_group_abs_color" />
+
+            <ImageView
+                android:id="@+id/muscle_group_uperback_color"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/muscle_upperback_image"
+                app:layout_constraintTop_toTopOf="@+id/muscle_upperback_image"
+                app:srcCompat="@drawable/muscle_group_uperback_color" />
+
+            <ImageView
+                android:id="@+id/muscle_group_backlegs_color"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/muscle_backlegs_image"
+                app:layout_constraintTop_toTopOf="@+id/muscle_backlegs_image"
+                app:srcCompat="@drawable/muscle_group_backlegs_color" />
+
+            <ImageView
+                android:id="@+id/muscle_group_calf_color"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/muscle_calf_image"
+                app:layout_constraintTop_toTopOf="@+id/muscle_calf_image"
+                app:srcCompat="@drawable/muscle_group_calf_color" />
+
+            <ImageView
+                android:id="@+id/muscle_group_frontlegs_color"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/muscle_frontlegs_image"
+                app:layout_constraintTop_toTopOf="@+id/muscle_frontlegs_image"
+                app:srcCompat="@drawable/muscle_group_frontlegs_color" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

@@ -57,6 +57,27 @@ class GroupFragment() : Fragment() {
         binding.muscleGroupDeltoidsColor.setOnClickListener {
             binding.muscleGroupDeltoidsColor.visibility = View.GONE
         }
+        binding.muscleGroupLowerbackColor.setOnClickListener {
+            binding.muscleGroupLowerbackColor.visibility = View.GONE
+        }
+        binding.muscleGroupAbsColor.setOnClickListener {
+            binding.muscleGroupAbsColor.visibility = View.GONE
+        }
+        binding.muscleGroupUperbackColor.setOnClickListener {
+            binding.muscleGroupUperbackColor.visibility = View.GONE
+        }
+        binding.muscleGroupBacklegsColor.setOnClickListener {
+            binding.muscleGroupBacklegsColor.visibility = View.GONE
+        }
+        binding.muscleGroupCalfColor.setOnClickListener {
+            binding.muscleGroupCalfColor.visibility = View.GONE
+        }
+        binding.muscleGroupFrontlegsColor.setOnClickListener {
+            binding.muscleGroupFrontlegsColor.visibility = View.GONE
+        }
+
+
+
 
 
 
@@ -91,21 +112,27 @@ class GroupFragment() : Fragment() {
             }
             R.id.muscle_lowerback_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.LOWERBACK)
+                muscle_group_lowerback_color.visibility = View.VISIBLE
             }
             R.id.muscle_abs_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.ABS)
+                muscle_group_abs_color.visibility = View.VISIBLE
             }
             R.id.muscle_upperback_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.UPPERBACK)
+                muscle_group_uperback_color.visibility = View.VISIBLE
             }
             R.id.muscle_frontlegs_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.FRONTLEGS)
+                muscle_group_frontlegs_color.visibility = View.VISIBLE
             }
             R.id.muscle_calf_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.CALF)
+                muscle_group_calf_color.visibility = View.VISIBLE
             }
             R.id.muscle_backlegs_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.BACKLEGS)
+                muscle_group_backlegs_color.visibility = View.VISIBLE
             }
         }
     }

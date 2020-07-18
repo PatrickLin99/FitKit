@@ -1,5 +1,6 @@
 package com.patrick.fittracker.linechart.cardiochart
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -63,8 +64,11 @@ class CardioChartFragment : Fragment() {
                         ContextCompat.getColor(requireContext(), R.color.colorLightBlack)
                     dataSet.valueTextSize = 12f
                     dataSet.lineWidth = 2f
-                    dataSet
 
+                    //Border
+                    binding.lineChart.setDrawBorders(true)
+                    binding.lineChart.setBorderColor(Color.parseColor("#717171"))
+                    binding.lineChart.setBorderWidth(0.5f)
 
                     //****
                     // Controlling X axis
@@ -73,15 +77,26 @@ class CardioChartFragment : Fragment() {
                     xAxis.position = XAxis.XAxisPosition.BOTTOM
                     //Customizing x axis value
 //                    val months = arrayOf("M", "T", "W", "T", "F", "S", "S", "A", "A", "A")
-                    //Set grid color
+                    //Grid property
                     xAxis.gridColor = ContextCompat.getColor(requireContext(), R.color.colorLightGray)
+                    xAxis.gridLineWidth = 1f
+
+                    //Y-axis line width
+                    binding.lineChart.axisLeft.axisLineWidth = 1f
+                    binding.lineChart.axisLeft.granularity = 20f
+                    binding.lineChart.axisLeft.setStartAtZero(true)
+                    binding.lineChart.axisLeft.setStartAtZero(true)
+                    binding.lineChart.axisLeft.setAxisMaxValue(100f)
 
 
-                    //off the xAxis line
-                    binding.lineChart.xAxis.isEnabled = false
+
+                    //xAxis grid lines
+                    binding.lineChart.xAxis.isEnabled = true
 
 //                    val formatter = IAxisValueFormatter { value, axis -> months[value.toInt()] }
                     xAxis.granularity = 1f // minimum axis-step (interval) is 1
+                    xAxis.isGranularityEnabled = true
+                    xAxis.mAxisRange = 1f
 //                    xAxis.valueFormatter = formatter
 
                     //***
@@ -98,6 +113,15 @@ class CardioChartFragment : Fragment() {
                     val data = LineData(dataSet)
                     binding.lineChart.data = data
                     binding.lineChart.invalidate()
+
+                    //Setting data line property
+                    data.setValueTextSize(12f)
+                    data.setValueTextColor(Color.parseColor("#717171"))
+
+                    //Setting Circle property
+                    dataSet.setCircleColors(Color.parseColor("#03DAC5"))
+//                    dataSet.circleHoleColor = Color.parseColor("#bfc0c0")
+                    dataSet.circleRadius = 4f
 
                 }
                 setData()

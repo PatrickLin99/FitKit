@@ -1,6 +1,7 @@
 package com.patrick.fittracker.linechart
 
 import android.graphics.Color
+import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -18,10 +19,13 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 
 import com.patrick.fittracker.R
+import com.patrick.fittracker.TimeUtil
 import com.patrick.fittracker.analysis.weight.AnalysisWeightViewModel
 import com.patrick.fittracker.databinding.AnalysisWeightFragmentBinding
 import com.patrick.fittracker.databinding.WeightChartFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
+import java.util.*
+import kotlin.collections.ArrayList
 
 class WeightChartFragment : Fragment() {
 
@@ -72,6 +76,9 @@ class WeightChartFragment : Fragment() {
                                     it2
                                 )
                             }
+                        Log.d("test88888888888", "${viewModel.record.value?.get(i)?.createdTime?.let { it1 ->
+                            TimeUtil.StampToDate(it1 , Locale.TAIWAN)
+                        }}")
                     }
 
 
@@ -140,6 +147,14 @@ class WeightChartFragment : Fragment() {
                     dataSet.setCircleColors(Color.parseColor("#03DAC5"))
 //                    dataSet.circleHoleColor = Color.parseColor("#bfc0c0")
                     dataSet.circleRadius = 4f
+
+
+                    //Set background gridient color
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                        dataSet.setDrawFilled(true)
+                        val fillGradient = ContextCompat.getDrawable(requireContext(), R.drawable.chart_gradient_fill)
+                        dataSet.fillDrawable = fillGradient
+                    }
 
                 }
                 setData()

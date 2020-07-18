@@ -212,19 +212,20 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
     }
 
     fun plusWeight() {
-//        Log.d("Patrick", "plusWeight")
-//        Log.d("Patrick", "_addTrainingRecordd.value=${_addTrainingRecordd.value}")
         _addOne.value?.let {
-
-//            Log.d("Patrick", "it.weight=${it.weight}")
             it.weight = it.weight.plus(5)
             _addOne.value = _addOne.value
         }
     }
     fun minusWeight() {
         _addOne.value?.let {
-            it.weight = it.weight.minus(5)
-            _addOne.value = _addOne.value
+            if(it.weight < 5) {
+                it.weight = it.weight.minus(5)
+                _addOne.value = _addOne.value
+            } else {
+                it.weight = 5
+                _addOne.value = _addOne.value
+            }
         }
     }
 
@@ -236,8 +237,13 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
     }
     fun minusOrderSet() {
         _addOne.value?.let {
-            it.orderSet = it.orderSet.minus(1)
-            _addOne.value = _addOne.value
+            if (it.orderSet > 0) {
+                it.orderSet = it.orderSet.minus(1)
+                _addOne.value = _addOne.value
+            } else {
+                it.orderSet = 1
+                _addOne.value = _addOne.value
+            }
         }
     }
 

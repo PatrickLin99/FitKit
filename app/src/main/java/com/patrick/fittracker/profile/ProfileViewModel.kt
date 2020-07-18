@@ -109,4 +109,18 @@ class ProfileViewModel(private val repository: FitTrackerRepository) : ViewModel
         }
     }
 
+
+    fun refresh() {
+
+        if (FitTrackerApplication.instance.isLiveDataDesign()) {
+            _status.value = LoadApiStatus.DONE
+            _refreshStatus.value = false
+
+        } else {
+            if (status.value != LoadApiStatus.LOADING) {
+                getLoginInfoResult()
+            }
+        }
+    }
+
 }

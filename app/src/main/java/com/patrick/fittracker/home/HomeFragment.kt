@@ -18,7 +18,6 @@ import com.patrick.fittracker.ext.getVmFactory
 
 class HomeFragment : Fragment() {
 
-//    private lateinit var viewModel: HomeViewModel
     private val viewModel by viewModels <HomeViewModel> {getVmFactory()}
 
     override fun onCreateView(
@@ -28,38 +27,26 @@ class HomeFragment : Fragment() {
         val binding = HomeFragmentBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
-//        binding.viewModel = viewModel
+        binding.viewModel = viewModel
 
-        binding.viewSelfTraining.setOnClickListener {
+        binding.viewSelftraining.setOnClickListener {
             it?.let {
-                binding.viewSelfTraining.setBackgroundColor(Color.parseColor("#3aacba"))
-                binding.mainSelfTraining.setTextColor(Color.parseColor("#383838"))
                 findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
             }
         }
 
-        binding.viewSelect.setOnClickListener {
+        binding.viewRecommend.setOnClickListener {
             it?.let {
-                binding.viewSelect.setBackgroundColor(Color.parseColor("#3aacba"))
-                binding.mainSelect.setTextColor(Color.parseColor("#383838"))
                 findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
             }
         }
 
         binding.viewCardio.setOnClickListener {
             it?.let {
-                binding.viewCardio.setBackgroundColor(Color.parseColor("#3aacba"))
-                binding.mainCardio.setTextColor(Color.parseColor("#383838"))
                 findNavController().navigate(NavigationDirections.actionGlobalCardioSelectionFragment())
             }
         }
         return binding.root
     }
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-//        // TODO: Use the ViewModel
-//    }
 
 }

@@ -149,4 +149,21 @@
             app:argType="com.patrick.fittracker.data.CardioRecord" />
     </fragment>
     <action android:id="@+id/action_global_cardioChartFragment" app:destination="@id/cardioChartFragment" />
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.patrick.fittracker.calendar.eventdetail.EventDetailFragment"
+        android:label="EventDetailFragment" >
+        <argument
+            android:name="recordKey"
+            app:argType="com.patrick.fittracker.data.InsertRecord" />
+    </fragment>
+    <action android:id="@+id/action_global_eventDetailFragment" app:destination="@id/eventDetailFragment" />
+    <dialog
+        android:id="@+id/eventDetailCardioFragment"
+        android:name="com.patrick.fittracker.calendar.eventcardio.EventDetailCardioFragment"
+        android:label="EventDetailCardioFragment" >
+        <argument
+            android:name="recordKey"
+            app:argType="com.patrick.fittracker.data.CardioRecord" />
+    </dialog><action android:id="@+id/action_global_eventDetailCardioFragment" app:destination="@id/eventDetailCardioFragment"/>
 </navigation>

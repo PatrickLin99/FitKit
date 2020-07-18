@@ -18,5 +18,11 @@
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
 
+    <style name="TabTextStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:textColor">@color/colorLightBlack</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
 
 </resources>

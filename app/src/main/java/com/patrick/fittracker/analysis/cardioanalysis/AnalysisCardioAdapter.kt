@@ -1,14 +1,16 @@
 package com.patrick.fittracker.analysis.cardioanalysis
 
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.patrick.fittracker.R
 import com.patrick.fittracker.data.CardioRecord
-import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.ItemCardioAnalysisBinding
-import com.patrick.fittracker.databinding.ItemWeightAnalysisBinding
+import kotlinx.android.synthetic.main.record_fragment.*
 
 
 class AnalysisCardioAdapter(val onClickListener: OnClickListener):

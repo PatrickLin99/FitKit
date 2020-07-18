@@ -40,51 +40,56 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavVIew"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:background="@color/colorWhite"
+            app:itemIconSize="36dp"
+            app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_nav_menu"
-            app:itemIconSize="40dp"/>
+            app:menu="@menu/bottom_nav_menu" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/myNavHostFragment"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/toolbar"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:srcCompat="@drawable/icons_24px_drawer" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView"-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/myNavHostFragment"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/toolbar"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/icons_24px_drawer" />-->
 
         <TextView
             android:id="@+id/main_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="150dp"
+            android:layout_marginStart="86dp"
+            android:layout_marginEnd="2dp"
             android:letterSpacing="0.08"
             android:text="JIJI"
             android:textColor="@color/colorSeaBlue"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toEndOf="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="@+id/toolbar"
+            app:layout_constraintEnd_toStartOf="@+id/main_title_two"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/main_title_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="86dp"
             android:letterSpacing="0.08"
             android:text="ACCELERATOR"
             android:textColor="@color/colorLightBlack"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/main_title"
+            app:layout_constraintEnd_toEndOf="@+id/toolbar"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/main_title"
             app:layout_constraintTop_toTopOf="@+id/main_title" />
 
