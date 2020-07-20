@@ -25,37 +25,38 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:alpha="0.8"
             android:scaleType="centerCrop"
             app:image="@{classoption.class_image}"
-            android:alpha="0.8"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/image_placeholder" />
 
         <View
-            android:id="@+id/view5"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
+            android:id="@+id/view22"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
             android:alpha="0.8"
-            android:background="@color/colorLightGray"
+            android:background="@drawable/view_item_classoption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageView10"
             app:layout_constraintStart_toStartOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
         <TextView
             android:id="@+id/textView29"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{classoption.class_title}"
-            android:textSize="28dp"
-            android:textColor="@color/colorLightBlack"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+            android:textColor="@color/colorWhite"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view22"
             app:layout_constraintEnd_toEndOf="@+id/imageView10"
             app:layout_constraintStart_toStartOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+            app:layout_constraintTop_toTopOf="@+id/view22"
+            tools:text = "測試文字"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

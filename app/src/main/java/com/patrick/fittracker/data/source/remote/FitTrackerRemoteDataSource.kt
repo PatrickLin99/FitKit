@@ -591,6 +591,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 //            .whereEqualTo("name","俯臥腿彎曲")
 //            .whereGreaterThan("createdTime","1594644296569")
 //            .whereLessThan("createdTime","1594649425984")
+            .orderBy("createdTime", Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

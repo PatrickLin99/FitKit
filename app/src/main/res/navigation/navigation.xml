@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginTwoFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -166,4 +166,8 @@
             android:name="recordKey"
             app:argType="com.patrick.fittracker.data.CardioRecord" />
     </dialog><action android:id="@+id/action_global_eventDetailCardioFragment" app:destination="@id/eventDetailCardioFragment"/>
+    <fragment
+        android:id="@+id/loginTwoFragment"
+        android:name="com.patrick.fittracker.login2.LoginTwoFragment"
+        android:label="LoginTwoFragment" /><action android:id="@+id/action_global_loginTwoFragment" app:destination="@id/loginTwoFragment"/>
 </navigation>
