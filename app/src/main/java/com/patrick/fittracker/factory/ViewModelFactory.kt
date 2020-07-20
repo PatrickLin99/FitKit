@@ -23,6 +23,7 @@ import com.patrick.fittracker.login.LoginViewModel
 import com.patrick.fittracker.profile.ProfileViewModel
 import com.patrick.fittracker.profile.edit.EditProfileViewModel
 import com.patrick.fittracker.record.cardio.CardioRecordViewModel
+import com.patrick.fittracker.record.cardio.innerrecord.CardioInnerRecordViewModel
 import com.patrick.fittracker.record.classoption.inner.InnerRecordViewModel
 import com.patrick.fittracker.record.selftraining.RecordViewModel
 
@@ -118,6 +119,11 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(EventDetailCardioViewModel ::class.java) ->
                     EventDetailCardioViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(CardioInnerRecordViewModel ::class.java) ->
+                    CardioInnerRecordViewModel(
                         repository
                     )
 

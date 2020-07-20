@@ -9,6 +9,7 @@ data class CardioRecord(
     var name: String = "",
     var createdTime: Long = 0,
     var duration: Long = 0,
-    var burnFat: Long = 0
+    var burnFat: Long = 0,
+    var recordImage: String = ""
 ) : Parcelable
 

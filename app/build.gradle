@@ -114,6 +114,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
+    //Firebase Storage
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
+
+    //ImagePicker
+    implementation 'com.github.dhaval2404:imagepicker:1.7.3'
+
     //AndyChart
     implementation "com.github.AnyChart:AnyChart-Android:1.1.2"
 
