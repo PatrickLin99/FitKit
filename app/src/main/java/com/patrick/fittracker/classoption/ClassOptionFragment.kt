@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.databinding.CardioSelectionFragmentBinding
 import com.patrick.fittracker.databinding.ClassOptionFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
+import kotlinx.android.synthetic.main.activity_main.*
 
 class ClassOptionFragment : Fragment() {
 
@@ -52,13 +54,22 @@ class ClassOptionFragment : Fragment() {
         })
 
 
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
 
-
         return binding.root
+    }
+
+
+    override fun onResume() {
+        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
+        super.onResume()
+    }
+
+    override fun onStop() {
+        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
+        super.onStop()
     }
 
 }

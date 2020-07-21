@@ -31,7 +31,7 @@ class ProfileFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        binding.imageView14.setOnClickListener {
+        binding.editButton.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalEditProfileFragment())
         }
 

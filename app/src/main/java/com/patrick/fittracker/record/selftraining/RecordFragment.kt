@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,8 +24,10 @@ import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.RecordFragmentTestBinding
+import com.patrick.fittracker.databinding.TestLayoutBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.record.cardio.CardioRecordFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cardio_record_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.record_fragment_test.*
@@ -46,7 +49,7 @@ class RecordFragment : Fragment() {
 
     }
 
-    val newRecord = FitDetail()
+//    val newRecord = FitDetail()
 
 
     override fun onCreateView(
@@ -70,15 +73,15 @@ class RecordFragment : Fragment() {
         })
 
 
-        binding.view3.visibility = View.INVISIBLE
-        binding.view7.visibility = View.INVISIBLE
-        binding.view8.visibility = View.INVISIBLE
-        binding.view9.visibility = View.INVISIBLE
-        binding.view14.visibility = View.INVISIBLE
-        binding.recordAnother.visibility = View.INVISIBLE
-        binding.finishRecord.visibility = View.INVISIBLE
-        binding.addPhoto.visibility = View.INVISIBLE
-        binding.uploadImagePlaceholderWeight.visibility = View.INVISIBLE
+//        binding.view3.visibility = View.INVISIBLE
+//        binding.view7.visibility = View.INVISIBLE
+//        binding.view8.visibility = View.INVISIBLE
+//        binding.view9.visibility = View.INVISIBLE
+//        binding.view14.visibility = View.INVISIBLE
+//        binding.recordAnother.visibility = View.INVISIBLE
+//        binding.finishRecord.visibility = View.INVISIBLE
+//        binding.addPhoto.visibility = View.INVISIBLE
+//        binding.uploadImagePlaceholderWeight.visibility = View.INVISIBLE
 
 
 
@@ -99,7 +102,7 @@ class RecordFragment : Fragment() {
 
 
         var orderNum : Long = 0
-        binding.uploadRecordButton.setOnClickListener {
+        binding.addRecord.setOnClickListener {
 
             orderNum += 1
 
@@ -123,7 +126,7 @@ class RecordFragment : Fragment() {
 
             //---------------------------------------------------------------------
 //
-//            val newRecord = FitDetail()
+            val newRecord = FitDetail()
 //            newRecord.name = muscleKey
             newRecord?.count = orderNum
             newRecord?.weight = viewModel.addOne.value?.weight ?: 0
@@ -134,7 +137,7 @@ class RecordFragment : Fragment() {
             viewModel.recyclverSho(newRecord)
 //            Log.d("test 01", "${viewModel.addInsert.value}")
 
-//            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
 
             adapter.notifyDataSetChanged()
 
@@ -144,15 +147,15 @@ class RecordFragment : Fragment() {
 
 //            viewModel.uploadRecord(insertRecord = InsertRecord())
 
-            binding.view3.visibility = View.VISIBLE
-            binding.view7.visibility = View.VISIBLE
-            binding.view8.visibility = View.VISIBLE
-            binding.view9.visibility = View.VISIBLE
-            binding.view14.visibility = View.VISIBLE
-            binding.recordAnother.visibility = View.VISIBLE
-            binding.finishRecord.visibility = View.VISIBLE
-            binding.addPhoto.visibility = View.VISIBLE
-            binding.uploadImagePlaceholderWeight.visibility = View.VISIBLE
+//            binding.view3.visibility = View.VISIBLE
+//            binding.view7.visibility = View.VISIBLE
+//            binding.view8.visibility = View.VISIBLE
+//            binding.view9.visibility = View.VISIBLE
+//            binding.view14.visibility = View.VISIBLE
+//            binding.recordAnother.visibility = View.VISIBLE
+//            binding.finishRecord.visibility = View.VISIBLE
+//            binding.addPhoto.visibility = View.VISIBLE
+//            binding.uploadImagePlaceholderWeight.visibility = View.VISIBLE
 
         }
 
@@ -182,9 +185,9 @@ class RecordFragment : Fragment() {
         }
         permission()
 
-        binding.addPhoto.setOnClickListener {
-            toAlbum()
-        }
+//        binding.addPhoto.setOnClickListener {
+//            toAlbum()
+//        }
 
 
         return binding.root
@@ -232,7 +235,7 @@ class RecordFragment : Fragment() {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         val uri = data!!.data
-                        upload_image_placeholder_weight.setImageURI(uri)
+//                        upload_image_placeholder_weight.setImageURI(uri)
                         saveUri = data.data
                         saveUri.let {
                             uploadImage()
@@ -248,7 +251,7 @@ class RecordFragment : Fragment() {
             PHOTO_FROM_CAMERA -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-                        Glide.with(this).load(saveUri).into(imageView)
+//                        Glide.with(this).load(saveUri).into(imageView)
                     }
                     Activity.RESULT_CANCELED -> {
                         Log.wtf("getImageResult", resultCode.toString())
@@ -266,10 +269,20 @@ class RecordFragment : Fragment() {
             ref.putFile(it)
                 .addOnSuccessListener {
                     ref.downloadUrl.addOnSuccessListener {
-                        newRecord.recordImage = it.toString()
+//                        newRecord.recordImage = it.toString()
                     }
                 }
         }
+    }
+
+    override fun onResume() {
+        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
+        super.onResume()
+    }
+
+    override fun onStop() {
+        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
+        super.onStop()
     }
 
 }

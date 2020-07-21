@@ -151,7 +151,7 @@ class CardioRecordFragment : DialogFragment() {
             PHOTO_FROM_CAMERA -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-                        Glide.with(this).load(saveUri).into(imageView)
+//                        Glide.with(this).load(saveUri).into(imageView)
                     }
                     Activity.RESULT_CANCELED -> {
                         Log.wtf("getImageResult", resultCode.toString())

@@ -29,19 +29,19 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        binding.viewSelftraining.setOnClickListener {
+        binding.cardViewSelfTraining.setOnClickListener {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
             }
         }
 
-        binding.viewRecommend.setOnClickListener {
+        binding.cardViewClassOption.setOnClickListener {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
             }
         }
 
-        binding.viewCardio.setOnClickListener {
+        binding.cardViewCardio.setOnClickListener {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalCardioSelectionFragment())
             }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -28,6 +29,7 @@ import com.patrick.fittracker.databinding.LoginFragmentBinding
 import com.patrick.fittracker.databinding.LoginTwoFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.login.LoginViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class LoginTwoFragment : Fragment() {
@@ -133,6 +135,19 @@ class LoginTwoFragment : Fragment() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth?.currentUser
+        if (UserManger.isLogin()){
+            findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+        }
+    }
+
+    override fun onResume() {
+        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
+        super.onResume()
+    }
+
+    override fun onStop() {
+        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
+        super.onStop()
     }
 
 

@@ -10,6 +10,8 @@ import com.patrick.fittracker.data.Cardio
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.network.LoadApiStatus
+import com.patrick.fittracker.profile.CardioSelectionOutlineProvider
+import com.patrick.fittracker.profile.ProfileAvatarOutlineProvider
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +31,8 @@ class CardioSelectionViewModel(private val repository: FitTrackerRepository) : V
 
     val navigationToCardioRecord: LiveData<Cardio>
         get() = _navigateToCardioRecord
+
+    val outlineProvider = ProfileAvatarOutlineProvider()
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()

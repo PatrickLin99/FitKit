@@ -50,21 +50,14 @@
                 android:id="@+id/calendar_event_detail_title_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:text="TextView"
+                android:textColor="@color/colorLightGray"
                 android:textSize="18sp"
-                android:textColor="@color/colorDarkGray"
                 app:layout_constraintBottom_toBottomOf="@+id/calendar_event_detail_title"
                 app:layout_constraintStart_toEndOf="@+id/calendar_event_detail_title"
-                tools:text="測試文字"/>
+                tools:text="測試文字" />
 
-            <ImageView
-                android:id="@+id/imageView25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                app:layout_constraintStart_toEndOf="@+id/recyclerView_event_detail"
-                app:srcCompat="@drawable/camera_image_placeholder" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>
