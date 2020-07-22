@@ -188,6 +188,15 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+            <ImageView
+                android:id="@+id/count_down_timer"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:layout_constraintBottom_toBottomOf="@+id/record_muscle_main_title"
+                app:layout_constraintEnd_toEndOf="@+id/add_tools"
+                app:layout_constraintTop_toTopOf="@+id/record_muscle_main_title"
+                app:srcCompat="@drawable/count_down_timer" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

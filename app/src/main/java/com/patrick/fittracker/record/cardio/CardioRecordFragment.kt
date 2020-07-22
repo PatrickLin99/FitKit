@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference
 import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.databinding.CardioRecordFragmentBinding
+import com.patrick.fittracker.databinding.TestLayoutBinding
 import com.patrick.fittracker.ext.getVmFactory
 import kotlinx.android.synthetic.main.cardio_record_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -58,7 +59,7 @@ class CardioRecordFragment : DialogFragment() {
 
         initData()
 
-        binding.finishText.setOnClickListener {
+        binding.finishButton.setOnClickListener {
 
             viewModel.uploadCardioStatusRecord()
             viewModel.addCardioRecordd.value?.name = viewModel.cardioItem.value?.cardio_title.toString()

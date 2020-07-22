@@ -20,9 +20,9 @@
 
     <style name="TabTextStyle"
         parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:textColor">@color/colorLightBlack</item>
+        <item name="android:textColor">@color/colorDarkGray</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:letterSpacing">0.08</item>
+        <item name="android:letterSpacing">0.1</item>
         <item name="android:textStyle">bold</item>
     </style>
 

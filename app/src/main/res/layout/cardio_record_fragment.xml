@@ -14,7 +14,7 @@
     </data>
 
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:context=".record.cardio.CardioRecordFragment">
 
@@ -26,8 +26,8 @@
                 android:id="@+id/cardio_record_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@{viewModel.cardioItem.cardio_title}"
                 android:textColor="@color/colorLightBlack"
                 android:textSize="24dp"
@@ -37,33 +37,34 @@
 
             <ImageView
                 android:id="@+id/cardio_main_image"
-                android:layout_width="280dp"
+                android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image_placeholder"
                 app:image="@{viewModel.cardioItem.cardio_image}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
                 android:text="@{viewModel.cardioItem.cardio_unknown}"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/cardio_record_title"
-                app:layout_constraintTop_toBottomOf="@+id/cardio_record_title"
-                tools:text = "副標題"/>
+                app:layout_constraintBottom_toBottomOf="@+id/cardio_record_title"
+                app:layout_constraintStart_toEndOf="@+id/cardio_record_title"
+                tools:text="副標題" />
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="持續時間"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/cardio_record_title"
                 app:layout_constraintTop_toBottomOf="@+id/textView26"
                 tools:text="持續時間" />
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="消耗熱量"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -103,38 +105,15 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
                 app:layout_constraintStart_toEndOf="@+id/textView24" />
 
-            <ImageView
-                android:id="@+id/upload_cardio_record_button"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:alpha="0.6"
-                android:src="@drawable/contract"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/finish_text"
-                app:layout_constraintTop_toBottomOf="@+id/upload_image_placeholder" />
-
             <TextView
                 android:id="@+id/toAlbum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="選擇圖片"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/textView24"
                 app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-            <TextView
-                android:id="@+id/finish_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="紀錄完成"
-                android:textSize="20sp"
-                android:textColor="@color/colorLightBlack"
-                app:layout_constraintBottom_toBottomOf="@+id/upload_cardio_record_button"
-                app:layout_constraintEnd_toEndOf="@+id/editText2"
-                app:layout_constraintTop_toTopOf="@+id/upload_cardio_record_button" />
 
             <ImageView
                 android:id="@+id/upload_image_placeholder"
@@ -144,6 +123,22 @@
                 app:layout_constraintStart_toStartOf="@+id/editText2"
                 app:layout_constraintTop_toTopOf="@+id/toAlbum"
                 app:srcCompat="@drawable/camera_image_placeholder" />
+
+            <Button
+                android:id="@+id/finish_button"
+                android:layout_width="112dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="紀錄完成"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:letterSpacing="0.08"
+                android:background="@drawable/round_button_accent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/upload_image_placeholder" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

@@ -26,6 +26,7 @@ import com.patrick.fittracker.record.cardio.CardioRecordViewModel
 import com.patrick.fittracker.record.cardio.innerrecord.CardioInnerRecordViewModel
 import com.patrick.fittracker.record.classoption.inner.InnerRecordViewModel
 import com.patrick.fittracker.record.selftraining.RecordViewModel
+import com.patrick.fittracker.timer.CountDownTimerViewModel
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -124,6 +125,11 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(CardioInnerRecordViewModel ::class.java) ->
                     CardioInnerRecordViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(CountDownTimerViewModel ::class.java) ->
+                    CountDownTimerViewModel(
                         repository
                     )
 

@@ -189,6 +189,10 @@ class RecordFragment : Fragment() {
 //            toAlbum()
 //        }
 
+        binding.countDownTimer.setOnClickListener {
+            findNavController().navigate(NavigationDirections.actionGlobalCountDownTimerFragment())
+        }
+
 
         return binding.root
     }

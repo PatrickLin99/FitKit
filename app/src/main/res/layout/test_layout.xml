@@ -6,531 +6,133 @@
     <data>
         <variable
             name="viewModel"
-            type="com.patrick.fittracker.profile.ProfileViewModel" />
+            type="com.patrick.fittracker.record.cardio.CardioRecordViewModel" />
         <variable
-            name="user"
-            type="com.patrick.fittracker.data.User" />
-        <import type="com.patrick.fittracker.UserManger"/>
+            name="cardio"
+            type="com.patrick.fittracker.data.CardioRecord" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
+        <TextView
+            android:id="@+id/cardio_record_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/colorLightGray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_membership" />
-
-        <ImageView
-            android:id="@+id/imageView21"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:alpha="0.1"
-            android:scaleType="centerCrop"
-            app:image="@{viewModel.userInfo.userProfile.info_image}"
-            app:layout_constraintBottom_toBottomOf="@+id/view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/round_view_white" />
-
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
             android:layout_marginTop="16dp"
-            android:outlineProvider="@{viewModel.outlineProvider}"
-            android:src="@drawable/circle_temp"
-            app:image="@{viewModel.userInfo.userProfile.info_image}"
+            android:text="@{viewModel.cardioItem.cardio_title}"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardio_main_image"
+            tools:text="攀岩" />
+
+        <ImageView
+            android:id="@+id/cardio_main_image"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_placeholder"
+            app:image="@{viewModel.cardioItem.cardio_image}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
-            android:id="@+id/profile_name_title"
+            android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{viewModel.userInfo.name}"
-            android:textAlignment="center"
-            android:textColor="@color/colorLightBlack"
-            android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView13"
-            tools:text="姓名" />
-
-        <TextView
-            android:id="@+id/profile_membership"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@{viewModel.userInfo.email}"
+            android:layout_marginStart="16dp"
+            android:text="@{viewModel.cardioItem.cardio_unknown}"
             android:textColor="@color/colorDarkGray"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name_title"
-            tools:text="aaa" />
+            app:layout_constraintBottom_toBottomOf="@+id/cardio_record_title"
+            app:layout_constraintStart_toEndOf="@+id/cardio_record_title"
+            tools:text="副標題" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="32dp"
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="12dp"
+            android:text="持續時間"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/cardio_record_title"
+            app:layout_constraintTop_toBottomOf="@+id/textView26"
+            tools:text="持續時間" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="消耗熱量"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="8"
+            android:inputType="number"
+            android:hint="時間"
+            android:text="@={viewModel.convertLongToString(viewModel.addCardioRecordd.duration)}"
+            android:textAlignment="center"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/textView5" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="8"
+            android:hint="Cal"
+            android:text="@={viewModel.convertLongToString(viewModel.addCardioRecordd.burnFat)}"
+            android:inputType="number"
+            android:textAlignment="center"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
+            app:layout_constraintStart_toEndOf="@+id/textView24" />
+
+        <TextView
+            android:id="@+id/toAlbum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="選擇圖片"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView24"
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+        <ImageView
+            android:id="@+id/upload_image_placeholder"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="@+id/editText2"
+            app:layout_constraintTop_toTopOf="@+id/toAlbum"
+            app:srcCompat="@drawable/camera_image_placeholder" />
+
+        <Button
+            android:id="@+id/finish_button"
+            android:layout_width="112dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="紀錄完成"
+            android:textSize="18sp"
+            android:letterSpacing="0.08"
+            android:background="@drawable/round_button_accent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorSuperLightGray">
-
-
-                <ImageView
-                    android:id="@+id/imageView19"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:alpha="0.8"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/measurement" />
-
-                <ImageView
-                    android:id="@+id/imageView25"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="24dp"
-                    android:alpha="0.8"
-                    app:layout_constraintStart_toStartOf="@+id/imageView19"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView19"
-                    app:srcCompat="@drawable/weight" />
-
-                <ImageView
-                    android:id="@+id/imageView28"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="24dp"
-                    android:alpha="0.8"
-                    app:layout_constraintStart_toStartOf="@+id/imageView29"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView29"
-                    app:srcCompat="@drawable/distribution" />
-
-                <ImageView
-                    android:id="@+id/imageView29"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="24dp"
-                    android:alpha="0.8"
-                    app:layout_constraintStart_toStartOf="@+id/imageView25"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView25"
-                    app:srcCompat="@drawable/caliper" />
-
-                <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:letterSpacing="0.1"
-                    android:text="身高"
-                    android:textColor="@color/colorDarkGray"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView19"
-                    app:layout_constraintStart_toEndOf="@+id/imageView19"
-                    app:layout_constraintTop_toTopOf="@+id/imageView19" />
-
-                <TextView
-                    android:id="@+id/textView39"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:letterSpacing="0.1"
-                    android:text="體重"
-                    android:textColor="@color/colorDarkGray"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView25"
-                    app:layout_constraintStart_toEndOf="@+id/imageView25"
-                    app:layout_constraintTop_toTopOf="@+id/imageView25" />
-
-                <TextView
-                    android:id="@+id/textView40"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:letterSpacing="0.1"
-                    android:text="體脂肪"
-                    android:textColor="@color/colorDarkGray"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView29"
-                    app:layout_constraintStart_toEndOf="@+id/imageView29"
-                    app:layout_constraintTop_toTopOf="@+id/imageView29" />
-
-                <TextView
-                    android:id="@+id/textView45"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:letterSpacing="0.1"
-                    android:text="BMI"
-                    android:textColor="@color/colorDarkGray"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView28"
-                    app:layout_constraintStart_toEndOf="@+id/imageView28"
-                    app:layout_constraintTop_toTopOf="@+id/imageView28" />
-
-                <TextView
-                    android:id="@+id/textView46"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="48dp"
-                    android:letterSpacing="0.08"
-                    android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_height)}"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="20sp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/textView30"
-                    app:layout_constraintStart_toEndOf="@+id/textView30" />
-
-                <TextView
-                    android:id="@+id/textView49"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0.08"
-                    android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_weight)}"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="20sp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/textView39"
-                    app:layout_constraintStart_toStartOf="@+id/textView46" />
-
-                <TextView
-                    android:id="@+id/textView50"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0.08"
-                    android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_bodyFat)}"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="20sp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/textView40"
-                    app:layout_constraintStart_toStartOf="@+id/textView49" />
-
-                <TextView
-                    android:id="@+id/textView51"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0.08"
-                    android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_BMI)}"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="20sp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/textView45"
-                    app:layout_constraintStart_toStartOf="@+id/textView50" />
-
-                <TextView
-                    android:id="@+id/textView52"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="cm"
-                    android:textColor="@color/colorDarkGray"
-                    android:textSize="14sp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/textView46"
-                    app:layout_constraintStart_toEndOf="@+id/textView46" />
-
-                <TextView
-                    android:id="@+id/textView53"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="kg"
-                    android:textColor="@color/colorDarkGray"
-                    android:textSize="14sp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/textView49"
-                    app:layout_constraintStart_toEndOf="@+id/textView49" />
-
-                <TextView
-                    android:id="@+id/textView54"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="％"
-                    android:textColor="@color/colorDarkGray"
-                    android:textSize="14sp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/textView50"
-                    app:layout_constraintStart_toEndOf="@+id/textView50" />
-
-                <ImageView
-                    android:id="@+id/imageView32"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="24dp"
-                    android:alpha="0.8"
-                    app:layout_constraintStart_toStartOf="@+id/imageView28"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView28"
-                    app:srcCompat="@drawable/body" />
-
-                <TextView
-                    android:id="@+id/textView57"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:letterSpacing="0.1"
-                    android:text="體態"
-                    android:textColor="@color/colorDarkGray"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView32"
-                    app:layout_constraintStart_toEndOf="@+id/imageView32"
-                    app:layout_constraintTop_toTopOf="@+id/imageView32" />
-
-                <ImageView
-                    android:id="@+id/imageView33"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageView32"
-                    app:srcCompat="@drawable/muscle_men" />
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageView31"-->
-<!--                    android:layout_width="24dp"-->
-<!--                    android:layout_height="24dp"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/button4"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/button4"-->
-<!--                    app:layout_constraintTop_toTopOf="@+id/button4"-->
-<!--                    app:srcCompat="@drawable/file" />-->
-
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="72dp"
-                    android:layout_height="38dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="編輯"
-                    android:letterSpacing="0.1"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorWhite"
-                    android:background="@color/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!--        <ImageView-->
-<!--            android:id="@+id/imageView5"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginTop="24dp"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            android:alpha="0.6"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/imageView9"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/view"-->
-<!--            app:srcCompat="@drawable/measurement" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView9"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:alpha="0.6"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/imageView5"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/imageView5"-->
-<!--            app:srcCompat="@drawable/weight" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView11"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginTop="36dp"-->
-<!--            android:alpha="0.6"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/imageView12"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView7"-->
-<!--            app:srcCompat="@drawable/distribution" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView12"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:alpha="0.6"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/imageView11"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/imageView11"-->
-<!--            app:srcCompat="@drawable/caliper" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView15"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:alpha="0.6"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/imageView14"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/imageView14"-->
-<!--            app:srcCompat="@drawable/website" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView14"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginTop="36dp"-->
-<!--            android:alpha="0.6"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/imageView15"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView9"-->
-<!--            app:srcCompat="@drawable/file" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView7"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="身高"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/colorDarkGray"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/imageView5"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/imageView5"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/imageView5" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView8"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="體重"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/colorDarkGray"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/imageView9"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/imageView9"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/imageView9" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView9"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="BMI"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/colorDarkGray"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/imageView11"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/imageView11"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/imageView11" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView10"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="體脂肪"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/colorDarkGray"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/imageView12"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/imageView12"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/imageView12" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView11"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="編輯"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/colorDarkGray"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/imageView14"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/imageView14"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/imageView14" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView12"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="會員"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/colorDarkGray"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/imageView15"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/imageView15"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/imageView15" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView32"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="6dp"-->
-<!--            android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_height)}"-->
-<!--            android:textColor="@color/colorLightBlack"-->
-<!--            android:textSize="18sp"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/textView7"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/textView7"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView7"-->
-<!--            tools:text="180" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView33"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_weight)}"-->
-<!--            android:textColor="@color/colorLightBlack"-->
-<!--            android:textSize="18sp"-->
-<!--            app:layout_constraintBaseline_toBaselineOf="@+id/textView32"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/textView8"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/textView8"-->
-<!--            tools:text="75" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView34"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="6dp"-->
-<!--            android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_BMI)}"-->
-<!--            android:textColor="@color/colorLightBlack"-->
-<!--            android:textSize="18sp"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/textView9"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/textView9"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView9"-->
-<!--            tools:text="BMI" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView36"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_bodyFat)}"-->
-<!--            android:textColor="@color/colorLightBlack"-->
-<!--            android:textSize="18sp"-->
-<!--            app:layout_constraintBaseline_toBaselineOf="@+id/textView34"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/textView10"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/textView10"-->
-<!--            tools:text="bodyfat" />-->
+            app:layout_constraintTop_toBottomOf="@+id/upload_image_placeholder" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

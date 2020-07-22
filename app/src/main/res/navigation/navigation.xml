@@ -169,5 +169,10 @@
     <fragment
         android:id="@+id/loginTwoFragment"
         android:name="com.patrick.fittracker.login2.LoginTwoFragment"
-        android:label="LoginTwoFragment" /><action android:id="@+id/action_global_loginTwoFragment" app:destination="@id/loginTwoFragment"/>
+        android:label="LoginTwoFragment" />
+    <action android:id="@+id/action_global_loginTwoFragment" app:destination="@id/loginTwoFragment" />
+    <dialog
+        android:id="@+id/countDownTimerFragment"
+        android:name="com.patrick.fittracker.timer.CountDownTimerFragment"
+        android:label="CountDownTimerFragment" /><action android:id="@+id/action_global_countDownTimerFragment" app:destination="@id/countDownTimerFragment"/>
 </navigation>
