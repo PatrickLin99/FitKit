@@ -49,7 +49,7 @@ class CountDownTimerFragment : BottomSheetDialogFragment() {
 
                             override fun onFinish() {
                                 binding.countingClock.text = "完成"
-                                
+
 
                             }
                         }.start()
@@ -62,6 +62,9 @@ class CountDownTimerFragment : BottomSheetDialogFragment() {
             }
         })
 
+        binding.dismissButton.setOnClickListener {
+            dismiss()
+        }
 
 
         return binding.root

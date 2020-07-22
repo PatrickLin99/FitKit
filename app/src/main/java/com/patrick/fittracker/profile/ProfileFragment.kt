@@ -44,6 +44,32 @@ class ProfileFragment : Fragment() {
             }
         })
 
+        binding.lowBodyFat.visibility = View.GONE
+        binding.fitBodyFat.visibility = View.GONE
+        binding.fitBodyFat.visibility = View.GONE
+        binding.superLowBodyFat.visibility = View.GONE
+
+        viewModel.UserInfo.observe(viewLifecycleOwner, Observer {
+            it?.let {
+
+                when (viewModel.UserInfo.value?.userProfile?.info_bodyFat) {
+                    in 3..8.toLong() -> binding.superLowBodyFat.visibility = View.VISIBLE
+                    in 8..12.toLong() -> binding.lowBodyFat.visibility = View.VISIBLE
+                    in 13..20.toLong() -> binding.fitBodyFat.visibility = View.VISIBLE
+                    in 20..50.toLong() -> binding.highBodyFat.visibility = View.VISIBLE
+                }
+
+            }
+        })
+
+
+        when (viewModel.UserInfo.value?.userProfile?.info_bodyFat) {
+           in 3..12.toLong() -> binding.lowBodyFat.visibility = View.VISIBLE
+            in 13..20.toLong() -> binding.fitBodyFat.visibility = View.VISIBLE
+            in 20..50.toLong() -> binding.fitBodyFat.visibility = View.VISIBLE
+        }
+
+
         binding.layoutSwipeRefreshHome.setOnRefreshListener {
             viewModel.refresh()
         }

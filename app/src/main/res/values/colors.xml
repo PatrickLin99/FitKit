@@ -12,5 +12,6 @@
     <color name="colorLightBlack">#383838</color>
     <color name="colorLightPink">#ffe5d9</color>
     <color name="translucent_80">#cc000000</color>
+    <color name="colorLightAccent">#ddfff7</color>
 
 </resources>

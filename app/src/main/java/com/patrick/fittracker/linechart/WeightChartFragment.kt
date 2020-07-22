@@ -59,10 +59,6 @@ class WeightChartFragment : Fragment() {
                 fun setData() {
                     val entries: MutableList<Entry> = ArrayList()
                     for (i in 0..weight_list_size!!) {
-//                        Log.d("bbbbbbbbbbbbbbbb",
-//                            "${viewModel.record.value?.sortedBy { it.createdTime }
-//                                ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}"
-//                        )
 
                         viewModel.record.value?.sortedBy { it.createdTime }
                             ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight?.toFloat()
@@ -76,9 +72,12 @@ class WeightChartFragment : Fragment() {
                                     it2
                                 )
                             }
-                        Log.d("test88888888888", "${viewModel.record.value?.get(i)?.createdTime?.let { it1 ->
-                            TimeUtil.StampToDate(it1 , Locale.TAIWAN)
-                        }}")
+                        Log.d(
+                            "test88888888888",
+                            "${viewModel.record.value?.get(i)?.createdTime?.let { it1 ->
+                                TimeUtil.StampToDate(it1, Locale.TAIWAN)
+                            }}"
+                        )
                     }
 
 

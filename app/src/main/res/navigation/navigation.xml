@@ -56,7 +56,11 @@
             android:name="muscleKey"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_recordFragment" app:destination="@id/recordFragment" />
+    <action
+        android:id="@+id/action_global_recordFragment"
+        app:destination="@id/recordFragment"
+        app:popUpTo="@id/poseSelectFragment"
+        app:popUpToInclusive="true" />
     <dialog
         android:id="@+id/addSuccessFragment"
         android:name="com.patrick.fittracker.addsuccess.AddSuccessFragment"
@@ -101,7 +105,11 @@
             android:name="classKey"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_innerRecordFragment" app:destination="@id/innerRecordFragment" />
+    <action
+        android:id="@+id/action_global_innerRecordFragment"
+        app:destination="@id/innerRecordFragment"
+        app:popUpTo="@id/classOptionRecordFragment"
+        app:popUpToInclusive="true" />
     <dialog
         android:id="@+id/loginFragment"
         android:name="com.patrick.fittracker.login.LoginFragment"
@@ -174,5 +182,6 @@
     <dialog
         android:id="@+id/countDownTimerFragment"
         android:name="com.patrick.fittracker.timer.CountDownTimerFragment"
-        android:label="CountDownTimerFragment" /><action android:id="@+id/action_global_countDownTimerFragment" app:destination="@id/countDownTimerFragment"/>
+        android:label="CountDownTimerFragment" />
+    <action android:id="@+id/action_global_countDownTimerFragment" app:destination="@id/countDownTimerFragment" />
 </navigation>

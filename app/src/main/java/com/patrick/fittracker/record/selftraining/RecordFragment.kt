@@ -42,14 +42,13 @@ class RecordFragment : Fragment() {
     private var mStorageRef: StorageReference? = null
 
     var saveUri: Uri? = null
+    var imageUri: String = ""
 
     private companion object {
         val PHOTO_FROM_GALLERY = 0
         val PHOTO_FROM_CAMERA = 1
 
     }
-
-//    val newRecord = FitDetail()
 
 
     override fun onCreateView(
@@ -100,79 +99,44 @@ class RecordFragment : Fragment() {
             viewModel.minusOrderSet()
         }
 
-
-        var orderNum : Long = 0
+        var orderNum: Long = 0
         binding.addRecord.setOnClickListener {
 
             orderNum += 1
-
-//            val newRecord = AddTrainingRecord()
-//            newRecord.order_title = orderNum
-//            newRecord.weight = viewModel.addTrainingRecordd.value?.weight ?: 0
-//            newRecord.orderSet = viewModel.addTrainingRecordd.value?.orderSet ?: 0
-//
-//            viewModel.uploadRecordData(newRecord)
-
-
-
-//            val newRecord = FitDetail()
-//            newRecord.count = orderNum
-//            newRecord.weight = viewModel.addOne.value?.weight ?:0
-//            newRecord.orderSet = viewModel.addOne.value?.orderSet ?: 0
-//
-//            Log.d("test newRecord.fitDetail?.weight","${newRecord?.weight}")
-
-
-
-            //---------------------------------------------------------------------
-//
             val newRecord = FitDetail()
-//            newRecord.name = muscleKey
             newRecord?.count = orderNum
             newRecord?.weight = viewModel.addOne.value?.weight ?: 0
             newRecord?.orderSet = viewModel.addOne.value?.orderSet ?: 0
 
-            Log.d("test newRecord.fitDetail?.weight","${newRecord?.weight}")
+//            Log.d("test newRecord.fitDetail?.weight","${newRecord?.weight}")
 
             viewModel.recyclverSho(newRecord)
-//            Log.d("test 01", "${viewModel.addInsert.value}")
-
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
-
             adapter.notifyDataSetChanged()
-
-//            viewModel.addTrainingRecordd.value?.category_title = muscleKey
-//            order_title += 1
-//            viewModel.addTrainingRecordd.value?.order_title = order_title
-
-//            viewModel.uploadRecord(insertRecord = InsertRecord())
-
-//            binding.view3.visibility = View.VISIBLE
-//            binding.view7.visibility = View.VISIBLE
-//            binding.view8.visibility = View.VISIBLE
-//            binding.view9.visibility = View.VISIBLE
-//            binding.view14.visibility = View.VISIBLE
-//            binding.recordAnother.visibility = View.VISIBLE
-//            binding.finishRecord.visibility = View.VISIBLE
-//            binding.addPhoto.visibility = View.VISIBLE
-//            binding.uploadImagePlaceholderWeight.visibility = View.VISIBLE
 
         }
 
         binding.finishRecord.setOnClickListener {
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+//            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
 
-//            viewModel.uploadRecord(insertRecord = InsertRecord(muscleKey, listOf(newRecord), 0, saveUri.toString()))
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
+                ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+//            Log.d("aaaaaaaaaaa", imageUri)
 
             if (viewModel.addInsert.value != null) {
                 findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
-            } else{
-                Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Some Thing When Wrong, Please Wait!",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
         binding.recordAnother.setOnClickListener {
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+//            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
+                ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
             if (viewModel.addInsert.value != null) {
                 findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
             } else{
@@ -185,28 +149,36 @@ class RecordFragment : Fragment() {
         }
         permission()
 
-//        binding.addPhoto.setOnClickListener {
-//            toAlbum()
-//        }
+        binding.addPhoto.setOnClickListener {
+            toAlbum()
+        }
 
         binding.countDownTimer.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalCountDownTimerFragment())
         }
 
-
         return binding.root
     }
+
 
     private fun initData() {
         mStorageRef = FirebaseStorage.getInstance().reference
     }
 
     fun permission() {
-        val permissionList = arrayListOf(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        val permissionList = arrayListOf(
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        )
         var size = permissionList.size
         var i = 0
         while (i < size) {
-            if (ActivityCompat.checkSelfPermission(requireContext(), permissionList[i]) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    permissionList[i]
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 permissionList.removeAt(i)
                 i -= 1
                 size -= 1
@@ -214,7 +186,11 @@ class RecordFragment : Fragment() {
             i += 1
         }
         val array = arrayOfNulls<String>(permissionList.size)
-        if (permissionList.isNotEmpty()) ActivityCompat.requestPermissions(requireActivity(), permissionList.toArray(array), 0)
+        if (permissionList.isNotEmpty()) ActivityCompat.requestPermissions(
+            requireActivity(),
+            permissionList.toArray(array),
+            0
+        )
     }
 
     fun toAlbum() {
@@ -225,7 +201,7 @@ class RecordFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if(saveUri != null){
+        if (saveUri != null) {
             val uriString = saveUri.toString()
             outState.putString("saveUri", uriString)
         }
@@ -274,6 +250,8 @@ class RecordFragment : Fragment() {
                 .addOnSuccessListener {
                     ref.downloadUrl.addOnSuccessListener {
 //                        newRecord.recordImage = it.toString()
+                        imageUri = it.toString()
+
                     }
                 }
         }

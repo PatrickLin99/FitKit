@@ -6,134 +6,96 @@
     <data>
         <variable
             name="viewModel"
-            type="com.patrick.fittracker.record.cardio.CardioRecordViewModel" />
+            type="com.patrick.fittracker.analysis.AnalysisViewModel" />
+
         <variable
-            name="cardio"
-            type="com.patrick.fittracker.data.CardioRecord" />
+            name="insertrecord"
+            type="com.patrick.fittracker.data.InsertRecord" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/cardio_record_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!--        <TextView-->
+        <!--            android:id="@+id/textView28"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="64dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:text="@{insertrecord.name}"-->
+        <!--            android:textColor="@color/colorDarkGray"-->
+        <!--            android:textSize="18sp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            tools:text="測試文字測試文字" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView23"-->
+        <!--            android:layout_width="24dp"-->
+        <!--            android:layout_height="24dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:alpha="0.4"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/textView28"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/textView28"-->
+        <!--            app:srcCompat="@drawable/goal" />-->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{viewModel.cardioItem.cardio_title}"
-            android:textColor="@color/colorLightBlack"
-            android:textSize="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardio_main_image"
-            tools:text="攀岩" />
-
-        <ImageView
-            android:id="@+id/cardio_main_image"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_placeholder"
-            app:image="@{viewModel.cardioItem.cardio_image}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{viewModel.cardioItem.cardio_unknown}"
-            android:textColor="@color/colorDarkGray"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/cardio_record_title"
-            app:layout_constraintStart_toEndOf="@+id/cardio_record_title"
-            tools:text="副標題" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="持續時間"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/cardio_record_title"
-            app:layout_constraintTop_toBottomOf="@+id/textView26"
-            tools:text="持續時間" />
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="消耗熱量"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:ems="8"
-            android:inputType="number"
-            android:hint="時間"
-            android:text="@={viewModel.convertLongToString(viewModel.addCardioRecordd.duration)}"
-            android:textAlignment="center"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-            app:layout_constraintStart_toEndOf="@+id/textView5" />
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:ems="8"
-            android:hint="Cal"
-            android:text="@={viewModel.convertLongToString(viewModel.addCardioRecordd.burnFat)}"
-            android:inputType="number"
-            android:textAlignment="center"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
-            app:layout_constraintStart_toEndOf="@+id/textView24" />
-
-        <TextView
-            android:id="@+id/toAlbum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="選擇圖片"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/textView24"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-        <ImageView
-            android:id="@+id/upload_image_placeholder"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="@+id/editText2"
-            app:layout_constraintTop_toTopOf="@+id/toAlbum"
-            app:srcCompat="@drawable/camera_image_placeholder" />
-
-        <Button
-            android:id="@+id/finish_button"
-            android:layout_width="112dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:text="紀錄完成"
-            android:textSize="18sp"
-            android:letterSpacing="0.08"
-            android:background="@drawable/round_button_accent"
+            app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upload_image_placeholder" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.507">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorSuperLightGray">
 
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="120dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:image="@{insertrecord.recordImage}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/goal" />
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@{insertrecord.name}"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                    app:layout_constraintStart_toEndOf="@+id/imageView9"
+                    app:layout_constraintTop_toTopOf="@+id/imageView9"
+                    tools:text="測試文字測試文字" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{String.valueOf(insertrecord.createdTime)}"
+                    app:layout_constraintStart_toStartOf="@+id/textView28"
+                    app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

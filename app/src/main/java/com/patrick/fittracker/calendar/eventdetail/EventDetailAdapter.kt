@@ -22,8 +22,6 @@ class EventDetailAdapter():
             binding.fitdetail = fitDetail
             binding.executePendingBindings()
 
-
-
         }
     }
 
