@@ -39,8 +39,49 @@ class CardioSelectionFragment : Fragment() {
 
         viewModel.cardio.observe(viewLifecycleOwner, Observer {
             it?.let {
-//                Log.d("getCardio result 00000", "$it")
                 adapter.submitList(it)
+
+                //indoor checked
+                binding.filterIndoor.setOnCheckedChangeListener { buttonView, isChecked ->
+                    adapter.submitList(it.filter { it.cardio_unknown == "室內" })
+                    binding.filterOutdoor.isChecked = false
+                    if (!isChecked) {
+                        adapter.submitList(it)
+                    }
+                }
+
+                //outdoor checked
+                binding.filterOutdoor.setOnCheckedChangeListener { buttonView, isChecked ->
+                    adapter.submitList(it.filter { it.cardio_unknown == "戶外"})
+                    binding.filterIndoor.isChecked = false
+                    if (!isChecked){
+                        adapter.submitList(it)
+                    }
+                }
+
+                //relax
+                binding.filterRelax.setOnCheckedChangeListener { buttonView, isChecked ->
+                    adapter.submitList(it.filter { it.cardio_unknown == "輕鬆" })
+                    binding.filterHighBurn.isChecked = false
+                    if (!isChecked){
+                        adapter.submitList(it)
+                    }
+                }
+
+                binding.filterHighBurn.setOnCheckedChangeListener { buttonView, isChecked ->
+                    adapter.submitList(it.filter { it.cardio_unknown == "高強度" })
+                    binding.filterRelax.isChecked = false
+                    if (!isChecked) {
+                        adapter.submitList(it)
+                    }
+                }
+
+                binding.filterCombine.setOnCheckedChangeListener { buttonView, isChecked ->
+                    adapter.submitList(it.filter { it.cardio_unknown == "綜合" })
+                    if (!isChecked){
+                        adapter.submitList(it)
+                    }
+                }
             }
         })
 

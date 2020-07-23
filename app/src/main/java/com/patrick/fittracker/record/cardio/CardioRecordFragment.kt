@@ -47,6 +47,8 @@ class CardioRecordFragment : DialogFragment() {
 
     }
 
+    var instantcal: Long = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,18 +61,58 @@ class CardioRecordFragment : DialogFragment() {
 
         initData()
 
+        viewModel.addCardioRecordd.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("test22222222222", it.duration.toString())
+            when(viewModel.cardioItem.value?.cardio_title){
+                "羽毛球" -> instantcal = it.duration.times(153).div(30)
+                "棒球" -> instantcal = it.duration.times(141).div(30)
+                "籃球" -> instantcal = it.duration.times(189).div(30)
+                "保齡球" -> instantcal = it.duration.times(108).div(30)
+                "攀岩" -> instantcal = it.duration.times(210).div(30)
+                "自行車" -> instantcal = it.duration.times(252).div(30)
+                "慢跑" -> instantcal = it.duration.times(246).div(30)
+                "跳繩" -> instantcal = it.duration.times(252).div(30)
+                "戶外體操" -> instantcal = it.duration.times(93).div(30)
+                "步行" -> instantcal = it.duration.times(105).div(30)
+                "桌球" -> instantcal = it.duration.times(126).div(30)
+                "足球" -> instantcal = it.duration.times(231).div(30)
+                "衝浪" -> instantcal = it.duration.times(216).div(30)
+                "游泳" -> instantcal = it.duration.times(189).div(30)
+                "TABATA" -> instantcal = it.duration.times(450).div(30)
+                "撞球" -> instantcal = it.duration.times(45).div(30)
+                "網球" -> instantcal = it.duration.times(198).div(30)
+                "排球" -> instantcal = it.duration.times(108).div(30)
+                "健走" -> instantcal = it.duration.times(165).div(30)
+                "瑜珈" -> instantcal = it.duration.times(90).div(30)
+                "有氧舞蹈" -> instantcal = it.duration.times(204).div(30)
+                "飛輪" -> instantcal = it.duration.times(250).div(30)
+                "高爾夫" -> instantcal = it.duration.times(150).div(30)
+                "划船" -> instantcal = it.duration.times(132).div(30)
+                "滑雪" -> instantcal = it.duration.times(216).div(30)
+                "拳擊" -> instantcal = it.duration.times(342).div(30)
+
+            }
+            viewModel.addCardioRecordd.value?.burnFat = instantcal
+        })
+
         binding.finishButton.setOnClickListener {
 
             viewModel.uploadCardioStatusRecord()
             viewModel.addCardioRecordd.value?.name = viewModel.cardioItem.value?.cardio_title.toString()
+            viewModel.addCardioRecordd.value?.burnFat = instantcal
             viewModel.addCardioRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
             if (viewModel.addCardioRecordd.value != null) {
                 findNavController().navigate(NavigationDirections.actionGlobalCardioFinishFragment())
             } else {
                 Toast.makeText(requireContext(),"Something went wrong. Please wait!",Toast.LENGTH_LONG).show()
             }
-
         }
+
+        binding.cancelButton.setOnClickListener {
+            dismiss()
+        }
+
+
 
         if (savedInstanceState != null) {
             saveUri = Uri.parse(savedInstanceState.getString("saveUri"))
