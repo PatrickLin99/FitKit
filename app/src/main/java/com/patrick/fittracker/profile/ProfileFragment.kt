@@ -27,6 +27,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         val binding = ProfileFragmentBinding.inflate(inflater, container, false)
 
+
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -52,6 +53,8 @@ class ProfileFragment : Fragment() {
         viewModel.UserInfo.observe(viewLifecycleOwner, Observer {
             it?.let {
 
+                viewModel.getLoginInfoResult()
+//                viewModel.refresh()
                 when (viewModel.UserInfo.value?.userProfile?.info_bodyFat) {
                     in 3..8.toLong() -> binding.superLowBodyFat.visibility = View.VISIBLE
                     in 8..12.toLong() -> binding.lowBodyFat.visibility = View.VISIBLE
@@ -61,13 +64,6 @@ class ProfileFragment : Fragment() {
 
             }
         })
-
-
-        when (viewModel.UserInfo.value?.userProfile?.info_bodyFat) {
-           in 3..12.toLong() -> binding.lowBodyFat.visibility = View.VISIBLE
-            in 13..20.toLong() -> binding.fitBodyFat.visibility = View.VISIBLE
-            in 20..50.toLong() -> binding.fitBodyFat.visibility = View.VISIBLE
-        }
 
 
         binding.layoutSwipeRefreshHome.setOnRefreshListener {
@@ -80,14 +76,6 @@ class ProfileFragment : Fragment() {
             }
         })
 
-//        ViewModelProvider(requireActivity()).get(MainViewModel::class.java).apply {
-//            refresh.observe(viewLifecycleOwner, Observer {
-//                it?.let {
-//                    viewModel.refresh()
-//                    onRefreshed()
-//                }
-//            })
-//        }
 
         return binding.root
     }

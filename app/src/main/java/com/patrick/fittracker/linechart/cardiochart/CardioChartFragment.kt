@@ -23,7 +23,13 @@ import com.patrick.fittracker.ext.getVmFactory
 
 class CardioChartFragment : Fragment() {
 
-    private val viewModel by viewModels<CardioChartViewModel> { getVmFactory( CardioChartFragmentArgs.fromBundle(requireArguments()).recordKey ) }
+    private val viewModel by viewModels<CardioChartViewModel> {
+        getVmFactory(
+            CardioChartFragmentArgs.fromBundle(
+                requireArguments()
+            ).recordKey
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +40,8 @@ class CardioChartFragment : Fragment() {
         binding.viewModel = viewModel
 
         val recordKey = CardioChartFragmentArgs.fromBundle(requireArguments()).recordKey
+
+        binding.cardioRecordTitle.text = recordKey.name
 
         viewModel.getCardioRecordRecordResult(recordKey)
 
@@ -49,7 +57,8 @@ class CardioChartFragment : Fragment() {
                     for (i in 0..cardio_list_size!!) {
 
                         viewModel.record.value?.get(i)?.duration?.toFloat()?.let { it1 ->
-                            Entry(i.toFloat(),
+                            Entry(
+                                i.toFloat(),
                                 it1
                             )
                         }?.let { it2 -> entries.add(it2) }
@@ -78,7 +87,8 @@ class CardioChartFragment : Fragment() {
                     //Customizing x axis value
 //                    val months = arrayOf("M", "T", "W", "T", "F", "S", "S", "A", "A", "A")
                     //Grid property
-                    xAxis.gridColor = ContextCompat.getColor(requireContext(), R.color.colorLightGray)
+                    xAxis.gridColor =
+                        ContextCompat.getColor(requireContext(), R.color.colorLightGray)
                     xAxis.gridLineWidth = 1f
 
                     //Y-axis line width
@@ -87,7 +97,6 @@ class CardioChartFragment : Fragment() {
                     binding.lineChart.axisLeft.setStartAtZero(true)
                     binding.lineChart.axisLeft.setStartAtZero(true)
                     binding.lineChart.axisLeft.setAxisMaxValue(100f)
-
 
 
                     //xAxis grid lines
@@ -126,22 +135,92 @@ class CardioChartFragment : Fragment() {
                 }
                 setData()
 
+
+                fun setDataCal() {
+                    val entries: MutableList<Entry> = ArrayList()
+                    for (i in 0..cardio_list_size!!) {
+
+                        viewModel.record.value?.get(i)?.burnFat?.toFloat()?.let { it1 ->
+                            Entry(
+                                i.toFloat(),
+                                it1
+                            )
+                        }?.let { it2 -> entries.add(it2) }
+
+                    }
+
+
+                    val dataSet = LineDataSet(entries, "Burning Calories (kcal)")
+                    dataSet.color = Color.parseColor("#aa4465")
+//                        ContextCompat.getColor(requireContext(), R.color.colorLightPink)
+                    dataSet.valueTextColor =
+                        ContextCompat.getColor(requireContext(), R.color.colorLightBlack)
+                    dataSet.valueTextSize = 12f
+                    dataSet.lineWidth = 2f
+
+                    //Border
+                    binding.lineChartCal.setDrawBorders(true)
+                    binding.lineChartCal.setBorderColor(Color.parseColor("#ffa69e"))
+                    binding.lineChartCal.setBorderWidth(0.5f)
+
+                    //****
+                    // Controlling X axis
+                    val xAxis = binding.lineChartCal.xAxis
+                    // Set the xAxis position to bottom. Default is top
+                    xAxis.position = XAxis.XAxisPosition.BOTTOM
+                    //Customizing x axis value
+//                    val months = arrayOf("M", "T", "W", "T", "F", "S", "S", "A", "A", "A")
+                    //Grid property
+                    xAxis.gridColor =
+                        ContextCompat.getColor(requireContext(), R.color.colorLightGray)
+                    xAxis.gridLineWidth = 1f
+
+                    //Y-axis line width
+                    binding.lineChartCal.axisLeft.axisLineWidth = 1f
+                    binding.lineChartCal.axisLeft.granularity = 200f
+                    binding.lineChartCal.axisLeft.setStartAtZero(true)
+                    binding.lineChartCal.axisLeft.setStartAtZero(true)
+                    binding.lineChartCal.axisLeft.setAxisMaxValue(1200f)
+
+
+                    //xAxis grid lines
+                    binding.lineChartCal.xAxis.isEnabled = true
+
+//                    val formatter = IAxisValueFormatter { value, axis -> months[value.toInt()] }
+                    xAxis.granularity = 1f // minimum axis-step (interval) is 1
+                    xAxis.isGranularityEnabled = true
+                    xAxis.mAxisRange = 1f
+//                    xAxis.valueFormatter = formatter
+
+                    //***
+                    // Controlling right side of y axis
+                    val yAxisRight = binding.lineChartCal.axisRight
+                    yAxisRight.isEnabled = false
+
+                    //***
+                    // Controlling left side of y axis
+                    val yAxisLeft = binding.lineChartCal.axisLeft
+                    yAxisLeft.granularity = 1f
+
+                    // Setting Data
+                    val data = LineData(dataSet)
+                    binding.lineChartCal.data = data
+                    binding.lineChartCal.invalidate()
+
+                    //Setting data line property
+                    data.setValueTextSize(12f)
+                    data.setValueTextColor(Color.parseColor("#aa4465"))
+
+                    //Setting Circle property
+                    dataSet.setCircleColors(Color.parseColor("#aa4465"))
+//                    dataSet.circleHoleColor = Color.parseColor("#bfc0c0")
+                    dataSet.circleRadius = 4f
+
+                }
+                setDataCal()
+
             }
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return binding.root
     }
 

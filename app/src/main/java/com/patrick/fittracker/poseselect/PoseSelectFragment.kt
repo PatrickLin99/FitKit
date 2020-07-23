@@ -42,6 +42,10 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
 
         binding.titleMuscleGroup.text = movement.category
 
+        binding.poseselectDown.setOnClickListener {
+            dismiss()
+        }
+
         viewModel.navigateToRecord.observe(viewLifecycleOwner, Observer {
             it?.let {
                 this.findNavController().navigate(NavigationDirections.actionGlobalRecordFragment(it))
