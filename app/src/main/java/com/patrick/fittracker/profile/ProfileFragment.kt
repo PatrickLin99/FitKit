@@ -27,7 +27,6 @@ class ProfileFragment : Fragment() {
     ): View? {
         val binding = ProfileFragmentBinding.inflate(inflater, container, false)
 
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 

@@ -122,6 +122,17 @@ dependencies {
 
     //AndyChart
     implementation "com.github.AnyChart:AnyChart-Android:1.1.2"
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
+    // Moshi
+    implementation "com.squareup.moshi:moshi:1.9.3"
+    implementation "com.squareup.moshi:moshi-kotlin:1.9.3"
+
+    // Retrofit with Moshi Converter
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+    // Retrofit Logging Interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.0.1")
 
 }

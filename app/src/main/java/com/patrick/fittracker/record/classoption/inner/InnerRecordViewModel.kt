@@ -197,6 +197,10 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
         }
     }
 
+    fun showLoadingStatus(){
+        _status.value = LoadApiStatus.LOADING
+    }
+
 
     fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh

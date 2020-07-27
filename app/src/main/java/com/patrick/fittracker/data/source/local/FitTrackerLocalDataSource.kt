@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerDataSource
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
+import com.patrick.fittracker.network.FitTrackerAipService
 import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
@@ -85,6 +86,20 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
     }
 
     override suspend fun getCalendarTrainingCardioRecord(calendar: Long, endcalendar: Long): Result<List<CardioRecord>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getLocationInfo(): Result<GymLocation> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getLocationList(
+        key: String,
+        location: String,
+        radius: Int,
+        language: String,
+        keyword: String
+    ): Result<GymLocationListResult> {
         TODO("Not yet implemented")
     }
 

@@ -539,42 +539,42 @@
 
                     <ImageView
                         android:id="@+id/super_low_body_fat"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="32dp"
                         android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView57"
                         app:layout_constraintTop_toTopOf="@+id/imageView32"
                         app:srcCompat="@drawable/muscle_men" />
 
                     <ImageView
                         android:id="@+id/high_body_fat"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="32dp"
                         android:layout_marginTop="8dp"
                         android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView57"
                         app:layout_constraintTop_toTopOf="@+id/imageView32"
                         app:srcCompat="@drawable/fat_icon" />
 
                     <ImageView
                         android:id="@+id/fit_body_fat"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="32dp"
                         android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView57"
                         app:layout_constraintTop_toTopOf="@+id/imageView32"
                         app:srcCompat="@drawable/fit_icon" />
 
                     <ImageView
                         android:id="@+id/low_body_fat"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="32dp"
                         android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView57"
                         app:layout_constraintTop_toTopOf="@+id/imageView32"
                         app:srcCompat="@drawable/muscle_stand_icon" />
 

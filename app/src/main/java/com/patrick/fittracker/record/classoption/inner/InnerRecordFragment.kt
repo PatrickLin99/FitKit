@@ -7,6 +7,7 @@ import android.icu.util.Calendar
 import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -75,14 +76,6 @@ class InnerRecordFragment : Fragment() {
             }
         })
 
-//        binding.view3.visibility = View.INVISIBLE
-//        binding.view7.visibility = View.INVISIBLE
-//        binding.view8.visibility = View.INVISIBLE
-//        binding.view9.visibility = View.INVISIBLE
-//        binding.recordAnother.visibility = View.INVISIBLE
-//        binding.finishRecord.visibility = View.INVISIBLE
-
-
         binding.recordMuscleMainTitle.text = InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey
 
         binding.weightAddButton.setOnClickListener {
@@ -109,43 +102,37 @@ class InnerRecordFragment : Fragment() {
             newRecord?.weight = viewModel.addOne.value?.weight ?: 0
             newRecord?.orderSet = viewModel.addOne.value?.orderSet ?: 0
 
-
             viewModel.recyclverSho(newRecord)
-
-//            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
-
-
             adapter.notifyDataSetChanged()
 
-
-//            binding.view3.visibility = View.VISIBLE
-//            binding.view7.visibility = View.VISIBLE
-//            binding.view8.visibility = View.VISIBLE
-////            binding.view9.visibility = View.VISIBLE
-//            binding.recordAnother.visibility = View.VISIBLE
-//            binding.finishRecord.visibility = View.VISIBLE
         }
 
         binding.recordAnother.setOnClickListener {
-//            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1,0,imageUri) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+            viewModel.showLoadingStatus()
+            Handler().postDelayed({
 
-            if (viewModel.addInsert.value != null) {
-                findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
-            } else {
-                Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
-            }
+//            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+                viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1,0,imageUri) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+
+                if (viewModel.addInsert.value != null) {
+                    findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
+                } else {
+                    Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
+                }
+
+            }, 3000)
         }
 
         binding.finishRecord.setOnClickListener {
-//            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1,0,imageUri) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+            viewModel.showLoadingStatus()
+            Handler().postDelayed({viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1,0,imageUri) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
 
-            if (viewModel.addInsert.value != null) {
-                findNavController().navigate(NavigationDirections.actionGlobalClassOptionFinishFragment())
-            } else {
-                Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
-            }
+                if (viewModel.addInsert.value != null) {
+                    findNavController().navigate(NavigationDirections.actionGlobalClassOptionFinishFragment())
+                } else {
+                    Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
+                }},3000)
+
         }
 
         binding.countDownTimer.setOnClickListener {
@@ -164,8 +151,6 @@ class InnerRecordFragment : Fragment() {
         binding.countDownTimer.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalCountDownTimerFragment())
         }
-        
-
         return binding.root
     }
 

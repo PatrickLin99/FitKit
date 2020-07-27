@@ -19,6 +19,7 @@ import com.patrick.fittracker.finish.classoption.ClassOptionFinishViewModel
 import com.patrick.fittracker.home.HomeViewModel
 import com.patrick.fittracker.linechart.WeightChartViewModel
 import com.patrick.fittracker.linechart.cardiochart.CardioChartViewModel
+import com.patrick.fittracker.location.LocationViewModel
 import com.patrick.fittracker.login.LoginViewModel
 import com.patrick.fittracker.profile.ProfileViewModel
 import com.patrick.fittracker.profile.edit.EditProfileViewModel
@@ -133,7 +134,12 @@ class ViewModelFactory constructor(
                         repository
                     )
 
-                else ->
+                isAssignableFrom(LocationViewModel ::class.java) ->
+                    LocationViewModel(
+                        repository
+                    )
+
+                        else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
         } as T

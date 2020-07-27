@@ -184,4 +184,8 @@
         android:name="com.patrick.fittracker.timer.CountDownTimerFragment"
         android:label="CountDownTimerFragment" />
     <action android:id="@+id/action_global_countDownTimerFragment" app:destination="@id/countDownTimerFragment" />
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.patrick.fittracker.location.LocationFragment"
+        android:label="LocationFragment" /><action android:id="@+id/action_global_locationFragment" app:destination="@id/locationFragment"/>
 </navigation>

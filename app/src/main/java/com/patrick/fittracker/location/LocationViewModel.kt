@@ -1,17 +1,17 @@
-package com.patrick.fittracker.record.cardio
+package com.patrick.fittracker.location
 
-import android.util.Log
-import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.AddTrainingRecord
-import com.patrick.fittracker.data.Cardio
-import com.patrick.fittracker.data.CardioRecord
+import com.patrick.fittracker.data.GymLocation
+import com.patrick.fittracker.data.GymLocationListResult
 import com.patrick.fittracker.data.Result
+import com.patrick.fittracker.data.User
 import com.patrick.fittracker.data.source.FitTrackerRepository
+import com.patrick.fittracker.data.source.remote.FitTrackerRemoteDataSource.getLocationList
+import com.patrick.fittracker.network.FitTrackerAipService
 import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
@@ -19,27 +19,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CardioRecordViewModel(private val repository: FitTrackerRepository, private val arguments: Cardio) : ViewModel() {
-
-    private val _cardioItem = MutableLiveData<Cardio>().apply {
-        value = arguments
-    }
-
-    val cardioItem: LiveData<Cardio>
-    get() = _cardioItem
+class LocationViewModel(private val repository: FitTrackerRepository)  : ViewModel() {
 
 
 
-    private val _addCardioRecordd = MutableLiveData<CardioRecord>().apply {
-        value = CardioRecord()
-    }
 
-    val addCardioRecordd: LiveData<CardioRecord>
-        get() = _addCardioRecordd
+    private val _locationInfo = MutableLiveData<GymLocation>()
+
+    val locationInfo: LiveData<GymLocation>
+        get() = _locationInfo
+
+    private val _gymList = MutableLiveData<GymLocationListResult>()
+
+    val gymList: LiveData<GymLocationListResult>
+        get() = _gymList
 
 
 
-    //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -75,83 +71,78 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     }
 
     init {
-
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
     }
 
-    fun uploadCardioRecordData(cardioRecord: CardioRecord) {
+    fun getLocationResult() {
 
-        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$cardioRecord")
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addCardioRecord(cardioRecord)) {
+            val result = repository.getLocationInfo()
+
+            _locationInfo.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
-                    leave(true)
+                    result.data
                 }
                 is Result.Fail -> {
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
+                    null
                 }
                 is Result.Error -> {
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
+                    null
                 }
                 else -> {
                     _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+
+        }
+    }
+
+    fun getLocationListResult(key: String, location: String, radius: Int, language: String, keyword: String) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getLocationList(key, location, radius, language, keyword)
+
+            _gymList.value = when (result) {
+
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = ("R.string.you_know_nothing")
+                    _status.value = LoadApiStatus.ERROR
+                    null
                 }
             }
         }
-    }
-
-    fun uploadCardioStatusRecord() {
-                Log.d("Patrick", "_addTrainingRecordd.value=${_addCardioRecordd.value}")
-
-        _addCardioRecordd.value?.let {
-//            it.weight = it.weight.minus(5)
-            it.burnFat = it.burnFat
-            it.duration = it.duration
-            _addCardioRecordd.value = _addCardioRecordd.value
-        }
-    }
-
-    fun showLoadingStatus(){
-        _status.value = LoadApiStatus.LOADING
-    }
-
-
-
-    fun leave(needRefresh: Boolean = false) {
-        _leave.value = needRefresh
-    }
-
-    fun onLeft() {
-        _leave.value = null
-    }
-
-    @InverseMethod("convertLongToString")
-    fun convertStringToLong(value: String): Long {
-        return try {
-            value.toLong().let {
-                when (it) {
-                    0L -> 1
-                    else -> it
-                }
-            }
-        } catch (e: NumberFormatException) {
-            1
-        }
-    }
-
-    fun convertLongToString(value: Long): String {
-        return value.toString()
     }
 
 

@@ -19,10 +19,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class RecordViewModel(private val repository: FitTrackerRepository,
-//                      private val addTrainingRecord: AddTrainingRecord
                       private val muscleKey: String
 ) : ViewModel() {
-
 
     private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
         value = AddTrainingRecord()
@@ -39,7 +37,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
     val add: LiveData<List<InsertRecord>>
         get() = _add
 
-    //------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
     private val _addOne = MutableLiveData<FitDetail>().apply {
         value = FitDetail()
@@ -71,7 +69,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
         get() = _navigateToPoseSelect
 
 
-    //---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -113,41 +111,6 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 
     }
 
-//    fun uploadRecordData(addTrainingRecord: AddTrainingRecord) {
-//
-//        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$addTrainingRecord")
-//
-//        _add.value?.add(0, addTrainingRecord)
-//        _add.value = _add.value
-//
-//        Log.d("0002ViewModel add.value?","${add.value?: 0}")
-//
-//        coroutineScope.launch {
-//
-//            _status.value = LoadApiStatus.LOADING
-//
-//            when (val result = repository.addRecord(addTrainingRecord)) {
-//                is Result.Success -> {
-//                    _error.value = null
-//                    _status.value = LoadApiStatus.DONE
-//                    leave(true)
-//                }
-//                is Result.Fail -> {
-//                    _error.value = result.error
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//                is Result.Error -> {
-//                    _error.value = result.exception.toString()
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//                else -> {
-//                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//            }
-//        }
-//    }
-
     fun recyclverSho(fitDetail: FitDetail){
         _addInsert.value?.add(0, fitDetail)
         _addInsert.value = _addInsert.value
@@ -155,9 +118,6 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 
 
     fun uploadRecord(insertRecord: InsertRecord) {
-
-//        _addInsert.value?.add(0, insertRecord)
-//        _addInsert.value = _addInsert.value
 
         coroutineScope.launch {
 
@@ -183,62 +143,28 @@ class RecordViewModel(private val repository: FitTrackerRepository,
                 }
             }
         }
-
     }
 
-        fun getLiveRecordResult(muscleKey: String) {
-
-
-//        coroutineScope.launch {
-//
-//            _status.value = LoadApiStatus.LOADING
-//
-//            val result = repository.getRecord(muscleKey)
-//
-//            _add.value = when (result) {
-//                is Result.Success -> {
-//                    _error.value = null
-//                    _status.value = LoadApiStatus.DONE
-//                    result.data
-//                }
-//                is Result.Fail -> {
-//                    _error.value = result.error
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//                is Result.Error -> {
-//                    _error.value = result.exception.toString()
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//                else -> {
-//                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//            }
-//            _refreshStatus.value = false
-
-
+    fun showLoadingStatus(){
+        _status.value = LoadApiStatus.LOADING
         }
 
-
-        fun leave(needRefresh: Boolean = false) {
+    fun leave(needRefresh: Boolean = false) {
             _leave.value = needRefresh
         }
 
-        fun onLeft() {
+    fun onLeft() {
             _leave.value = null
         }
 
 
-        @InverseMethod("convertLongToString")
-        fun convertStringToLong(value: String): Long {
-            return try {
-                value.toLong().let {
-                    when (it) {
-                        0L -> 1
-                        else -> it
+    @InverseMethod("convertLongToString")
+    fun convertStringToLong(value: String): Long {
+        return try {
+            value.toLong().let {
+                when (it) {
+                    0L -> 1
+                    else -> it
                     }
                 }
             } catch (e: NumberFormatException) {
@@ -246,61 +172,44 @@ class RecordViewModel(private val repository: FitTrackerRepository,
             }
         }
 
-        fun convertLongToString(value: Long): String {
-            return value.toString()
+    fun convertLongToString(value: Long): String {
+        return value.toString()
         }
 
-        fun plusWeight() {
-//        Log.d("Patrick", "plusWeight")
-//        Log.d("Patrick", "_addTrainingRecordd.value=${_addTrainingRecordd.value}")
-//        _addTrainingRecordd.value?.let {
-////        Log.d("Patrick", "it.weight=${it.weight}")
-//            it.weight = it.weight.plus(5)
-//            _addTrainingRecordd.value = _addTrainingRecordd.value
-//        }
-            _addOne.value?.let {
-//        Log.d("Patrick", "it.weight=${it.weight}")
-                it.weight = it.weight.plus(5)
+    fun plusWeight() {
+        _addOne.value?.let {
+            it.weight = it.weight.plus(5)
+            _addOne.value = _addOne.value
+        }
+    }
+
+    fun minusWeight() {
+        _addOne.value?.let {
+            if (it.weight >=5 ) {
+                it.weight = it.weight.minus(5)
                 _addOne.value = _addOne.value
-            }
-        }
-
-        fun minusWeight() {
-//        _addTrainingRecordd.value?.let {
-//            it.weight = it.weight.minus(5)
-//            _addTrainingRecordd.value = _addTrainingRecordd.value
-            _addOne.value?.let {
-                if (it.weight >=5 ) {
-                    it.weight = it.weight.minus(5)
-                    _addOne.value = _addOne.value
                 } else {
-                    it.weight = 5
-                    _addOne.value = _addOne.value
+                it.weight = 5
+                _addOne.value = _addOne.value
                 }
             }
         }
 
-        fun plusOrderSet() {
-//        _addTrainingRecordd.value?.let {
-//            it.orderSet = it.orderSet.plus(1)
-//            _addTrainingRecordd.value = _addTrainingRecordd.value
-            _addOne.value?.let {
-                it.orderSet = it.orderSet.plus(1)
-                _addOne.value = _addOne.value
+    fun plusOrderSet() {
+        _addOne.value?.let {
+            it.orderSet = it.orderSet.plus(1)
+            _addOne.value = _addOne.value
             }
         }
 
-        fun minusOrderSet() {
-//        _addTrainingRecordd.value?.let {
-//            it.orderSet = it.orderSet.minus(1)
-//            _addTrainingRecordd.value = _addTrainingRecordd.value
-            _addOne.value?.let {
-                if (it.orderSet > 0) {
-                    it.orderSet = it.orderSet.minus(1)
-                    _addOne.value = _addOne.value
-                } else {
-                    it.orderSet = 1
-                    _addOne.value = _addOne.value
+    fun minusOrderSet() {
+        _addOne.value?.let {
+            if (it.orderSet > 0) {
+                it.orderSet = it.orderSet.minus(1)
+                _addOne.value = _addOne.value
+            } else {
+                it.orderSet = 1
+                _addOne.value = _addOne.value
                 }
             }
         }

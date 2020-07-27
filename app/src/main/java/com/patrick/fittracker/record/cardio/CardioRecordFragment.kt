@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.databinding.CardioRecordFragmentBinding
 import com.patrick.fittracker.databinding.TestLayoutBinding
 import com.patrick.fittracker.ext.getVmFactory
+import com.patrick.fittracker.network.LoadApiStatus
 import kotlinx.android.synthetic.main.cardio_record_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import java.io.File
@@ -48,6 +50,7 @@ class CardioRecordFragment : DialogFragment() {
     }
 
     var instantcal: Long = 0
+    var recordImage: String = ""
 
 
     override fun onCreateView(
@@ -96,17 +99,21 @@ class CardioRecordFragment : DialogFragment() {
         })
 
         binding.finishButton.setOnClickListener {
-
-            viewModel.uploadCardioStatusRecord()
+            viewModel.showLoadingStatus()
+            Handler().postDelayed( {
+            viewModel.addCardioRecordd.value?.recordImage = recordImage
             viewModel.addCardioRecordd.value?.name = viewModel.cardioItem.value?.cardio_title.toString()
             viewModel.addCardioRecordd.value?.burnFat = instantcal
             viewModel.addCardioRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
-            if (viewModel.addCardioRecordd.value != null) {
-                findNavController().navigate(NavigationDirections.actionGlobalCardioFinishFragment())
-            } else {
-                Toast.makeText(requireContext(),"Something went wrong. Please wait!",Toast.LENGTH_LONG).show()
-            }
+                viewModel.uploadCardioStatusRecord()
+                if (viewModel.addCardioRecordd.value != null) {
+                    findNavController().navigate(NavigationDirections.actionGlobalCardioFinishFragment())
+                } else {
+                    Toast.makeText(requireContext(),"Something went wrong. Please wait!",Toast.LENGTH_LONG).show()
+                }
+            }, 3000)
         }
+
 
         binding.cancelButton.setOnClickListener {
             dismiss()
@@ -212,7 +219,8 @@ class CardioRecordFragment : DialogFragment() {
             ref.putFile(it)
                 .addOnSuccessListener {
                     ref.downloadUrl.addOnSuccessListener {
-                        viewModel.addCardioRecordd.value?.recordImage = it.toString()
+                        recordImage = it.toString()
+//                        viewModel.addCardioRecordd.value?.recordImage = it.toString()
                     }
                 }
         }

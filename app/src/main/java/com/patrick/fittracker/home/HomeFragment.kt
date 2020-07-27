@@ -46,6 +46,13 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(NavigationDirections.actionGlobalCardioSelectionFragment())
             }
         }
+
+        binding.cardViewLocation.setOnClickListener{
+            it?.let {
+                findNavController().navigate(NavigationDirections.actionGlobalLocationFragment())
+            }
+        }
+
         return binding.root
     }
 

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -116,32 +117,39 @@ class RecordFragment : Fragment() {
         }
 
         binding.finishRecord.setOnClickListener {
+            viewModel.showLoadingStatus()
 //            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+            Handler().postDelayed({
 
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
-                ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
-//            Log.d("aaaaaaaaaaa", imageUri)
+                viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
+                    ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
 
-            if (viewModel.addInsert.value != null) {
-                findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Some Thing When Wrong, Please Wait!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+                if (viewModel.addInsert.value != null) {
+                    findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Some Thing When Wrong, Please Wait!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            },3000)
+
         }
 
         binding.recordAnother.setOnClickListener {
-//            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
-                ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
-            if (viewModel.addInsert.value != null) {
-                findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
-            } else{
-                Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_SHORT).show()
-            }
+            viewModel.showLoadingStatus()
+            Handler().postDelayed({
+                viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
+                    ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
+                if (viewModel.addInsert.value != null) {
+                    findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
+                } else{
+                    Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_SHORT).show()
+                }
+            },3000)
+
         }
 
         if (savedInstanceState != null) {

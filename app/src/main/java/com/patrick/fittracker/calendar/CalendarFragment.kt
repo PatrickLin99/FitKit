@@ -1,5 +1,6 @@
 package com.patrick.fittracker.calendar
 
+import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -71,7 +72,9 @@ class CalendarFragment : Fragment() {
 
         val adapter = CalendarEventAdapter(CalendarEventAdapter.OnClickListener{
             it?.let {
+
                 findNavController().navigate(NavigationDirections.actionGlobalEventDetailFragment(it))
+
             }
         })
         binding.recyclerViewCalendarEvent.adapter = adapter
