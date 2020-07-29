@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.GymLocation
-import com.patrick.fittracker.data.GymLocationListResult
-import com.patrick.fittracker.data.Result
-import com.patrick.fittracker.data.User
+import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.data.source.remote.FitTrackerRemoteDataSource.getLocationList
 import com.patrick.fittracker.network.FitTrackerAipService
@@ -31,8 +28,13 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
 
     private val _gymList = MutableLiveData<GymLocationListResult>()
 
-    val gymList: LiveData<GymLocationListResult>
+    val gymList: MutableLiveData<GymLocationListResult>
         get() = _gymList
+
+    private val _detatilResult = MutableLiveData<List<DetailResults>>()
+
+    val detailResult: MutableLiveData<List<DetailResults>>
+        get() = _detatilResult
 
 
 
@@ -124,6 +126,7 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
+                    _detatilResult.value = result.data.results
                     result.data
                 }
                 is Result.Fail -> {

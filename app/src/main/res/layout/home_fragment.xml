@@ -428,7 +428,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:letterSpacing="0.08"
-                        android:text="有氧訓練"
+                        android:text="鄰近健身房"
                         android:textColor="@color/colorDarkGray"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -441,7 +441,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="燃脂"
+                        android:text="位置"
                         android:textColor="@color/colorDarkGray"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/maintitle_location"
@@ -451,8 +451,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

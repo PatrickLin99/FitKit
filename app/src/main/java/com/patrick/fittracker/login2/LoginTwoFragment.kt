@@ -4,6 +4,9 @@ import android.content.ContentValues
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,6 +32,7 @@ import com.patrick.fittracker.databinding.LoginFragmentBinding
 import com.patrick.fittracker.databinding.LoginTwoFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.login.LoginViewModel
+import com.patrick.fittracker.util.Util.getColor
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -58,6 +62,11 @@ class LoginTwoFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         binding.textView42.setOnClickListener { signIn() }
+
+        val mainTitle = binding.loginMainTitle
+        val span: Spannable = SpannableString(mainTitle.getText())
+        span.setSpan(ForegroundColorSpan(getColor(R.color.colorAccent)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        mainTitle.setText(span)
 
 
         return  binding.root
@@ -142,11 +151,17 @@ class LoginTwoFragment : Fragment() {
 
     override fun onResume() {
         (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
+        (activity as AppCompatActivity).toolbar.visibility = View.GONE
+        (activity as AppCompatActivity).main_title_spannable_test.visibility = View.GONE
+
         super.onResume()
     }
 
     override fun onStop() {
         (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
+        (activity as AppCompatActivity).toolbar.visibility = View.VISIBLE
+        (activity as AppCompatActivity).main_title_spannable_test.visibility = View.VISIBLE
+
         super.onStop()
     }
 

@@ -3,6 +3,11 @@ package com.patrick.fittracker.home
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +20,7 @@ import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.R
 import com.patrick.fittracker.databinding.HomeFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
+import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeFragment : Fragment() {
 
@@ -52,6 +58,7 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(NavigationDirections.actionGlobalLocationFragment())
             }
         }
+
 
         return binding.root
     }

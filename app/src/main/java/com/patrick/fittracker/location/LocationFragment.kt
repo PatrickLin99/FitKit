@@ -1,13 +1,12 @@
 package com.patrick.fittracker.location
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
-import android.os.UserManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +15,13 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.patrick.fittracker.R
@@ -69,7 +70,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
                                 MarkerOptions().position(it2)
                                     .title(viewModel.gymList.value?.results?.get(i)?.name)
                             }
-                        )
+                        ).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.gym_icon))
                     }
                 }
             })
@@ -79,7 +80,13 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
             permission()
 
             locationManager()
-            map.isMyLocationEnabled = true
+            if (UserManger.currentLocation.latitude != null) {
+                viewModel.gymList.observe(viewLifecycleOwner, Observer {
+                    it?.let {
+                        map.isMyLocationEnabled = true
+                    }
+                })
+            }
         }
     }
 
@@ -136,15 +143,26 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                         0L, 0f, locationListener)
                     oriLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
                 }
             } catch(ex: SecurityException) {
                 Log.d("myTag", "Security Exception, no location available")
             }
         UserManger.currentLocation.latitude = oriLocation?.latitude
         UserManger.currentLocation.longitude = oriLocation?.longitude
+        viewModel.getLocationListResult(key = getString(R.string.google_maps_key), location = "${UserManger.currentLocation.latitude},${UserManger.currentLocation.longitude}",radius = 800, language = "zh-TW", keyword = "健身")
+
+
+//            UserManger.currentLocation.longitude = 121.565023
+//            UserManger.currentLocation.latitude = 25.042994
+
         Log.d("Usermanager.currentlocation","${UserManger.currentLocation.latitude},${UserManger.currentLocation.longitude}")
         if(oriLocation != null) {
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(oriLocation!!.latitude, oriLocation!!.longitude), 15.0f))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(oriLocation!!.latitude, oriLocation!!.longitude), 15.4f))
+//            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(25.042994,121.565023), 15.0f))
+
+            UserManger.currentLocation.latitude = oriLocation!!.latitude
+            UserManger.currentLocation.longitude = oriLocation!!.longitude
         }
     }
 
@@ -153,7 +171,8 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
             if(oriLocation == null) {
                 oriLocation = location
             }
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 15.0f))
+            //keep CameraOn
+//            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 15.4f))
 
         }
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
@@ -175,17 +194,40 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         val binding = LocationFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
+        permission()
+//        locationManager()
         binding.mapView.visibility = View.GONE
 
         binding.findNearGym.setOnClickListener {
             binding.mapView.visibility = View.VISIBLE
-            permission()
+//            permission()
             viewModel.getLocationListResult(key = getString(R.string.google_maps_key), location = "${UserManger.currentLocation.latitude},${UserManger.currentLocation.longitude}",radius = 800, language = "zh-TW", keyword = "健身")
-
+            mapView.getMapAsync(this)
+            mapView.onResume()
         }
 
+        val adapter = GymLocationAdapter()
+        binding.recyclerViewLocationList.adapter = adapter
+
+//        viewModel.gymList.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                adapter.submitList(it.results)
+////                viewModel.detailResult.value = viewModel.gymList.value?.results
+//                Log.d("aaaaaaassssssxxxxxxxx","${viewModel.detailResult.value}")
+//            }
+//        })
+
+        viewModel.detailResult.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+                Log.d("aaaaaaassssssxxxxxxxx","${viewModel.detailResult.value}")
+            }
+        })
+
+
         viewModel.getLocationResult()
+
+
 
         return binding.root
     }

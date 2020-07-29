@@ -1,6 +1,7 @@
 package com.patrick.fittracker.linechart.cardiochart
 
 import android.graphics.Color
+import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -132,6 +133,13 @@ class CardioChartFragment : Fragment() {
 //                    dataSet.circleHoleColor = Color.parseColor("#bfc0c0")
                     dataSet.circleRadius = 4f
 
+                    //Set background gridient color
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                        dataSet.setDrawFilled(true)
+                        val fillGradient = ContextCompat.getDrawable(requireContext(), R.drawable.chart_gradient_fill)
+                        dataSet.fillDrawable = fillGradient
+                    }
+
                 }
                 setData()
 
@@ -215,6 +223,14 @@ class CardioChartFragment : Fragment() {
                     dataSet.setCircleColors(Color.parseColor("#aa4465"))
 //                    dataSet.circleHoleColor = Color.parseColor("#bfc0c0")
                     dataSet.circleRadius = 4f
+
+                    //Set background gridient color
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                        dataSet.setDrawFilled(true)
+                        val fillGradient = ContextCompat.getDrawable(requireContext(), R.drawable.cardio_cgart_dradient)
+                        dataSet.fillDrawable = fillGradient
+                    }
+
 
                 }
                 setDataCal()
