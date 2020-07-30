@@ -3,6 +3,8 @@ package com.patrick.fittracker.location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
 import com.patrick.fittracker.data.*
@@ -35,6 +37,12 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
 
     val detailResult: MutableLiveData<List<DetailResults>>
         get() = _detatilResult
+
+    // it for location list position design
+    private val _snapPosition = MutableLiveData<Int>()
+
+    val snapPosition: LiveData<Int>
+        get() = _snapPosition
 
 
 
@@ -76,6 +84,10 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+    }
+
+    fun cameraMove(){
+
     }
 
     fun getLocationResult() {
@@ -143,6 +155,17 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
                     _error.value = ("R.string.you_know_nothing")
                     _status.value = LoadApiStatus.ERROR
                     null
+                }
+            }
+        }
+    }
+
+    fun onGalleryScrollChange(layoutManager: RecyclerView.LayoutManager?, linearSnapHelper: LinearSnapHelper) {
+        val snapView = linearSnapHelper.findSnapView(layoutManager)
+        snapView?.let {
+            layoutManager?.getPosition(snapView)?.let {
+                if (it != snapPosition.value) {
+                    _snapPosition.value = it
                 }
             }
         }

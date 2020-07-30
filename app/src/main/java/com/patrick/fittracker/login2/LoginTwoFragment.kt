@@ -32,6 +32,7 @@ import com.patrick.fittracker.databinding.LoginFragmentBinding
 import com.patrick.fittracker.databinding.LoginTwoFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.login.LoginViewModel
+import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Util.getColor
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -127,6 +128,8 @@ class LoginTwoFragment : Fragment() {
                     viewModel.addUnserInfo.value?.let { viewModel.uploadUserInfo(user = it) }
 
                     findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+                    viewModel.showLoadingStatus()
+
 
                 } else {
                     // If sign in fails, display a message to the user.

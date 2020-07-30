@@ -123,16 +123,29 @@
         android:id="@+id/finishRecordFragment"
         android:name="com.patrick.fittracker.finish.FinishRecordFragment"
         android:label="FinishRecordFragment" />
-    <action android:id="@+id/action_global_finishRecordFragment" app:destination="@id/finishRecordFragment" />
+    <action
+        android:id="@+id/action_global_finishRecordFragment"
+        app:destination="@id/finishRecordFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/classOptionFinishFragment"
         android:name="com.patrick.fittracker.finish.classoption.ClassOptionFinishFragment"
-        android:label="ClassOptionFinishFragment" /><action android:id="@+id/action_global_classOptionFinishFragment" app:destination="@id/classOptionFinishFragment"/>
+        android:label="ClassOptionFinishFragment" />
+    <action
+        android:id="@+id/action_global_classOptionFinishFragment"
+        app:destination="@id/classOptionFinishFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/cardioFinishFragment"
         android:name="com.patrick.fittracker.finish.cardiofinish.CardioFinishFragment"
         android:label="CardioFinishFragment" />
-    <action android:id="@+id/action_global_cardioFinishFragment" app:destination="@id/cardioFinishFragment" />
+    <action
+        android:id="@+id/action_global_cardioFinishFragment"
+        app:destination="@id/cardioFinishFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/weightChartFragment"
         android:name="com.patrick.fittracker.linechart.WeightChartFragment"
@@ -187,5 +200,6 @@
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.patrick.fittracker.location.LocationFragment"
-        android:label="LocationFragment" /><action android:id="@+id/action_global_locationFragment" app:destination="@id/locationFragment"/>
+        android:label="LocationFragment" />
+    <action android:id="@+id/action_global_locationFragment" app:destination="@id/locationFragment" />
 </navigation>

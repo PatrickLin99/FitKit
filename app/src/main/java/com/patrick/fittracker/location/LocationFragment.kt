@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -201,26 +202,39 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         binding.findNearGym.setOnClickListener {
             binding.mapView.visibility = View.VISIBLE
 //            permission()
-            viewModel.getLocationListResult(key = getString(R.string.google_maps_key), location = "${UserManger.currentLocation.latitude},${UserManger.currentLocation.longitude}",radius = 800, language = "zh-TW", keyword = "健身")
+            viewModel.getLocationListResult(key = getString(R.string.google_maps_key), location = "${UserManger.currentLocation.latitude},${UserManger.currentLocation.longitude}",radius = 600, language = "zh-TW", keyword = "健身")
             mapView.getMapAsync(this)
             mapView.onResume()
         }
 
-        val adapter = GymLocationAdapter()
+        val adapter = GymLocationAdapter(GymLocationAdapter.OnClickListener{
+
+        })
         binding.recyclerViewLocationList.adapter = adapter
 
-//        viewModel.gymList.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                adapter.submitList(it.results)
-////                viewModel.detailResult.value = viewModel.gymList.value?.results
-//                Log.d("aaaaaaassssssxxxxxxxx","${viewModel.detailResult.value}")
-//            }
-//        })
+        val linearSnapHelper = LinearSnapHelper().apply {
+            attachToRecyclerView(binding.recyclerViewLocationList)
+        }
+
+        binding.recyclerViewLocationList.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            viewModel.onGalleryScrollChange(
+                binding.recyclerViewLocationList.layoutManager, linearSnapHelper
+            )
+        }
+
+
+            viewModel.snapPosition.observe(viewLifecycleOwner, Observer {
+                adapter.selectedPosition.value
+                val cameraLat = viewModel.detailResult.value?.get(it)?.geometry?.location?.lat?.toDouble()
+                val cameraLng = viewModel.detailResult.value?.get(it)?.geometry?.location?.lng?.toDouble()
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(cameraLat!!, cameraLng!!), 15.4f))
+
+                Log.d("nnnnnnnnaaaaaaaaa","${viewModel.snapPosition.value }")
+            })
 
         viewModel.detailResult.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
-                Log.d("aaaaaaassssssxxxxxxxx","${viewModel.detailResult.value}")
             }
         })
 

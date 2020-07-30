@@ -42,7 +42,7 @@ class WeightChartFragment : Fragment() {
 
         val recordKey = WeightChartFragmentArgs.fromBundle(requireArguments()).recordKey
 
-        Log.d("recordKey", "${recordKey.name}")
+        Log.d("recordKey", recordKey.name)
 
         viewModel.getWeightRecordRecordResult(recordKey)
         binding.analysisMuscleTitle.text = recordKey.name
@@ -50,19 +50,15 @@ class WeightChartFragment : Fragment() {
         viewModel.record.observe(viewLifecycleOwner, Observer {
             it?.let { records ->
 
-                Log.d("viewModel size", "${records.size}")
-
-                var weightListSize: Int = records.size.minus(1)
-
-                if (records.size > 10) {
-                    weightListSize = 10
+                var weightListSizeStart : Int = if (records.size > 10) {
+                    records.size.minus(10)
                 } else {
-                    weightListSize = records.size.minus(1)
+                    0
                 }
 
                 fun setData() {
                     val entries: MutableList<Entry> = ArrayList()
-                    for (i in 0..weightListSize) {
+                    for (i in weightListSizeStart until it.size) {
 
                         records.sortedBy { records[i].createdTime }[i].fitDetail.maxBy { fitDetail ->  fitDetail.weight }?.weight?.toFloat()
                             ?.let { it1 ->

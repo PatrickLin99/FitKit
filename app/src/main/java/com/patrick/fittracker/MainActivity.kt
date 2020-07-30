@@ -56,7 +56,7 @@ class MainActivity : BaseActivity() {
 //                    binding.toolbar.setBackgroundColor(applicationContext.getColor(R.color.colorWhite))
 //                    binding.mainTitleTwo.setTextColor((applicationContext.getColor(R.color.colorLightBlack)))
 
-                    main_title_spannable_test.text = "FIT SELECTION"
+                    main_title_spannable_test.text = "FIT CHALLENGE"
                     val mainTitle = main_title_spannable_test
                     val span: Spannable = SpannableString(mainTitle.getText())
                     span.setSpan(ForegroundColorSpan(getColor(R.color.colorAccent)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

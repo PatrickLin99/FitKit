@@ -16,12 +16,13 @@ import com.patrick.fittracker.databinding.FinishRecordFragmentBinding
 import com.patrick.fittracker.databinding.RecordFragmentTestBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.record.selftraining.RecordFragmentArgs
+import kotlin.properties.Delegates
 
 class FinishRecordFragment : Fragment() {
 
 //    private lateinit var viewModel: FinishRecordViewModel
     private val viewModel by viewModels<FinishRecordViewModel> { getVmFactory() }
-
+    private var sameFragment by Delegates.notNull<Boolean>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,11 +32,24 @@ class FinishRecordFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        sameFragment = true
+        Handler().postDelayed({
+            if (sameFragment){
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+            }
+        },3000)
 
-        Handler().postDelayed({ findNavController().navigate(NavigationDirections.actionGlobalHomeFragment()) },3000)
+        binding.backToHome.setOnClickListener {
+            findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+        }
 
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        sameFragment = false
     }
 
 }
