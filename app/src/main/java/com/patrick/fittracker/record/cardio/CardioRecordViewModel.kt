@@ -37,6 +37,11 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     val addCardioRecordd: LiveData<CardioRecord>
         get() = _addCardioRecordd
 
+    val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
+
+    val photoUpload : LiveData<Boolean>
+        get() = _photoUpload
+
 
 
     //---------------------------------------------------------------------------------------------------

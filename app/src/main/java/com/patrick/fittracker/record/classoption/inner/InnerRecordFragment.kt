@@ -109,29 +109,46 @@ class InnerRecordFragment : Fragment() {
 
         binding.recordAnother.setOnClickListener {
             viewModel.showLoadingStatus()
-            Handler().postDelayed({
 
-//            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
-                viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1,0,imageUri) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+                viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
+                    if (viewModel.photoUpload.value == true || viewModel.photoUpload.value == null) {
+                        viewModel.addInsert.value?.let { it1 ->
+                            InsertRecord(
+                                InnerRecordFragmentArgs.fromBundle(
+                                    requireArguments()
+                                ).classKey, it1, 0, imageUri
+                            )
+                        }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
 
-                if (viewModel.addInsert.value != null) {
-                    findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
-                } else {
-                    Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
-                }
+                        if (viewModel.addInsert.value != null) {
+                            findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Some Thing When Wrong, Please Wait!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                })
 
-            }, 3000)
         }
 
         binding.finishRecord.setOnClickListener {
             viewModel.showLoadingStatus()
-            Handler().postDelayed({viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1,0,imageUri) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
+            viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
+                if (viewModel.photoUpload.value == true || viewModel.photoUpload.value == null) {
+
+            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1,0,imageUri) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
 
                 if (viewModel.addInsert.value != null) {
                     findNavController().navigate(NavigationDirections.actionGlobalClassOptionFinishFragment())
                 } else {
                     Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
-                }},3000)
+                }
+
+                }
+            })
 
         }
 
@@ -242,11 +259,13 @@ class InnerRecordFragment : Fragment() {
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
         saveUri?.let {
+            viewModel._photoUpload.value = false
             ref.putFile(it)
                 .addOnSuccessListener {
                     ref.downloadUrl.addOnSuccessListener {
 //                        newRecord.recordImage = it.toString()
                         imageUri = it.toString()
+                        viewModel._photoUpload.value = imageUri != ""
 
                     }
                 }

@@ -17,7 +17,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(RequestOptions()
                 .placeholder(R.drawable.placeholder_temp_two)
-                .error(R.drawable.imageholder_error))
+                .error(R.drawable.biceps_placeholder))
             .into(imgView)
     }
 }

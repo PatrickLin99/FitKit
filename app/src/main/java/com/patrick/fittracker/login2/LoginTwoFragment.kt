@@ -81,9 +81,9 @@ class LoginTwoFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            viewModel.showLoadingStatus()
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -128,7 +128,6 @@ class LoginTwoFragment : Fragment() {
                     viewModel.addUnserInfo.value?.let { viewModel.uploadUserInfo(user = it) }
 
                     findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
-                    viewModel.showLoadingStatus()
 
 
                 } else {

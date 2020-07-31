@@ -1,5 +1,7 @@
 package com.patrick.fittracker
 
+import android.app.Activity
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -33,6 +35,8 @@ class MainActivity : BaseActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         val toolbar = supportActionBar
         toolbar?.setDisplayHomeAsUpEnabled(true)

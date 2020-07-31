@@ -37,6 +37,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
     val add: LiveData<List<InsertRecord>>
         get() = _add
 
+
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
     private val _addOne = MutableLiveData<FitDetail>().apply {
@@ -67,6 +68,12 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 
     val navigateToPoseSelect : LiveData<RecordSetOrder>
         get() = _navigateToPoseSelect
+
+
+    val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
+
+    val photoUpload : LiveData<Boolean>
+        get() = _photoUpload
 
 
 //---------------------------------------------------------------------------------------------------

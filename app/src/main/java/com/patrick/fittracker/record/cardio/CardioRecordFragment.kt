@@ -65,7 +65,6 @@ class CardioRecordFragment : DialogFragment() {
         initData()
 
         viewModel.addCardioRecordd.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.d("test22222222222", it.duration.toString())
             when(viewModel.cardioItem.value?.cardio_title){
                 "羽毛球" -> instantcal = it.duration.times(153).div(30)
                 "棒球" -> instantcal = it.duration.times(141).div(30)
@@ -100,18 +99,29 @@ class CardioRecordFragment : DialogFragment() {
 
         binding.finishButton.setOnClickListener {
             viewModel.showLoadingStatus()
-            Handler().postDelayed( {
-            viewModel.addCardioRecordd.value?.recordImage = recordImage
-            viewModel.addCardioRecordd.value?.name = viewModel.cardioItem.value?.cardio_title.toString()
-            viewModel.addCardioRecordd.value?.burnFat = instantcal
-            viewModel.addCardioRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
+
+            viewModel.photoUpload.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if (viewModel._photoUpload.value == true || viewModel._photoUpload.value == null) {
+                viewModel.addCardioRecordd.value?.recordImage = recordImage
+                viewModel.addCardioRecordd.value?.name =
+                    viewModel.cardioItem.value?.cardio_title.toString()
+                viewModel.addCardioRecordd.value?.burnFat = instantcal
+                viewModel.addCardioRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
                 viewModel.uploadCardioStatusRecord()
                 if (viewModel.addCardioRecordd.value != null) {
                     findNavController().navigate(NavigationDirections.actionGlobalCardioFinishFragment())
                 } else {
-                    Toast.makeText(requireContext(),"Something went wrong. Please wait!",Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Something went wrong. Please wait!",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
-            }, 3000)
+            } else {
+                Toast.makeText(requireContext(),"Loading",Toast.LENGTH_LONG).show()
+            }
+
+            })
         }
 
 
@@ -216,11 +226,12 @@ class CardioRecordFragment : DialogFragment() {
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
         saveUri?.let {
+            viewModel._photoUpload.value = false
             ref.putFile(it)
                 .addOnSuccessListener {
                     ref.downloadUrl.addOnSuccessListener {
                         recordImage = it.toString()
-//                        viewModel.addCardioRecordd.value?.recordImage = it.toString()
+                        viewModel._photoUpload.value = recordImage != ""
                     }
                 }
         }

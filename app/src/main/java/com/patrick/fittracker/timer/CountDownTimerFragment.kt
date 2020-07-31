@@ -40,7 +40,7 @@ class CountDownTimerFragment : BottomSheetDialogFragment() {
                         binding.enterTime.visibility = View.INVISIBLE
                         binding.countingClock.visibility = View.VISIBLE
                         binding.startCounting.visibility = View.GONE
-                        
+
                         object : CountDownTimer(it1*1000, 1000) {
                             override fun onTick(millisUntilFinished: Long) {
 //                                binding.countingClock.setText("seconds remaining: " + millisUntilFinished / 1000)

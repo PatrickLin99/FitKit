@@ -119,37 +119,49 @@ class RecordFragment : Fragment() {
         binding.finishRecord.setOnClickListener {
             viewModel.showLoadingStatus()
 //            viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1) }?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
-            Handler().postDelayed({
+            viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
+                if (viewModel.photoUpload.value == true || viewModel.photoUpload.value == null) {
+                    viewModel.addInsert.value?.let { it1 ->
+                        InsertRecord(
+                            muscleKey,
+                            it1,
+                            0,
+                            imageUri
+                        )
+                    }
+                        ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
 
-                viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
-                    ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
-
-                if (viewModel.addInsert.value != null) {
-                    findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Some Thing When Wrong, Please Wait!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (viewModel.addInsert.value != null) {
+                        findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Some Thing When Wrong, Please Wait!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else{
+                    Toast.makeText(requireContext(),"Loading", Toast.LENGTH_LONG).show()
                 }
-
-            },3000)
-
+            })
         }
 
         binding.recordAnother.setOnClickListener {
             viewModel.showLoadingStatus()
-            Handler().postDelayed({
-                viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
+
+            viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
+                if (viewModel.photoUpload.value == true || viewModel.photoUpload.value == null) {
+                    viewModel.addInsert.value?.let { it1 -> InsertRecord(muscleKey, it1, 0, imageUri) }
                     ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
                 if (viewModel.addInsert.value != null) {
                     findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
-                } else{
+                } else {
                     Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(),"Loading", Toast.LENGTH_LONG).show()
                 }
-            },3000)
-
+            })
         }
 
         if (savedInstanceState != null) {
@@ -223,7 +235,6 @@ class RecordFragment : Fragment() {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         val uri = data!!.data
-//                        upload_image_placeholder_weight.setImageURI(uri)
                         saveUri = data.data
                         saveUri.let {
                             uploadImage()
@@ -254,11 +265,13 @@ class RecordFragment : Fragment() {
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
         saveUri?.let {
+            viewModel._photoUpload.value = false
             ref.putFile(it)
                 .addOnSuccessListener {
                     ref.downloadUrl.addOnSuccessListener {
 //                        newRecord.recordImage = it.toString()
                         imageUri = it.toString()
+                        viewModel._photoUpload.value = imageUri != ""
 
                     }
                 }
