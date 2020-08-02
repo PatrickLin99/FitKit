@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -59,6 +61,8 @@ class CardioRecordFragment : DialogFragment() {
     ): View? {
         val binding = CardioRecordFragmentBinding.inflate(inflater, container,false)
 
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -109,7 +113,8 @@ class CardioRecordFragment : DialogFragment() {
                 viewModel.addCardioRecordd.value?.let { it1 -> viewModel.uploadCardioRecordData(it1) }
                 viewModel.uploadCardioStatusRecord()
                 if (viewModel.addCardioRecordd.value != null) {
-                    findNavController().navigate(NavigationDirections.actionGlobalCardioFinishFragment())
+                    val cardioKey : String = viewModel.cardioItem.value?.cardio_title?:""
+                        findNavController().navigate(NavigationDirections.actionGlobalCardioFinishFragment(cardioKey))
                 } else {
                     Toast.makeText(
                         requireContext(),

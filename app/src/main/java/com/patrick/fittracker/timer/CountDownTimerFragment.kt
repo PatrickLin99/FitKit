@@ -1,16 +1,20 @@
 package com.patrick.fittracker.timer
 
 import android.content.Context
+import android.media.Ringtone
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.patrick.fittracker.databinding.CountDownTimerFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
@@ -19,6 +23,8 @@ import com.patrick.fittracker.ext.getVmFactory
 class CountDownTimerFragment : BottomSheetDialogFragment() {
 
     private val viewModel by viewModels <CountDownTimerViewModel> { getVmFactory() }
+    lateinit var vibrator: Vibrator
+    lateinit var vibrationEffect: VibrationEffect
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +56,14 @@ class CountDownTimerFragment : BottomSheetDialogFragment() {
 
                             override fun onFinish() {
                                 binding.countingClock.text = "完成"
+                                vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                                vibrationEffect = VibrationEffect.createOneShot(3000, 250)
+                                vibrator.vibrate(vibrationEffect)
 
+//                                val ringtone: Ringtone
+//                                val notification: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+//                                val r = RingtoneManager.getRingtone(getApplicationContext(), notification)
+//                                r.play()
 
                             }
                         }.start()

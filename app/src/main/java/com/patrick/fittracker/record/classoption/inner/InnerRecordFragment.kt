@@ -91,7 +91,6 @@ class InnerRecordFragment : Fragment() {
             viewModel.minusOrderSet()
         }
 
-
         var orderNum : Long = 0
 
         binding.addRecord.setOnClickListener {

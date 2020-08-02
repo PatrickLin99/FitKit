@@ -55,6 +55,11 @@ class RecordViewModel(private val repository: FitTrackerRepository,
     val addInsert: LiveData<MutableList<FitDetail>>
         get() = _addInsert
 
+    private var _navigateToFinish = MutableLiveData<String>().apply { value = muscleKey }
+
+    val navigateToFinish : LiveData<String>
+        get() = _navigateToFinish
+
 
     private val _addInsertTest = MutableLiveData<MutableList<InsertRecord>>().apply {
         value = mutableListOf()

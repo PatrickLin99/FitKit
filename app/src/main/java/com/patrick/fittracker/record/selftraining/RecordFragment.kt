@@ -132,7 +132,12 @@ class RecordFragment : Fragment() {
                         ?.let { it2 -> viewModel.uploadRecord(insertRecord = it2) }
 
                     if (viewModel.addInsert.value != null) {
-                        findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
+//                        findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment())
+                        viewModel.navigateToFinish.observe(viewLifecycleOwner, Observer {
+                            it?.let {
+                                findNavController().navigate(NavigationDirections.actionGlobalFinishRecordFragment(it))
+                            }
+                        })
                     } else {
                         Toast.makeText(
                             requireContext(),

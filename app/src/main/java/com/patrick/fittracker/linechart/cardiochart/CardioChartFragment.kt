@@ -63,6 +63,8 @@ class CardioChartFragment : Fragment() {
 
                 fun setData() {
                     val entries: MutableList<Entry> = ArrayList()
+                    val labels : ArrayList<String> = ArrayList()
+
                     for (i in cardioListSizeStart until it.size) {
 
                         viewModel.record.value?.get(i)?.duration?.toFloat()?.let { it1 ->
@@ -72,14 +74,16 @@ class CardioChartFragment : Fragment() {
                             )
                         }?.let { it2 -> entries.add(it2) }
 
-                        val labels = arrayOf(it[i].createdTime.let { time ->
-                            TimeUtil.AnalysisStampToDate(
-                                time, Locale.TAIWAN)
-                        })
+//                        val labels = arrayOf(it[i].createdTime.let { time ->
+//                            TimeUtil.AnalysisStampToDate(
+//                                time, Locale.TAIWAN)
+//                        })
+
+                        labels.add(TimeUtil.AnalysisStampToDate(it[i].createdTime, Locale.TAIWAN))
 
                         binding.lineChart.xAxis.apply {
                             valueFormatter = IndexAxisValueFormatter(labels)
-                            labelCount = 3
+                            labelCount = 4
                             position = XAxis.XAxisPosition.BOTTOM
                             setDrawLabels(true)
                             setDrawGridLines(false)
@@ -122,7 +126,7 @@ class CardioChartFragment : Fragment() {
                     binding.lineChart.axisLeft.setStartAtZero(true)
                     binding.lineChart.axisLeft.setStartAtZero(true)
                     binding.lineChart.axisLeft.setAxisMaxValue(200f)
-                    binding.lineChart.axisLeft.setLabelCount(4,false)
+                    binding.lineChart.axisLeft.setLabelCount(2,false)
                     binding.lineChart.axisLeft.textSize = 14f
                     binding.lineChart.axisLeft.textColor = R.color.colorLightBlack
 
@@ -180,6 +184,7 @@ class CardioChartFragment : Fragment() {
 
                 fun setDataCal() {
                     val entries: MutableList<Entry> = ArrayList()
+                    val labels: ArrayList<String> = ArrayList()
                     for (i in cardioListSizeStart until it.size) {
 
                         viewModel.record.value?.get(i)?.burnFat?.toFloat()?.let { it1 ->
@@ -189,14 +194,16 @@ class CardioChartFragment : Fragment() {
                             )
                         }?.let { it2 -> entries.add(it2) }
 
-                        val labels = arrayOf(viewModel.record.value?.get(i)?.createdTime?.let { time ->
-                            TimeUtil.AnalysisStampToDate(
-                                time, Locale.TAIWAN)
-                        })
+//                        val labels = arrayOf(viewModel.record.value?.get(i)?.createdTime?.let { time ->
+//                            TimeUtil.AnalysisStampToDate(
+//                                time, Locale.TAIWAN)
+//                        })
+
+                        labels.add(TimeUtil.AnalysisStampToDate(it[i].createdTime, Locale.TAIWAN))
 
                         binding.lineChartCal.xAxis.apply {
                             valueFormatter = IndexAxisValueFormatter(labels)
-                            labelCount = 3
+                            labelCount = 4
                             position = XAxis.XAxisPosition.BOTTOM
                             setDrawLabels(true)
                             setDrawGridLines(false)
@@ -240,7 +247,7 @@ class CardioChartFragment : Fragment() {
                     binding.lineChartCal.axisLeft.setStartAtZero(true)
                     binding.lineChartCal.axisLeft.setStartAtZero(true)
                     binding.lineChartCal.axisLeft.setAxisMaxValue(1200f)
-                    binding.lineChartCal.axisLeft.setLabelCount(4,false)
+                    binding.lineChartCal.axisLeft.setLabelCount(3,false)
                     binding.lineChartCal.axisLeft.textSize = 14f
                     binding.lineChartCal.axisLeft.textColor = R.color.colorLightBlack
 

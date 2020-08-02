@@ -8,6 +8,9 @@
     <!-- Profile -->
     <dimen name="radius_profile_avatar">80dp</dimen>
 
+    <!-- Profile -->
+    <dimen name="image_avatar">16dp</dimen>
+
 
 
 </resources>

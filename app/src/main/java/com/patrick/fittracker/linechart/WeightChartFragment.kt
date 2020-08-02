@@ -58,6 +58,7 @@ class WeightChartFragment : Fragment() {
 
                 fun setData() {
                     val entries: MutableList<Entry> = ArrayList()
+                    val labels: ArrayList<String> = ArrayList()
                     for (i in weightListSizeStart until it.size) {
 
                         records.sortedBy { records[i].createdTime }[i].fitDetail.maxBy { fitDetail ->  fitDetail.weight }?.weight?.toFloat()
@@ -79,10 +80,12 @@ class WeightChartFragment : Fragment() {
                         )
 
                         val xAxis = binding.lineChart.xAxis
-                        val labels = arrayOf(viewModel.record.value?.get(i)?.createdTime?.let { time ->
-                            TimeUtil.AnalysisStampToDate(
-                                time, Locale.TAIWAN)
-                        })
+//                        val labels = arrayOf(viewModel.record.value?.get(i)?.createdTime?.let { time ->
+//                            TimeUtil.AnalysisStampToDate(
+//                                time, Locale.TAIWAN)
+//                        })
+
+                        labels.add(TimeUtil.AnalysisStampToDate(it[i].createdTime, Locale.TAIWAN))
 
                         xAxis.apply {
                                     valueFormatter = IndexAxisValueFormatter(labels)
@@ -130,7 +133,7 @@ class WeightChartFragment : Fragment() {
                     binding.lineChart.axisLeft.setStartAtZero(true)
                     binding.lineChart.axisLeft.setStartAtZero(true)
                     binding.lineChart.axisLeft.setAxisMaxValue(200f)
-                    binding.lineChart.axisLeft.setLabelCount(4,false)
+                    binding.lineChart.axisLeft.setLabelCount(2,false)
                     binding.lineChart.axisLeft.textSize = 14f
                     binding.lineChart.axisLeft.textColor = R.color.colorLightBlack
 

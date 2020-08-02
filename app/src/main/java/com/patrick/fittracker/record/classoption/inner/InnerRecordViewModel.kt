@@ -35,6 +35,11 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
     val photoUpload : LiveData<Boolean>
         get() = _photoUpload
 
+    private var _navigateToFinish = MutableLiveData<String>()
+
+    val navigateToFinish : LiveData<String>
+        get() = _navigateToFinish
+
     //---------------------------------------------------------------------------------------------------
 
 

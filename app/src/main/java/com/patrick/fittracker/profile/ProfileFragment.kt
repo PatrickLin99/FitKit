@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
                 viewModel.getLoginInfoResult()
 //                viewModel.refresh()
                 when (viewModel.UserInfo.value?.userProfile?.info_bodyFat) {
-                    in 3..8.toLong() -> binding.superLowBodyFat.visibility = View.VISIBLE
+                    in 1..8.toLong() -> binding.superLowBodyFat.visibility = View.VISIBLE
                     in 8..12.toLong() -> binding.lowBodyFat.visibility = View.VISIBLE
                     in 13..20.toLong() -> binding.fitBodyFat.visibility = View.VISIBLE
                     in 20..50.toLong() -> binding.highBodyFat.visibility = View.VISIBLE

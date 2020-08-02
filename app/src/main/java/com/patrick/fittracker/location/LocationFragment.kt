@@ -96,11 +96,8 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), 0)
-        } else
-//            startIntent()
-            Toast.makeText(requireContext(),"aaaaaaaaaaaaaaaa",Toast.LENGTH_LONG).show()
+        } }
 
-    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == 0) {

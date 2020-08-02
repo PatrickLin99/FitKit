@@ -13,6 +13,8 @@ import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
+import com.patrick.fittracker.profile.CardioSelectionOutlineProvider
+import com.patrick.fittracker.profile.ProfileAvatarOutlineProvider
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,7 +44,7 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     val photoUpload : LiveData<Boolean>
         get() = _photoUpload
 
-
+    val outlineProvider = CardioSelectionOutlineProvider()
 
     //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
