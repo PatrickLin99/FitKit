@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.patrick.fittracker.databinding.CountDownTimerFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory

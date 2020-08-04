@@ -26,212 +26,212 @@
         android:layout_height="match_parent"
         android:background="@color/colorWhite">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/constraintLayout"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
+
+        <TextView
+            android:id="@+id/record_muscle_main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:letterSpacing="0.1"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/add_tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="148dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/record_muscle_main_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_tools_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite">
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:letterSpacing="0.1"
+                    android:text="重量"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView23"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:letterSpacing="0.1"
+                    android:text="組數"
+                    android:textSize="18sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textView22" />
+
+                <TextView
+                    android:id="@+id/weight_to_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{String.valueOf(viewModel.addOne.weight)}"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="22sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView22"
+                    app:layout_constraintStart_toStartOf="@+id/textView22"
+                    app:layout_constraintTop_toBottomOf="@+id/textView22"
+                    tools:text="重量" />
+
+                <TextView
+                    android:id="@+id/set_to_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(viewModel.addOne.orderSet)}"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="22sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/weight_to_add"
+                    app:layout_constraintEnd_toEndOf="@+id/textView23"
+                    app:layout_constraintStart_toStartOf="@+id/textView23"
+                    tools:text="組數" />
+
+                <ImageView
+                    android:id="@+id/weight_add_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="24dp"
+                    android:alpha="0.8"
+                    app:layout_constraintBottom_toBottomOf="@+id/weight_to_add"
+                    app:layout_constraintStart_toEndOf="@+id/weight_to_add"
+                    app:layout_constraintTop_toTopOf="@+id/weight_to_add"
+                    app:srcCompat="@drawable/add" />
+
+                <ImageView
+                    android:id="@+id/weight_min_button"
+                    android:layout_width="34dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="24dp"
+                    android:alpha="0.8"
+                    app:layout_constraintBottom_toBottomOf="@+id/weight_to_add"
+                    app:layout_constraintEnd_toStartOf="@+id/weight_to_add"
+                    app:layout_constraintTop_toTopOf="@+id/weight_to_add"
+                    app:srcCompat="@drawable/remove" />
+
+                <ImageView
+                    android:id="@+id/set_add_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="24dp"
+                    android:alpha="0.8"
+                    app:layout_constraintBottom_toBottomOf="@+id/set_to_add"
+                    app:layout_constraintStart_toEndOf="@+id/set_to_add"
+                    app:layout_constraintTop_toTopOf="@+id/set_to_add"
+                    app:srcCompat="@drawable/add" />
+
+                <ImageView
+                    android:id="@+id/set_min_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="24dp"
+                    android:alpha="0.8"
+                    app:layout_constraintBottom_toBottomOf="@+id/set_to_add"
+                    app:layout_constraintEnd_toStartOf="@+id/set_to_add"
+                    app:layout_constraintTop_toTopOf="@+id/set_to_add"
+                    app:layout_constraintVertical_bias="0.461"
+                    app:srcCompat="@drawable/remove" />
+
+                <View
+                    android:id="@+id/view17"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_view_light_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/add_record"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginBottom="8dp"-->
+                <!--                        android:letterSpacing="0.08"-->
+                <!--                        android:text=""-->
+                <!--                        android:textColor="@color/colorDarkGray"-->
+                <!--                        android:textSize="22sp"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                        app:layout_constraintHorizontal_bias="0.529"-->
+                <!--                        app:layout_constraintStart_toStartOf="parent" />-->
+
+                <ImageView
+                    android:id="@+id/add_record"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view17"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view17"
+                    app:srcCompat="@drawable/record_check" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/count_down_timer"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/record_muscle_main_title"
+            app:layout_constraintEnd_toEndOf="@+id/add_tools"
+            app:layout_constraintTop_toTopOf="@+id/record_muscle_main_title"
+            app:srcCompat="@drawable/count_down_timer" />
+
+        <ImageView
+            android:id="@+id/add_photo"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/record_muscle_main_title"
+            app:layout_constraintStart_toStartOf="@+id/add_tools"
+            app:layout_constraintTop_toTopOf="@+id/record_muscle_main_title"
+            app:srcCompat="@drawable/add_photo" />
+
+        <ProgressBar
+            android:id="@+id/progressBar10"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/record_muscle_main_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:letterSpacing="0.1"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/add_tools"
-                android:layout_width="match_parent"
-                android:layout_height="148dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/record_muscle_main_title">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/add_tools_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorWhite">
-
-                    <TextView
-                        android:id="@+id/textView22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="32dp"
-                        android:letterSpacing="0.1"
-                        android:text="重量"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/textView23"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:letterSpacing="0.1"
-                        android:text="組數"
-                        android:textSize="18sp"
-                        app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView22" />
-
-                    <TextView
-                        android:id="@+id/weight_to_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@{String.valueOf(viewModel.addOne.weight)}"
-                        android:textColor="@color/colorLightBlack"
-                        android:textSize="22sp"
-                        app:layout_constraintEnd_toEndOf="@+id/textView22"
-                        app:layout_constraintStart_toStartOf="@+id/textView22"
-                        app:layout_constraintTop_toBottomOf="@+id/textView22"
-                        tools:text="重量" />
-
-                    <TextView
-                        android:id="@+id/set_to_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.addOne.orderSet)}"
-                        android:textColor="@color/colorLightBlack"
-                        android:textSize="22sp"
-                        app:layout_constraintBaseline_toBaselineOf="@+id/weight_to_add"
-                        app:layout_constraintEnd_toEndOf="@+id/textView23"
-                        app:layout_constraintStart_toStartOf="@+id/textView23"
-                        tools:text="組數" />
-
-                    <ImageView
-                        android:id="@+id/weight_add_button"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginStart="24dp"
-                        android:alpha="0.8"
-                        app:layout_constraintBottom_toBottomOf="@+id/weight_to_add"
-                        app:layout_constraintStart_toEndOf="@+id/weight_to_add"
-                        app:layout_constraintTop_toTopOf="@+id/weight_to_add"
-                        app:srcCompat="@drawable/add" />
-
-                    <ImageView
-                        android:id="@+id/weight_min_button"
-                        android:layout_width="34dp"
-                        android:layout_height="36dp"
-                        android:layout_marginEnd="24dp"
-                        android:alpha="0.8"
-                        app:layout_constraintBottom_toBottomOf="@+id/weight_to_add"
-                        app:layout_constraintEnd_toStartOf="@+id/weight_to_add"
-                        app:layout_constraintTop_toTopOf="@+id/weight_to_add"
-                        app:srcCompat="@drawable/remove" />
-
-                    <ImageView
-                        android:id="@+id/set_add_button"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_marginStart="24dp"
-                        android:alpha="0.8"
-                        app:layout_constraintBottom_toBottomOf="@+id/set_to_add"
-                        app:layout_constraintStart_toEndOf="@+id/set_to_add"
-                        app:layout_constraintTop_toTopOf="@+id/set_to_add"
-                        app:srcCompat="@drawable/add" />
-
-                    <ImageView
-                        android:id="@+id/set_min_button"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginEnd="24dp"
-                        android:alpha="0.8"
-                        app:layout_constraintBottom_toBottomOf="@+id/set_to_add"
-                        app:layout_constraintEnd_toStartOf="@+id/set_to_add"
-                        app:layout_constraintTop_toTopOf="@+id/set_to_add"
-                        app:layout_constraintVertical_bias="0.461"
-                        app:srcCompat="@drawable/remove" />
-
-                    <View
-                        android:id="@+id/view17"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/round_view_light_grey"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <!--                    <TextView-->
-                    <!--                        android:id="@+id/add_record"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginBottom="8dp"-->
-                    <!--                        android:letterSpacing="0.08"-->
-                    <!--                        android:text=""-->
-                    <!--                        android:textColor="@color/colorDarkGray"-->
-                    <!--                        android:textSize="22sp"-->
-                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--                        app:layout_constraintHorizontal_bias="0.529"-->
-                    <!--                        app:layout_constraintStart_toStartOf="parent" />-->
-
-                    <ImageView
-                        android:id="@+id/add_record"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/view17"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/view17"
-                        app:srcCompat="@drawable/record_check" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <ImageView
-                android:id="@+id/count_down_timer"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                app:layout_constraintBottom_toBottomOf="@+id/record_muscle_main_title"
-                app:layout_constraintEnd_toEndOf="@+id/add_tools"
-                app:layout_constraintTop_toTopOf="@+id/record_muscle_main_title"
-                app:srcCompat="@drawable/count_down_timer" />
-
-            <ImageView
-                android:id="@+id/add_photo"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                app:layout_constraintBottom_toBottomOf="@+id/record_muscle_main_title"
-                app:layout_constraintStart_toStartOf="@+id/add_tools"
-                app:layout_constraintTop_toTopOf="@+id/record_muscle_main_title"
-                app:srcCompat="@drawable/add_photo" />
-
-            <ProgressBar
-                android:id="@+id/progressBar10"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/classOption_recyclerView_show_add_list"
@@ -242,7 +242,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@+id/view16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_tools"
             tools:listitem="@layout/item_classoption_inner_record">
 
@@ -252,13 +252,13 @@
             android:id="@+id/view16"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/colorLightGray"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
+            android:background="@color/colorLightGray"
             app:layout_constraintBottom_toTopOf="@+id/record_another"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
             android:id="@+id/record_another"

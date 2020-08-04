@@ -33,35 +33,33 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
     private const val PATH_ARTICLES_USER = "users"
     private const val PATH_ARTICLES_GYM_LOCATION = "gymlist"
 
-    override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> = suspendCoroutine { continuation ->
+    override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection(PATH_ARTICLES_MUSCLE_GROUP)
+                .document(group.value)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
 
-        FirebaseFirestore.getInstance()
-            .collection(PATH_ARTICLES_MUSCLE_GROUP)
-            .document(group.value)
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+                        val selectedMuscleGroup =
+                            task.result?.toObject(SelectedMuscleGroup::class.java)
 
-                    val selectedMuscleGroup = task.result?.toObject(SelectedMuscleGroup::class.java)
+                        selectedMuscleGroup?.let {
 
-                    selectedMuscleGroup?.let {
+                            continuation.resume(Result.Success(it))
 
-                        continuation.resume(Result.Success(it))
+                        }
 
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
                     }
-
-                } else {
-                    task.exception?.let {
-
-//                        Log.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
-                    }
-                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
-                }
-            }
-
-    }
+                 }
+             }
 
     override suspend fun getSetOrderNum(group: SetOrderFilter): Result<RecordSetOrder>  = suspendCoroutine { continuation ->
 

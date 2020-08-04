@@ -9,7 +9,7 @@ import com.patrick.fittracker.BuildConfig
  */
 object Logger {
 
-    private const val TAG = "Wayne-Publisher"
+    private const val TAG = "Patrick-FitTracker"
 
     fun v(content: String) { if (BuildConfig.LOGGER_VISIABLE) Log.v(TAG, content) }
     fun d(content: String) { if (BuildConfig.LOGGER_VISIABLE) Log.d(TAG, content) }
