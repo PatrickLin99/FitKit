@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.UserManger
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.User
 import com.patrick.fittracker.data.UserProfile
 import com.patrick.fittracker.databinding.EditProfileFragmentBinding

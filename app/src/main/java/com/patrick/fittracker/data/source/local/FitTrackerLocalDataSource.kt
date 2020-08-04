@@ -25,22 +25,6 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>> {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun addCardioRecord(cardioRecord: CardioRecord): Result<Boolean> {
         TODO("Not yet implemented")
     }
@@ -57,7 +41,7 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addRecordTest(insertRecord: InsertRecord): Result<Boolean> {
+    override suspend fun addSelfRecord(insertRecord: InsertRecord): Result<Boolean> {
         TODO("Not yet implemented")
     }
 

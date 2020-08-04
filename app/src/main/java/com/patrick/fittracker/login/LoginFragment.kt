@@ -30,7 +30,6 @@ import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.R
 import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.classoption.ClassOptionViewModel
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.User
 import com.patrick.fittracker.databinding.LoginFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory

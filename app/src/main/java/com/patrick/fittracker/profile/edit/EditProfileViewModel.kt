@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
 import com.patrick.fittracker.UserManger
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.User
 import com.patrick.fittracker.data.UserProfile

@@ -8,26 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.patrick.fittracker.data.Cardio
 import com.patrick.fittracker.databinding.ItemCardioSelectionBinding
 
-//class CardioSelectionAdapter {
-//}
+class CardioSelectionAdapter(val onClickListener: OnClickListener) :
+    ListAdapter<Cardio, CardioSelectionAdapter.CardioSelectionViewHolder>(DiffCallback) {
 
-class CardioSelectionAdapter(val onClickListener: OnClickListener):
-//class CardioSelectionAdapter():
-    ListAdapter<Cardio, CardioSelectionAdapter.CardioSelectionViewHolder>(
-        DiffCallback
-    ){
-
-    class CardioSelectionViewHolder(private var binding: ItemCardioSelectionBinding):
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(cardio:Cardio){
+    class CardioSelectionViewHolder(private var binding: ItemCardioSelectionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(cardio: Cardio) {
             binding.cardio = cardio
             binding.executePendingBindings()
 
         }
     }
 
-
-    companion object DiffCallback: DiffUtil.ItemCallback<Cardio>(){
+    companion object DiffCallback : DiffUtil.ItemCallback<Cardio>() {
         override fun areContentsTheSame(oldItem: Cardio, newItem: Cardio): Boolean {
             return oldItem == newItem
         }
@@ -43,7 +36,7 @@ class CardioSelectionAdapter(val onClickListener: OnClickListener):
         )
     }
 
-    override fun onBindViewHolder(holder: CardioSelectionViewHolder, position: Int){
+    override fun onBindViewHolder(holder: CardioSelectionViewHolder, position: Int) {
         val cardio = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(cardio)

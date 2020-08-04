@@ -25,26 +25,6 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         return remoteDataSource.getClassOption()
     }
 
-    override suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
-        return remoteDataSource.addRecord(addTrainingRecord)
-    }
-
-//    override fun getLiveRecord(): MutableLiveData<List<AddTrainingRecord>> {
-//        return  remoteDataSource.getLiveRecord()
-//    }
-
-    override suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>> {
-        return remoteDataSource.getRecord(muscleKey)
-    }
-
-    override suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
-        return remoteDataSource.addClassRecord(addTrainingRecord)
-    }
-
-    override suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>> {
-        return remoteDataSource.getClassRecord(classKey)
-    }
-
     override suspend fun addCardioRecord(cardioRecord: CardioRecord): Result<Boolean> {
         return remoteDataSource.addCardioRecord(cardioRecord)
     }
@@ -61,8 +41,8 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         return remoteDataSource.getProfileInfo(userProfile)
     }
 
-    override suspend fun addRecordTest(insertRecord: InsertRecord): Result<Boolean> {
-        return remoteDataSource.addRecordTest(insertRecord)
+    override suspend fun addSelfRecord(insertRecord: InsertRecord): Result<Boolean> {
+        return remoteDataSource.addSelfRecord(insertRecord)
     }
 
     override suspend fun getTrainingRecord(): Result<List<InsertRecord>> {

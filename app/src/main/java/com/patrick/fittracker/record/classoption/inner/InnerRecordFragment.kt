@@ -28,12 +28,10 @@ import com.patrick.fittracker.NavigationDirections
 
 import com.patrick.fittracker.R
 import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.InnerRecordFragmentBinding
 import com.patrick.fittracker.databinding.PoseSelectFragmentBinding
-import com.patrick.fittracker.databinding.RecordFragmentTestBinding
 import com.patrick.fittracker.databinding.TestLayoutBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.record.selftraining.RecordAdapter

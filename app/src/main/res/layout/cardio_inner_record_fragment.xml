@@ -8,10 +8,6 @@
             name="viewModel"
             type="com.patrick.fittracker.record.cardio.innerrecord.CardioInnerRecordViewModel" />
 
-        <variable
-            name="add"
-            type="com.patrick.fittracker.data.AddTrainingRecord" />
-
     </data>
 
 

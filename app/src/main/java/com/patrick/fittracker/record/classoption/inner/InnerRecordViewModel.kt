@@ -18,17 +18,17 @@ import kotlinx.coroutines.launch
 
 class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-    private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
-        value = AddTrainingRecord()
-    }
-
-    val addTrainingRecordd: LiveData<AddTrainingRecord>
-        get() = _addTrainingRecordd
-
-    private val _add = MutableLiveData<List<AddTrainingRecord>>()
-
-    val add: LiveData<List<AddTrainingRecord>>
-        get() = _add
+//    private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
+//        value = AddTrainingRecord()
+//    }
+//
+//    val addTrainingRecordd: LiveData<AddTrainingRecord>
+//        get() = _addTrainingRecordd
+//
+//    private val _add = MutableLiveData<List<AddTrainingRecord>>()
+//
+//    val add: LiveData<List<AddTrainingRecord>>
+//        get() = _add
 
     val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
 
@@ -120,7 +120,7 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addRecordTest(insertRecord)) {
+            when (val result = repository.addSelfRecord(insertRecord)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -173,39 +173,39 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
 //        }
 //    }
 
-    fun getClassInnerRecordResult(classKey: String) {
-
-        coroutineScope.launch {
-
-            _status.value = LoadApiStatus.LOADING
-
-            val result = repository.getClassRecord(classKey)
-
-            _add.value = when (result) {
-                is Result.Success -> {
-                    _error.value = null
-                    _status.value = LoadApiStatus.DONE
-                    result.data
-                }
-                is Result.Fail -> {
-                    _error.value = result.error
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                is Result.Error -> {
-                    _error.value = result.exception.toString()
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-            }
-            _refreshStatus.value = false
-        }
-    }
+//    fun getClassInnerRecordResult(classKey: String) {
+//
+//        coroutineScope.launch {
+//
+//            _status.value = LoadApiStatus.LOADING
+//
+//            val result = repository.getClassRecord(classKey)
+//
+//            _add.value = when (result) {
+//                is Result.Success -> {
+//                    _error.value = null
+//                    _status.value = LoadApiStatus.DONE
+//                    result.data
+//                }
+//                is Result.Fail -> {
+//                    _error.value = result.error
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//                is Result.Error -> {
+//                    _error.value = result.exception.toString()
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//                else -> {
+//                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//            }
+//            _refreshStatus.value = false
+//        }
+//    }
 
     fun showLoadingStatus(){
         _status.value = LoadApiStatus.LOADING

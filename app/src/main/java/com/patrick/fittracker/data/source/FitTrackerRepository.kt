@@ -17,16 +17,6 @@ interface FitTrackerRepository {
 
     suspend fun getClassOption (): Result<List<ClassOption>>
 
-    suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
-
-//     fun getLiveRecord(): MutableLiveData<List<AddTrainingRecord>>
-
-    suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>>
-
-    suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
-
-    suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>>
-
     suspend fun addCardioRecord(cardioRecord: CardioRecord): Result<Boolean>
 
     suspend fun addUserInfo(user: User): Result<Boolean>
@@ -35,7 +25,7 @@ interface FitTrackerRepository {
 
     suspend fun getProfileInfo (userProfile: UserProfile): Result<List<UserProfile>>
 
-    suspend fun addRecordTest(insertRecord: InsertRecord): Result<Boolean>
+    suspend fun addSelfRecord(insertRecord: InsertRecord): Result<Boolean>
 
     suspend fun getTrainingRecord(): Result<List<InsertRecord>>
 

@@ -11,12 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
-
-import com.patrick.fittracker.R
 import com.patrick.fittracker.databinding.FinishRecordFragmentBinding
-import com.patrick.fittracker.databinding.RecordFragmentTestBinding
 import com.patrick.fittracker.ext.getVmFactory
-import com.patrick.fittracker.record.selftraining.RecordFragmentArgs
 import kotlin.properties.Delegates
 
 class FinishRecordFragment : Fragment() {

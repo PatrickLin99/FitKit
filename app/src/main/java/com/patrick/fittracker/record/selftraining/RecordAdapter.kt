@@ -5,13 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.FitDetail
-import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.ItemRecordAddSetBinding
 
 
-//class RecordAdapter(val onClickListener: OnClickListener):
 class RecordAdapter():
     ListAdapter<FitDetail, RecordAdapter.RecordViewHolder>(DiffCallback){
 
@@ -23,7 +20,6 @@ class RecordAdapter():
 
         }
     }
-
 
     companion object DiffCallback: DiffUtil.ItemCallback<FitDetail>(){
         override fun areContentsTheSame(oldItem: FitDetail, newItem: FitDetail): Boolean {
@@ -43,13 +39,6 @@ class RecordAdapter():
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int){
         val menu = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(menu)
-//        }
         holder.bind(menu)
-    }
-
-    class OnClickListener(val clickListener: (add: AddTrainingRecord) -> Unit) {
-        fun onClick(add: AddTrainingRecord) = clickListener(add)
     }
 }

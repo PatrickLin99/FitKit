@@ -22,25 +22,23 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class ClassOptionFragment : Fragment() {
 
-//    private lateinit var viewModel: ClassOptionViewModel
-    private val viewModel by viewModels <ClassOptionViewModel> {getVmFactory()}
-
+    private val viewModel by viewModels<ClassOptionViewModel> { getVmFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = ClassOptionFragmentBinding.inflate(inflater, container,false)
-
+        val binding = ClassOptionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val adapter = ClassOptionAdapter(ClassOptionAdapter.OnClickListener{
+        val adapter = ClassOptionAdapter(ClassOptionAdapter.OnClickListener {
             viewModel.navigateToCardioRecord(it)
         })
+
         binding.recyclerViewClassOption.adapter = adapter
 
-        viewModel.classiption.observe(viewLifecycleOwner, Observer {
+        viewModel.classOption.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
@@ -48,19 +46,17 @@ class ClassOptionFragment : Fragment() {
 
         viewModel.navigationToClassOptionRecord.observe(viewLifecycleOwner, Observer {
             it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalClassOptionRecordFragment(it))
+                findNavController().navigate(
+                    NavigationDirections.actionGlobalClassOptionRecordFragment(
+                        it
+                    )
+                )
                 viewModel.navigateToCardioRecordDone()
             }
         })
 
-
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-
-
         return binding.root
     }
-
 
     override fun onResume() {
         (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
@@ -71,5 +67,4 @@ class ClassOptionFragment : Fragment() {
         (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
         super.onStop()
     }
-
 }

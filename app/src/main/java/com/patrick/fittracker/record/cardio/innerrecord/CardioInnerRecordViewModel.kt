@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.source.FitTrackerRepository
@@ -20,12 +19,12 @@ import kotlinx.coroutines.launch
 
 class CardioInnerRecordViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-    private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
-        value = AddTrainingRecord()
-    }
-
-    val addTrainingRecordd: LiveData<AddTrainingRecord>
-        get() = _addTrainingRecordd
+//    private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
+//        value = AddTrainingRecord()
+//    }
+//
+//    val addTrainingRecordd: LiveData<AddTrainingRecord>
+//        get() = _addTrainingRecordd
 
 
 

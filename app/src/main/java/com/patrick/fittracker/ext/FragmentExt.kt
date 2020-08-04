@@ -22,11 +22,6 @@ fun Fragment.getVmFactory(group: MuscleGroupTypeFilter): SelectedMuscleViewModel
     return SelectedMuscleViewModelFactory(repository, group)
 }
 
-//fun Fragment.getVmFactory(addTrainingRecord: AddTrainingRecord): RecordViewModelFactory {
-//    val repository = (requireContext().applicationContext as FitTrackerApplication).repository
-//    return RecordViewModelFactory(repository, addTrainingRecord)
-//}
-
 fun Fragment.getVmFactory(cardio: Cardio): CardioSelectionRecordViewModelFactory {
     val repository = (requireContext().applicationContext as FitTrackerApplication).repository
     return CardioSelectionRecordViewModelFactory(repository, cardio)

@@ -16,16 +16,6 @@ interface FitTrackerDataSource {
 
     suspend fun getClassOption (): Result<List<ClassOption>>
 
-    suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
-
-//     fun getLiveRecord(): MutableLiveData<List<AddTrainingRecord>>
-
-    suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>>
-
-    suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean>
-
-    suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>>
-
     suspend fun addCardioRecord(cardioRecord: CardioRecord): Result<Boolean>
 
     suspend fun addUserInfo(user: User): Result<Boolean>
@@ -34,7 +24,7 @@ interface FitTrackerDataSource {
 
     suspend fun getProfileInfo (userProfile: UserProfile): Result<List<UserProfile>>
 
-    suspend fun addRecordTest(insertRecord: InsertRecord): Result<Boolean>
+    suspend fun addSelfRecord(insertRecord: InsertRecord): Result<Boolean>
 
     suspend fun getTrainingRecord(): Result<List<InsertRecord>>
 
@@ -54,22 +44,4 @@ interface FitTrackerDataSource {
 
     suspend fun getLocationList(key: String, location: String, radius: Int, language: String, keyword: String): Result<GymLocationListResult>
 
-
-
-
-
-
-
-
-
-
-//    suspend fun login(id: String): Result<Author>
-//
-//    suspend fun getArticles(): Result<List<Article>>
-//
-//    fun getLiveArticles(): MutableLiveData<List<Article>>
-//
-//    suspend fun publish(article: Article): Result<Boolean>
-//
-//    suspend fun delete(article: Article): Result<Boolean>
 }

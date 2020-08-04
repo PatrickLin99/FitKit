@@ -1,7 +1,6 @@
 package com.patrick.fittracker.data
 
 /**
- * Created by Wayne Chen on 2020-01-15.
  *
  * A generic class that holds a value with its api status.
  * @param <T>
