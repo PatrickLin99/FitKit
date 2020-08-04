@@ -13,8 +13,11 @@ import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerDataSource
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
+import com.patrick.fittracker.network.FitTrackerAipService
+import com.patrick.fittracker.network.FitTrackerApi
 import com.patrick.fittracker.record.selftraining.SetOrderFilter
 import com.patrick.fittracker.util.Logger
+import com.patrick.fittracker.util.Util.isInternetConnected
 import java.text.SimpleDateFormat
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -28,7 +31,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
     private const val PATH_ARTICLES_CARDIO = "cardio"
     private const val PATH_ARTICLES_CLASS_OPTION = "class_option"
     private const val PATH_ARTICLES_USER = "users"
-
+    private const val PATH_ARTICLES_GYM_LOCATION = "gymlist"
 
     override suspend fun getSelectedMuscleGroupMenu(group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup> = suspendCoroutine { continuation ->
 
@@ -591,6 +594,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 //            .whereEqualTo("name","俯臥腿彎曲")
 //            .whereGreaterThan("createdTime","1594644296569")
 //            .whereLessThan("createdTime","1594649425984")
+            .orderBy("createdTime", Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -829,6 +833,62 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
                     continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
                 }
             }
+    }
+
+    override suspend fun getLocationInfo(): Result<GymLocation> = suspendCoroutine { continuation ->
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES_GYM_LOCATION)
+//            .whereEqualTo("location", "${UserManger.userID}")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    var gymLocation1 = GymLocation()
+                    for (document in task.result!!) {
+
+                        Logger.d(document.id + " => " + document.data)
+
+                        val gymLocation = document.toObject(GymLocation::class.java)
+                        gymLocation1 = gymLocation
+                    }
+                    continuation.resume(Result.Success(gymLocation1))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
+    override suspend fun getLocationList(
+        key: String,
+        location: String,
+        radius: Int,
+        language: String,
+        keyword: String
+    ): Result<GymLocationListResult> {
+
+        if (!isInternetConnected()) {
+            return Result.Fail("internet_not_connected")
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = FitTrackerApi.retrofitService.getLocationList(key = key, location = location, radius = radius, language = language )
+
+            listResult.error?.let {
+                return Result.Fail(it)
+            }
+            Result.Success(listResult)
+
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
     }
 
 

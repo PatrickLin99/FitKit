@@ -30,6 +30,16 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
     val add: LiveData<List<AddTrainingRecord>>
         get() = _add
 
+    val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
+
+    val photoUpload : LiveData<Boolean>
+        get() = _photoUpload
+
+    private var _navigateToFinish = MutableLiveData<String>()
+
+    val navigateToFinish : LiveData<String>
+        get() = _navigateToFinish
+
     //---------------------------------------------------------------------------------------------------
 
 
@@ -195,6 +205,10 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
             }
             _refreshStatus.value = false
         }
+    }
+
+    fun showLoadingStatus(){
+        _status.value = LoadApiStatus.LOADING
     }
 
 

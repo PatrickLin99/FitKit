@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginTwoFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -16,7 +16,9 @@
         android:name="com.patrick.fittracker.calendar.CalendarFragment"
         android:label="calendar_fragment"
         tools:layout="@layout/calendar_fragment" />
-    <action android:id="@+id/action_global_calendarFragment" app:destination="@id/calendarFragment" />
+    <action
+        android:id="@+id/action_global_calendarFragment"
+        app:destination="@id/calendarFragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.patrick.fittracker.profile.ProfileFragment"
@@ -56,7 +58,11 @@
             android:name="muscleKey"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_recordFragment" app:destination="@id/recordFragment" />
+    <action
+        android:id="@+id/action_global_recordFragment"
+        app:destination="@id/recordFragment"
+        app:popUpTo="@id/poseSelectFragment"
+        app:popUpToInclusive="true" />
     <dialog
         android:id="@+id/addSuccessFragment"
         android:name="com.patrick.fittracker.addsuccess.AddSuccessFragment"
@@ -101,7 +107,11 @@
             android:name="classKey"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_innerRecordFragment" app:destination="@id/innerRecordFragment" />
+    <action
+        android:id="@+id/action_global_innerRecordFragment"
+        app:destination="@id/innerRecordFragment"
+        app:popUpTo="@id/classOptionRecordFragment"
+        app:popUpToInclusive="true" />
     <dialog
         android:id="@+id/loginFragment"
         android:name="com.patrick.fittracker.login.LoginFragment"
@@ -114,17 +124,38 @@
     <fragment
         android:id="@+id/finishRecordFragment"
         android:name="com.patrick.fittracker.finish.FinishRecordFragment"
-        android:label="FinishRecordFragment" />
-    <action android:id="@+id/action_global_finishRecordFragment" app:destination="@id/finishRecordFragment" />
+        android:label="FinishRecordFragment" >
+        <argument
+            android:name="recordKey"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_finishRecordFragment"
+        app:destination="@id/finishRecordFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/classOptionFinishFragment"
         android:name="com.patrick.fittracker.finish.classoption.ClassOptionFinishFragment"
-        android:label="ClassOptionFinishFragment" /><action android:id="@+id/action_global_classOptionFinishFragment" app:destination="@id/classOptionFinishFragment"/>
+        android:label="ClassOptionFinishFragment" />
+    <action
+        android:id="@+id/action_global_classOptionFinishFragment"
+        app:destination="@id/classOptionFinishFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/cardioFinishFragment"
         android:name="com.patrick.fittracker.finish.cardiofinish.CardioFinishFragment"
-        android:label="CardioFinishFragment" />
-    <action android:id="@+id/action_global_cardioFinishFragment" app:destination="@id/cardioFinishFragment" />
+        android:label="CardioFinishFragment" >
+        <argument
+            android:name="cardioKey"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_cardioFinishFragment"
+        app:destination="@id/cardioFinishFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/weightChartFragment"
         android:name="com.patrick.fittracker.linechart.WeightChartFragment"
@@ -166,4 +197,19 @@
             android:name="recordKey"
             app:argType="com.patrick.fittracker.data.CardioRecord" />
     </dialog><action android:id="@+id/action_global_eventDetailCardioFragment" app:destination="@id/eventDetailCardioFragment"/>
+    <fragment
+        android:id="@+id/loginTwoFragment"
+        android:name="com.patrick.fittracker.login2.LoginTwoFragment"
+        android:label="LoginTwoFragment" />
+    <action android:id="@+id/action_global_loginTwoFragment" app:destination="@id/loginTwoFragment" />
+    <dialog
+        android:id="@+id/countDownTimerFragment"
+        android:name="com.patrick.fittracker.timer.CountDownTimerFragment"
+        android:label="CountDownTimerFragment" />
+    <action android:id="@+id/action_global_countDownTimerFragment" app:destination="@id/countDownTimerFragment" />
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.patrick.fittracker.location.LocationFragment"
+        android:label="LocationFragment" />
+    <action android:id="@+id/action_global_locationFragment" app:destination="@id/locationFragment" />
 </navigation>

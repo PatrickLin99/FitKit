@@ -16,11 +16,13 @@ import com.patrick.fittracker.databinding.ClassOptionFinishFragmentBinding
 import com.patrick.fittracker.databinding.ClassOptionFragmentBinding
 import com.patrick.fittracker.databinding.InnerRecordFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
+import kotlin.properties.Delegates
 
 class ClassOptionFinishFragment : Fragment() {
 
 
     private val viewModel by viewModels <ClassOptionFinishViewModel> {getVmFactory()}
+    private var sameFragment by Delegates.notNull<Boolean>()
 
 
     override fun onCreateView(
@@ -30,11 +32,20 @@ class ClassOptionFinishFragment : Fragment() {
         val binding = ClassOptionFinishFragmentBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
-        Handler().postDelayed({ findNavController().navigate(NavigationDirections.actionGlobalHomeFragment()) },3000)
+        sameFragment = true
+        Handler().postDelayed({
+            if (sameFragment){
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+            }
+        },3000)
 
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        sameFragment = false
     }
 
 

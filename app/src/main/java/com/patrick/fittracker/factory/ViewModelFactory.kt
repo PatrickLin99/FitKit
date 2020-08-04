@@ -19,12 +19,15 @@ import com.patrick.fittracker.finish.classoption.ClassOptionFinishViewModel
 import com.patrick.fittracker.home.HomeViewModel
 import com.patrick.fittracker.linechart.WeightChartViewModel
 import com.patrick.fittracker.linechart.cardiochart.CardioChartViewModel
+import com.patrick.fittracker.location.LocationViewModel
 import com.patrick.fittracker.login.LoginViewModel
 import com.patrick.fittracker.profile.ProfileViewModel
 import com.patrick.fittracker.profile.edit.EditProfileViewModel
 import com.patrick.fittracker.record.cardio.CardioRecordViewModel
+import com.patrick.fittracker.record.cardio.innerrecord.CardioInnerRecordViewModel
 import com.patrick.fittracker.record.classoption.inner.InnerRecordViewModel
 import com.patrick.fittracker.record.selftraining.RecordViewModel
+import com.patrick.fittracker.timer.CountDownTimerViewModel
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -121,7 +124,22 @@ class ViewModelFactory constructor(
                         repository
                     )
 
-                else ->
+                isAssignableFrom(CardioInnerRecordViewModel ::class.java) ->
+                    CardioInnerRecordViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(CountDownTimerViewModel ::class.java) ->
+                    CountDownTimerViewModel(
+                        repository
+                    )
+
+                isAssignableFrom(LocationViewModel ::class.java) ->
+                    LocationViewModel(
+                        repository
+                    )
+
+                        else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
         } as T

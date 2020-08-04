@@ -7,7 +7,8 @@ import kotlinx.android.parcel.Parcelize
 data class InsertRecord(
     var name: String = "",
     var fitDetail: List<FitDetail> = listOf(),
-    var createdTime: Long = 0
+    var createdTime: Long = 0,
+    var recordImage: String = ""
 ) : Parcelable
 
 
@@ -16,4 +17,4 @@ data class FitDetail (
     var orderSet: Long = 0,
     var weight: Long = 5,
     var count: Long = 0
-    ) : Parcelable
+) : Parcelable

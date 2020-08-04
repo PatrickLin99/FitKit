@@ -151,4 +151,5 @@ class WeightChartViewModel(private val repository: FitTrackerRepository,
         _leave.value = null
     }
 
+
 }

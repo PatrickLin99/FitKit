@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'io.fabric'
 
 
 android {
@@ -19,6 +20,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     dataBinding {
         enabled = true
@@ -114,8 +116,34 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
+    //Firebase Storage
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
+
+    //ImagePicker
+    implementation 'com.github.dhaval2404:imagepicker:1.7.3'
+
     //AndyChart
     implementation "com.github.AnyChart:AnyChart-Android:1.1.2"
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
+    // Moshi
+    implementation "com.squareup.moshi:moshi:1.9.3"
+    implementation "com.squareup.moshi:moshi-kotlin:1.9.3"
+
+    // Retrofit with Moshi Converter
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+    // Retrofit Logging Interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.0.1")
+
+    //Firebase Crashlytics
+    implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+        transitive = true;
+    }
+
+    //Firebase Crashlytics
+    implementation 'com.google.firebase:firebase-analytics:17.4.4'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
 }

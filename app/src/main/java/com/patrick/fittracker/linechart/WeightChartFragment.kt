@@ -2,14 +2,13 @@ package com.patrick.fittracker.linechart
 
 import android.graphics.Color
 import android.os.Build
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.github.mikephil.charting.components.XAxis
@@ -17,11 +16,10 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.patrick.fittracker.R
 import com.patrick.fittracker.TimeUtil
-import com.patrick.fittracker.analysis.weight.AnalysisWeightViewModel
-import com.patrick.fittracker.databinding.AnalysisWeightFragmentBinding
 import com.patrick.fittracker.databinding.WeightChartFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import java.util.*
@@ -44,28 +42,26 @@ class WeightChartFragment : Fragment() {
 
         val recordKey = WeightChartFragmentArgs.fromBundle(requireArguments()).recordKey
 
-        Log.d("recordKey", "${recordKey.name}")
+        Log.d("recordKey", recordKey.name)
 
         viewModel.getWeightRecordRecordResult(recordKey)
         binding.analysisMuscleTitle.text = recordKey.name
 
         viewModel.record.observe(viewLifecycleOwner, Observer {
-            it?.let {
+            it?.let { records ->
 
-                Log.d("viewModel size", "${viewModel.record.value?.size}")
-
-                val weight_list_size: Int? = viewModel.record.value?.size?.minus(1)
+                var weightListSizeStart : Int = if (records.size > 10) {
+                    records.size.minus(10)
+                } else {
+                    0
+                }
 
                 fun setData() {
                     val entries: MutableList<Entry> = ArrayList()
-                    for (i in 0..weight_list_size!!) {
-//                        Log.d("bbbbbbbbbbbbbbbb",
-//                            "${viewModel.record.value?.sortedBy { it.createdTime }
-//                                ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight}"
-//                        )
+                    val labels: ArrayList<String> = ArrayList()
+                    for (i in weightListSizeStart until it.size) {
 
-                        viewModel.record.value?.sortedBy { it.createdTime }
-                            ?.get(i)?.fitDetail?.maxBy { it.weight }?.weight?.toFloat()
+                        records.sortedBy { records[i].createdTime }[i].fitDetail.maxBy { fitDetail ->  fitDetail.weight }?.weight?.toFloat()
                             ?.let { it1 ->
                                 Entry(
                                     i.toFloat(),
@@ -76,9 +72,30 @@ class WeightChartFragment : Fragment() {
                                     it2
                                 )
                             }
-                        Log.d("test88888888888", "${viewModel.record.value?.get(i)?.createdTime?.let { it1 ->
-                            TimeUtil.StampToDate(it1 , Locale.TAIWAN)
-                        }}")
+                        Log.d(
+                            "test88888888888",
+                            "${viewModel.record.value?.get(i)?.createdTime?.let { it1 ->
+                                TimeUtil.StampToDate(it1, Locale.TAIWAN)
+                            }}"
+                        )
+
+                        val xAxis = binding.lineChart.xAxis
+//                        val labels = arrayOf(viewModel.record.value?.get(i)?.createdTime?.let { time ->
+//                            TimeUtil.AnalysisStampToDate(
+//                                time, Locale.TAIWAN)
+//                        })
+
+                        labels.add(TimeUtil.AnalysisStampToDate(it[i].createdTime, Locale.TAIWAN))
+
+                        xAxis.apply {
+                                    valueFormatter = IndexAxisValueFormatter(labels)
+                                    labelCount = 3
+                                    position = XAxis.XAxisPosition.BOTTOM
+                                    setDrawLabels(true)
+                                    setDrawGridLines(false)
+                                }
+
+
                     }
 
 
@@ -90,6 +107,7 @@ class WeightChartFragment : Fragment() {
                     dataSet.valueTextSize = 12f
                     dataSet.lineWidth = 2f
 
+
                     //Border
                     binding.lineChart.setDrawBorders(true)
                     binding.lineChart.setBorderColor(Color.parseColor("#717171"))
@@ -100,6 +118,9 @@ class WeightChartFragment : Fragment() {
                     val xAxis = binding.lineChart.xAxis
                     // Set the xAxis position to bottom. Default is top
                     xAxis.position = XAxis.XAxisPosition.BOTTOM
+                    xAxis.textSize = 14f
+                    xAxis.textColor = R.color.colorLightBlack
+                    xAxis.granularity = 50f
                     //Customizing x axis value
 //                    val months = arrayOf("M", "T", "W", "T", "F", "S", "S", "A", "A", "A")
                     //Grid property
@@ -111,9 +132,17 @@ class WeightChartFragment : Fragment() {
                     binding.lineChart.axisLeft.granularity = 20f
                     binding.lineChart.axisLeft.setStartAtZero(true)
                     binding.lineChart.axisLeft.setStartAtZero(true)
-                    binding.lineChart.axisLeft.setAxisMaxValue(100f)
+                    binding.lineChart.axisLeft.setAxisMaxValue(200f)
+                    binding.lineChart.axisLeft.setLabelCount(2,false)
+                    binding.lineChart.axisLeft.textSize = 14f
+                    binding.lineChart.axisLeft.textColor = R.color.colorLightBlack
 
+                    //Description
+                    binding.lineChart.description.isEnabled = false
 
+                    //legend
+                    binding.lineChart.legend.textSize = 18f
+                    binding.lineChart.legend.textColor = R.color.colorBlack
 
                     //xAxis grid lines
                     binding.lineChart.xAxis.isEnabled = true

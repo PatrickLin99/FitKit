@@ -44,6 +44,34 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/warm_up_guy" />
 
+            <TextView
+                android:id="@+id/cardio_record_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="90dp"
+                android:layout_marginBottom="16dp"
+                android:letterSpacing="0.08"
+                android:text=""
+                android:textColor="@color/colorDarkGray"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/finish_slogon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                tools:text="測試文字" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="90dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardio_record_name"
+                app:layout_constraintEnd_toStartOf="@+id/cardio_record_name"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cardio_record_name"
+                app:srcCompat="@drawable/checked" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

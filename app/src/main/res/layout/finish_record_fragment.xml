@@ -28,7 +28,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:text="完成紀錄 將自動跳轉"
+                android:letterSpacing="0.08"
+                android:text="完成紀錄將自動跳轉"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +47,43 @@
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/warm_up_guy_gympass" />
+
+            <View
+                android:id="@+id/back_to_home"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/record_muscle_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="82dp"
+                android:layout_marginBottom="16dp"
+                android:letterSpacing="0.08"
+                android:text=""
+                android:textColor="@color/colorDarkGray"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/finish_slogon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView12"
+                tools:text="測試文字" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="82dp"
+                app:layout_constraintBottom_toBottomOf="@+id/record_muscle_name"
+                app:layout_constraintEnd_toStartOf="@+id/record_muscle_name"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/record_muscle_name"
+                app:srcCompat="@drawable/checked" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

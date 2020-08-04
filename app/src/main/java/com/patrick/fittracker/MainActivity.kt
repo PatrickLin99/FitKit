@@ -1,16 +1,22 @@
 package com.patrick.fittracker
 
+import android.app.Activity
+import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.firestore.FirebaseFirestore
 import com.patrick.fittracker.databinding.ActivityMainBinding
 import com.patrick.fittracker.util.Logger
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,10 +36,16 @@ class MainActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
 
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         val toolbar = supportActionBar
         toolbar?.setDisplayHomeAsUpEnabled(true)
 
         bottomNavVIew.setOnNavigationItemSelectedListener(listener)
+        val mainTitle = main_title_spannable_test
+        val span: Spannable = SpannableString(mainTitle.getText())
+        span.setSpan(ForegroundColorSpan(getColor(R.color.colorAccent)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        mainTitle.setText(span)
 
     }
 
@@ -43,26 +55,45 @@ class MainActivity : BaseActivity() {
 //
             when (item.itemId) {
                 R.id.navigation_home -> {
+
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
 //                    binding.toolbar.setBackgroundColor(applicationContext.getColor(R.color.colorWhite))
 //                    binding.mainTitleTwo.setTextColor((applicationContext.getColor(R.color.colorLightBlack)))
-                    main_title_two.text = "SELECTION"
+
+                    main_title_spannable_test.text = "FIT CHALLENGE"
+                    val mainTitle = main_title_spannable_test
+                    val span: Spannable = SpannableString(mainTitle.getText())
+                    span.setSpan(ForegroundColorSpan(getColor(R.color.colorAccent)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    mainTitle.setText(span)
                     return true
                 }
                 R.id.navigation_calendar -> {
 
                     if(UserManger.isLogin()) {
+
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalCalendarFragment())
-                        main_title_two.text = "CALENDAR"
+                        main_title_spannable_test.text = "FIT CALENDAR"
+                        val mainTitle = main_title_spannable_test
+                        val span: Spannable = SpannableString(mainTitle.getText())
+                        span.setSpan(ForegroundColorSpan(getColor(R.color.colorAccent)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        mainTitle.setText(span)
+
                     } else{
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
                     }
                     return true
                 }
                 R.id.navigation_profile -> {
+
                     if(UserManger.isLogin()) {
+
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalProfileFragment())
-                        main_title_two.text = "PROFILE"
+                        main_title_spannable_test.text = "FIT PROFILE"
+                        val mainTitle = main_title_spannable_test
+                        val span: Spannable = SpannableString(mainTitle.getText())
+                        span.setSpan(ForegroundColorSpan(getColor(R.color.colorAccent)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        mainTitle.setText(span)
+
                     } else{
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
                     }
@@ -70,8 +101,14 @@ class MainActivity : BaseActivity() {
                 }
                 R.id.navigation_analysis -> {
                     if(UserManger.isLogin()) {
+
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAnalysisTestFragment())
-                        main_title_two.text = "ANALYSIS"
+                        main_title_spannable_test.text = "FIT ANALYSIS"
+                        val mainTitle = main_title_spannable_test
+                        val span: Spannable = SpannableString(mainTitle.getText())
+                        span.setSpan(ForegroundColorSpan(getColor(R.color.colorAccent)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        mainTitle.setText(span)
+
                     } else{
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalLoginFragment())
                     }
@@ -124,4 +161,5 @@ class MainActivity : BaseActivity() {
             Logger.i("====== ${Build.MODEL} ======")
         }
     }
+
 }

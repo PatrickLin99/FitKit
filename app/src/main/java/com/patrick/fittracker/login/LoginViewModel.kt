@@ -130,6 +130,8 @@ class LoginViewModel(private val repository: FitTrackerRepository, private var u
         _leave.value = null
     }
 
-
+    fun showLoadingStatus(){
+        _status.value = LoadApiStatus.LOADING
+    }
 
 }

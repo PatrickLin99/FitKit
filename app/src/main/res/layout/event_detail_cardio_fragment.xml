@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.patrick.fittracker.calendar.eventcardio.EventDetailCardioViewModel" />
+        <variable
+            name="cardiorecord"
+            type="com.patrick.fittracker.data.CardioRecord" />
 
     </data>
 

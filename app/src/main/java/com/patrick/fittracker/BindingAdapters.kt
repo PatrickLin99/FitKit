@@ -16,8 +16,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         Glide.with(imgView.context)
             .load(imgUri)
             .apply(RequestOptions()
-                .placeholder(R.drawable.image_placeholder)
-                .error(R.drawable.image_placeholder))
+                .placeholder(R.drawable.placeholder_temp_two)
+                .error(R.drawable.biceps_placeholder))
             .into(imgView)
     }
 }

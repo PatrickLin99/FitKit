@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import com.patrick.fittracker.R
 import com.patrick.fittracker.TimeUtil
 import com.patrick.fittracker.calendar.CalendarViewModel
+import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.databinding.CalendarFragmentBinding
 import com.patrick.fittracker.databinding.EventDetailCardioFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
@@ -20,7 +21,7 @@ import java.util.*
 
 class EventDetailCardioFragment : DialogFragment() {
 
-    private val viewModel by viewModels<EventDetailCardioViewModel> { getVmFactory()}
+    private val viewModel by viewModels<EventDetailCardioViewModel> { getVmFactory( )}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@ class EventDetailCardioFragment : DialogFragment() {
         binding.calendarEventDetailCardioDate.text = TimeUtil.CalendarStampToDate(recordKey.createdTime, Locale.TAIWAN)
         binding.calendarEventDetailCardioDuration.text = "運動時間:  ${recordKey.duration.toString()}"
         binding.calendarEventDetailCardioCalories.text = "消耗熱量:  ${recordKey.burnFat.toString()}"
+
 
         return binding.root
     }

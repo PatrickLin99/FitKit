@@ -17,7 +17,6 @@ class ClassOptionRecordViewModel(private val repository: FitTrackerRepository, p
     val classOption: LiveData<ClassOption>
         get() = _classOption
 
-
     private val _navigateToRecord = MutableLiveData<String>()
 
     val navigateToRecord: LiveData<String>

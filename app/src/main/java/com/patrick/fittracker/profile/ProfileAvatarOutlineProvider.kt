@@ -14,3 +14,12 @@ class ProfileAvatarOutlineProvider : ViewOutlineProvider() {
         outline.setOval(0, 0, radius, radius)
     }
 }
+
+class CardioSelectionOutlineProvider : ViewOutlineProvider() {
+    override fun getOutline(view: View, outline: Outline) {
+        view.clipToOutline = true
+        val radius = FitTrackerApplication.instance.resources.getDimensionPixelSize(R.dimen.image_avatar)
+        outline.setRoundRect(view.left, 0, view.right, view.bottom + radius, radius.toFloat())
+
+    }
+}

@@ -5,10 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.patrick.fittracker.TimeUtil
 import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.ItemMusclePostureBinding
 import com.patrick.fittracker.databinding.ItemWeightAnalysisBinding
+import com.patrick.fittracker.databinding.TestLayoutBinding
 import com.patrick.fittracker.poseselect.PostSelectAdapter
+import java.sql.Time
+import java.util.*
 
 
 class AnalysisAdapter(val onClickListener: OnClickListener):
@@ -20,7 +24,7 @@ class AnalysisAdapter(val onClickListener: OnClickListener):
         fun bind(insertRecord: InsertRecord){
             binding.insertrecord = insertRecord
             binding.executePendingBindings()
-
+            binding.analysisWorkoutTime.text = TimeUtil.CalendarStampToDate(insertRecord.createdTime, Locale.TAIWAN)
         }
     }
 

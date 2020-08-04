@@ -59,39 +59,40 @@
         <!--            app:layout_constraintTop_toTopOf="parent"-->
         <!--            app:srcCompat="@drawable/icons_24px_drawer" />-->
 
-        <TextView
-            android:id="@+id/main_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="86dp"
-            android:layout_marginEnd="2dp"
-            android:letterSpacing="0.08"
-            android:text="JIJI"
-            android:textColor="@color/colorSeaBlue"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toStartOf="@+id/main_title_two"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+<!--        <TextView-->
+<!--            android:id="@+id/main_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="86dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="2dp"-->
+<!--            android:letterSpacing="0.08"-->
+<!--            android:text="FIT"-->
+<!--            android:textColor="@color/colorSeaBlue"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/toolbar"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/main_title_two"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/toolbar" />-->
 
-        <TextView
-            android:id="@+id/main_title_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="86dp"
-            android:letterSpacing="0.08"
-            android:text="ACCELERATOR"
-            android:textColor="@color/colorLightBlack"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/main_title"
-            app:layout_constraintEnd_toEndOf="@+id/toolbar"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/main_title"
-            app:layout_constraintTop_toTopOf="@+id/main_title" />
+<!--        <TextView-->
+<!--            android:id="@+id/main_title_two"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="2dp"-->
+<!--            android:layout_marginEnd="86dp"-->
+<!--            android:letterSpacing="0.08"-->
+<!--            android:text="ACCELERATOR"-->
+<!--            android:textColor="@color/colorLightBlack"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/main_title"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/toolbar"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/main_title"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/main_title" />-->
 
         <View
             android:id="@+id/view10"
@@ -101,6 +102,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <TextView
+            android:id="@+id/main_title_spannable_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:letterSpacing="0.08"
+            android:text="FIT KIT"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

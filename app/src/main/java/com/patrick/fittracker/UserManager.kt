@@ -6,6 +6,7 @@ import com.patrick.fittracker.UserManger.userEmail
 import com.patrick.fittracker.UserManger.userID
 import com.patrick.fittracker.UserManger.userImage
 import com.patrick.fittracker.UserManger.userName
+import com.patrick.fittracker.data.CurrentLocation
 import com.patrick.fittracker.data.User
 import com.patrick.fittracker.data.UserProfile
 
@@ -16,6 +17,7 @@ val google_email: String? = userEmail
 
 object UserManger {
     val userData = User(userProfile = UserProfile())
+    val currentLocation = CurrentLocation()
 
     val pref = FitTrackerApplication.appContext.getSharedPreferences("userID", Context.MODE_PRIVATE)
     var userID: String?
@@ -76,7 +78,5 @@ object UserManger {
     fun isLogin(): Boolean {
         return userID != null
     }
-
-
 
 }

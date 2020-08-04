@@ -14,43 +14,105 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="8dp"
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView7"-->
+        <!--            android:layout_width="120dp"-->
+        <!--            android:layout_height="120dp"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            app:image="@{cardio.cardio_image}"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/image_placeholder" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/item_cardio_title"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:text="@{cardio.cardio_title}"-->
+        <!--            android:textSize="20dp"-->
+        <!--            android:textColor="@color/colorLightBlack"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/imageView7"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/imageView7"-->
+        <!--            tools:text="main title"/>-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textView27"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:text="@{cardio.cardio_unknown}"-->
+        <!--            android:textColor="@color/colorLightGray"-->
+        <!--            android:textSize="14dp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/item_cardio_title"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/item_cardio_title"-->
+        <!--            tools:text="sub title"/>-->
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="160dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            app:image="@{cardio.cardio_image}"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/image_placeholder" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/item_cardio_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{cardio.cardio_title}"
-            android:textSize="20dp"
-            android:textColor="@color/colorLightBlack"
-            app:layout_constraintStart_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toTopOf="@+id/imageView7"
-            tools:text="main title"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorSuperLightGray">
 
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@{cardio.cardio_unknown}"
-            android:textColor="@color/colorLightGray"
-            android:textSize="14dp"
-            app:layout_constraintStart_toStartOf="@+id/item_cardio_title"
-            app:layout_constraintTop_toBottomOf="@+id/item_cardio_title"
-            tools:text="sub title"/>
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:outlineProvider="@{viewModel.outlineProvider}"
+                    android:scaleType="centerCrop"
+                    app:image="@{cardio.cardio_image}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/item_cardio_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@{cardio.cardio_title}"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                    app:layout_constraintStart_toStartOf="@+id/imageView7"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                    tools:text="main title" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{cardio.cardio_unknown}"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/item_cardio_title"
+                    app:layout_constraintStart_toStartOf="@+id/item_cardio_title"
+                    app:layout_constraintTop_toBottomOf="@+id/item_cardio_title"
+                    tools:text="sub title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
