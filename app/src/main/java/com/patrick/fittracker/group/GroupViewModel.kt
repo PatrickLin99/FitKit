@@ -1,11 +1,8 @@
 package com.patrick.fittracker.group
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
 import com.patrick.fittracker.data.SelectedMuscleGroup
@@ -18,83 +15,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-
-//class GroupViewModel : ViewModel() {
-//
-//
-//    private var _navigateToPoseSelect = MutableLiveData<SelectedMuscleGroup>()
-//
-//    val navigateToPoseSelect : LiveData<SelectedMuscleGroup>
-//    get() = _navigateToPoseSelect
-//
-//
-//    // Create a Coroutine scope using a job to be able to cancel when needed
-//    private var viewModelJob = Job()
-//
-//    // the Coroutine runs using the Main (UI) dispatcher
-//    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-//
-//
-//
-//    var db = FirebaseFirestore.getInstance()
-//
-//    fun readData(group: String) {
-//        db.collection("muscle_group").document(group)
-//            .get()
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-////                    Log.d("task result array", "${task.result?.data?.getValue("menu")}")
-//                    val selectedMuscleGroup = task.result?.toObject(SelectedMuscleGroup::class.java)
-////                    Log.d("test selectedMuscleGroup:", "$selectedMuscleGroup")
-//                    _navigateToPoseSelect.value = selectedMuscleGroup
-//
-//                }
-//                    Log.w("FragmentActivity", "Error getting documents.", task.exception)
-//                }
-//            }
-//
-//    fun navigationToSelect(selectedMuscleGroup: SelectedMuscleGroup) {
-//
-//        coroutineScope.launch {
-//            _navigateToPoseSelect.value = selectedMuscleGroup
-//        }
-//    }
-//}
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
-
-
 class GroupViewModel(
-//class PublishViewModel(
     private val repository: FitTrackerRepository,
     private val group: MuscleGroupTypeFilter?
 ) : ViewModel() {
-
-//    private val _article = MutableLiveData<Article>().apply {
-//        value = Article(
-//            author = author
-//        )
-//    }
-//
-//    val article: LiveData<Article>
-//        get() = _article
-//---------------------------------------------------------------------------------------------------
 
     private var _navigateToPoseSelect = MutableLiveData<SelectedMuscleGroup>()
 
     val navigateToPoseSelect : LiveData<SelectedMuscleGroup>
     get() = _navigateToPoseSelect
 
+//-------------------------------------------------------------------------------------------
 
-    fun navigationToSelect(selectedMuscleGroup: SelectedMuscleGroup) {
-
-        coroutineScope.launch {
-            _navigateToPoseSelect.value = selectedMuscleGroup
-        }
-    }
-
-//---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -137,13 +69,7 @@ class GroupViewModel(
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
-        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-//            getLiveArticlesResult()
-        } else {
-//            getArticlesResult()
         }
-    }
 
     fun getMuscleGroupResult(group: MuscleGroupTypeFilter) {
 
@@ -170,7 +96,8 @@ class GroupViewModel(
                     null
                 }
                 else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

@@ -34,7 +34,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = HomeFragmentBinding.inflate(inflater, container, false)
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -61,17 +60,6 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(NavigationDirections.actionGlobalLocationFragment())
             }
         }
-
-        Log.d("2020-08-02", TimeUtil.TestDateToStamp("2020-08-02", Locale.TAIWAN).toString())
-        Log.d("2020-08-01", TimeUtil.TestDateToStamp("2020-08-01", Locale.TAIWAN).toString())
-        Log.d("2020-07-31", TimeUtil.TestDateToStamp("2020-07-31", Locale.TAIWAN).toString())
-        Log.d("2020-07-30", TimeUtil.TestDateToStamp("2020-07-30", Locale.TAIWAN).toString())
-        Log.d("2020-07-29", TimeUtil.TestDateToStamp("2020-07-29", Locale.TAIWAN).toString())
-        Log.d("2020-07-28", TimeUtil.TestDateToStamp("2020-07-28", Locale.TAIWAN).toString())
-        Log.d("2020-07-27", TimeUtil.TestDateToStamp("2020-07-27", Locale.TAIWAN).toString())
-        Log.d("2020-07-26", TimeUtil.TestDateToStamp("2020-07-26", Locale.TAIWAN).toString())
-        Log.d("2020-07-25", TimeUtil.TestDateToStamp("2020-07-25", Locale.TAIWAN).toString())
-
 
         return binding.root
     }

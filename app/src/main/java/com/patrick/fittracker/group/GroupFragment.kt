@@ -20,33 +20,21 @@ class GroupFragment() : Fragment() {
 
     var group: MuscleGroupTypeFilter = MuscleGroupTypeFilter.CHEST
 
-
     private val viewModel by viewModels <GroupViewModel> {getVmFactory(group)}
-
-//    val viewModel: GroupViewModel by lazy {
-//        ViewModelProvider(this).get(GroupViewModel::class.java)
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = GroupFragmentBinding.inflate(inflater, container,false)
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-
         viewModel.navigateToPoseSelect.observe(viewLifecycleOwner, Observer {
             it?.let {
-//                Log.d("test navigateToPoseSelect", "$it")
                 findNavController().navigate(NavigationDirections.actionGlobalPoseSelectFragment(it))
             }
         })
-
-        binding.muscleChestColorImage.visibility = View.GONE
-        binding.muscleGroupBicepsColor.visibility = View.GONE
-        binding.muscleGroupDeltoidsColor.visibility = View.GONE
 
         binding.muscleChestColorImage.setOnClickListener {
             binding.muscleChestColorImage.visibility = View.GONE
@@ -76,11 +64,6 @@ class GroupFragment() : Fragment() {
             binding.muscleGroupFrontlegsColor.visibility = View.GONE
         }
 
-
-
-
-
-
         binding.muscleChestImage.setOnClickListener(onClickListener)
         binding.muscleBicepsImage.setOnClickListener(onClickListener)
         binding.muscleDeltoidsImage.setOnClickListener(onClickListener)
@@ -96,7 +79,6 @@ class GroupFragment() : Fragment() {
 
 
     private val onClickListener = View.OnClickListener {
-//        viewModel.navigationToSelect(SelectedMuscleGroup())
         when (it.id) {
             R.id.muscle_chest_image -> {
                 viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.CHEST)
@@ -136,15 +118,5 @@ class GroupFragment() : Fragment() {
             }
         }
     }
-
-
-
-
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
-//        // TODO: Use the ViewModel
-//    }
 
 }

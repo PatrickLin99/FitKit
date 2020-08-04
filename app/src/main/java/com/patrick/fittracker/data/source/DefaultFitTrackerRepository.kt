@@ -97,6 +97,7 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         return  remoteDataSource.getLocationInfo()
     }
 
+    //Google Place Nearby API
     override suspend fun getLocationList(
         key: String,
         location: String,
@@ -106,26 +107,4 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
     ): Result<GymLocationListResult> {
         return remoteDataSource.getLocationList(key, location, radius, language, keyword)
     }
-
-
-
-//    override suspend fun loginMockData(id: String): Result<Author> {
-//        return localDataSource.login(id)
-//    }
-//
-//    override suspend fun getArticles(): Result<List<Article>> {
-//        return remoteDataSource.getArticles()
-//    }
-//
-//    override fun getLiveArticles(): MutableLiveData<List<Article>> {
-//        return remoteDataSource.getLiveArticles()
-//    }
-//
-//    override suspend fun publish(article: Article): Result<Boolean> {
-//        return remoteDataSource.publish(article)
-//    }
-//
-//    override suspend fun delete(article: Article): Result<Boolean> {
-//        return remoteDataSource.delete(article)
-//    }
 }
