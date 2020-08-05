@@ -20,25 +20,22 @@ import kotlin.properties.Delegates
 
 class ClassOptionFinishFragment : Fragment() {
 
-
-    private val viewModel by viewModels <ClassOptionFinishViewModel> {getVmFactory()}
+    private val viewModel by viewModels<ClassOptionFinishViewModel> { getVmFactory() }
     private var sameFragment by Delegates.notNull<Boolean>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = ClassOptionFinishFragmentBinding.inflate(inflater, container,false)
+        val binding = ClassOptionFinishFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         sameFragment = true
         Handler().postDelayed({
-            if (sameFragment){
+            if (sameFragment) {
                 findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
             }
-        },3000)
-
+        }, 3000)
 
         return binding.root
     }
@@ -47,6 +44,5 @@ class ClassOptionFinishFragment : Fragment() {
         super.onDestroy()
         sameFragment = false
     }
-
 
 }

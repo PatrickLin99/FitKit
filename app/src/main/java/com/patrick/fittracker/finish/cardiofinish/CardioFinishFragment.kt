@@ -25,28 +25,26 @@ import kotlin.properties.Delegates
 
 class CardioFinishFragment : Fragment() {
 
-
-    private val viewModel by viewModels <CardioFinishViewModel> { getVmFactory() }
+    private val viewModel by viewModels<CardioFinishViewModel> { getVmFactory() }
     private var sameFragment by Delegates.notNull<Boolean>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = CardioFinishFragmentBinding.inflate(inflater, container,false)
-
+        val binding = CardioFinishFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         sameFragment = true
 
-        binding.cardioRecordName.text = CardioFinishFragmentArgs.fromBundle(requireArguments()).cardioKey
+        binding.cardioRecordName.text =
+            CardioFinishFragmentArgs.fromBundle(requireArguments()).cardioKey
 
         Handler().postDelayed({
-            if (sameFragment){
+            if (sameFragment) {
                 findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
             }
-        },3000)
+        }, 3000)
 
         return binding.root
     }

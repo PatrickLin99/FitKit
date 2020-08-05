@@ -10,8 +10,6 @@ interface FitTrackerDataSource {
 
     suspend fun getSelectedMuscleGroupMenu (group: MuscleGroupTypeFilter): Result<SelectedMuscleGroup>
 
-    suspend fun getSetOrderNum (group: SetOrderFilter): Result<RecordSetOrder>
-
     suspend fun getCardioSelection (): Result<List<Cardio>>
 
     suspend fun getClassOption (): Result<List<ClassOption>>

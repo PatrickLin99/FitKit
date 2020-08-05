@@ -13,10 +13,6 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         return remoteDataSource.getSelectedMuscleGroupMenu(group)
     }
 
-    override suspend fun getSetOrderNum(group: SetOrderFilter): Result<RecordSetOrder> {
-        return remoteDataSource.getSetOrderNum(group)
-    }
-
     override suspend fun getCardioSelection(): Result<List<Cardio>> {
         return remoteDataSource.getCardioSelection()
     }

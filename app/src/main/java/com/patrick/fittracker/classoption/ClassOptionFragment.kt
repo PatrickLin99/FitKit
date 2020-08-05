@@ -37,7 +37,6 @@ class ClassOptionFragment : Fragment() {
         })
 
         binding.recyclerViewClassOption.adapter = adapter
-
         viewModel.classOption.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
@@ -47,9 +46,7 @@ class ClassOptionFragment : Fragment() {
         viewModel.navigationToClassOptionRecord.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(
-                    NavigationDirections.actionGlobalClassOptionRecordFragment(
-                        it
-                    )
+                    NavigationDirections.actionGlobalClassOptionRecordFragment(it)
                 )
                 viewModel.navigateToCardioRecordDone()
             }

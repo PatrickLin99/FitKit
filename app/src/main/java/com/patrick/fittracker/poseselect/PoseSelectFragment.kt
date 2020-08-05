@@ -21,27 +21,22 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = PoseSelectFragmentBinding.inflate(inflater, container,false)
-
         val movement = PoseSelectFragmentArgs.fromBundle(requireArguments()).muscleKey
 
         val viewModelFactory = PoseSelectViewModelFactory(movement)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(PoseSelectViewModel::class.java)
         binding.viewModel = viewModel
-
+        binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = PostSelectAdapter(PostSelectAdapter.OnClickListener{
             viewModel.navigateToRecord(it)
         })
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.muscleSelectPost.adapter = adapter
-        movement?.let {
-//            Log.d("test","7654321 $it")
+        movement.let {
             adapter.submitList(it.menu)
         }
 
-
         binding.titleMuscleGroup.text = movement.category
-
         binding.poseselectDown.setOnClickListener {
             dismiss()
         }
@@ -51,14 +46,6 @@ class PoseSelectFragment : BottomSheetDialogFragment() {
                 this.findNavController().navigate(NavigationDirections.actionGlobalRecordFragment(it))
             }
         })
-
-//        viewModel.navigateToRecordTwo.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                Log.d("test safe args", "$it")
-//                adapter.submitList(it.menu)
-//                this.findNavController().navigate(NavigationDirections.actionGlobalRecordFragment(it))
-//            }
-//        })
 
         return binding.root
     }

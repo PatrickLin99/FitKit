@@ -62,7 +62,6 @@ class ClassOptionViewModel(private val repository: FitTrackerRepository) : ViewM
         _navigateToClassOptionRecord.value = null
     }
 
-
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
      * Retrofit service to stop.

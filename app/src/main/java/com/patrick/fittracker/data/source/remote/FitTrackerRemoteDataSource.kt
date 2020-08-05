@@ -61,35 +61,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
                  }
              }
 
-    override suspend fun getSetOrderNum(group: SetOrderFilter): Result<RecordSetOrder>  = suspendCoroutine { continuation ->
-
-        FirebaseFirestore.getInstance()
-            .collection(PATH_ARTICLES_NUM)
-            .document(group.value)
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-
-                    val orderNum = task.result?.toObject(RecordSetOrder::class.java)
-
-                    orderNum?.let {
-
-                        continuation.resume(Result.Success(it))
-
-                    }
-
-                } else {
-                    task.exception?.let {
-
-//                        Log.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
-                    }
-                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
-                }
-            }
-        }
-
     override suspend fun getCardioSelection(): Result<List<Cardio>> =
         suspendCoroutine { continuation ->
 
@@ -152,74 +123,12 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
                 }
         }
 
-//    override suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> = suspendCoroutine { continuation ->
-//
-//        val user = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
-//        val document = user.document()
-//
-//        addTrainingRecord.id = document.id
-//        addTrainingRecord.createdTime = Calendar.getInstance().timeInMillis
-//
-//        document
-//            .set(addTrainingRecord)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    Logger.i("FitTracker: $addTrainingRecord")
-//
-//                    continuation.resume(Result.Success(true))
-//                } else {
-//                    task.exception?.let {
-//
-//                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-//                        continuation.resume(Result.Error(it))
-//                        return@addOnCompleteListener
-//                    }
-//                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
-//                }
-//            }
-//    }
-
-//    override suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>> = suspendCoroutine { continuation ->
-//
-//        var timeNow : Long = Calendar.getInstance().timeInMillis
-//        var timePeriod : Long = timeNow + 60000
-//
-//        FirebaseFirestore.getInstance()
-//            .collection(PATH_ARTICLES_USER)
-//            .whereEqualTo("category_title", muscleKey)
-////            .orderBy("createdTime", Query.Direction.ASCENDING)
-////            .whereLessThan("createdTime",timePeriod)
-//            .orderBy("order_title",Query.Direction.ASCENDING)
-//            .get()
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    val list = mutableListOf<AddTrainingRecord>()
-//                    for (document in task.result!!) {
-//                        Logger.d(document.id + " => " + document.data)
-//
-//                        val add = document.toObject(AddTrainingRecord::class.java)
-//                        list.add(add)
-//                    }
-//                    continuation.resume(Result.Success(list))
-//                } else {
-//                    task.exception?.let {
-//
-//                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-//                        continuation.resume(Result.Error(it))
-//                        return@addOnCompleteListener
-//                    }
-//                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
-//                }
-//            }
-//    }
-
     override suspend fun addSelfRecord (insertRecord: InsertRecord): Result<Boolean> = suspendCoroutine { continuation ->
 
         val user = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
         val document = user.document("${UserManger.userID}")
 
         insertRecord.createdTime = Calendar.getInstance().timeInMillis
-
 
         document
             .collection("menu")
@@ -243,68 +152,40 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             }
     }
 
-    override suspend fun addCardioRecord(cardioRecord: CardioRecord): Result<Boolean> = suspendCoroutine { continuation ->
+    override suspend fun addCardioRecord(cardioRecord: CardioRecord): Result<Boolean> =
+        suspendCoroutine { continuation ->
 
-        val user = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
-        val document = user.document("${UserManger.userID}")
+            val user = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
+            val document = user.document("${UserManger.userID}")
 
-//        cardioRecord.id = document.id
-        cardioRecord.createdTime = Calendar.getInstance().timeInMillis
+            cardioRecord.createdTime = Calendar.getInstance().timeInMillis
 
-        document
-            .collection("cardio")
-            .document("self")
-            .collection("record")
-            .add(cardioRecord)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Logger.i("FitTracker: $cardioRecord")
+            document
+                .collection("cardio")
+                .document("self")
+                .collection("record")
+                .add(cardioRecord)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Logger.i("FitTracker: $cardioRecord")
 
-                    continuation.resume(Result.Success(true))
-                } else {
-                    task.exception?.let {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
 
-                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
                     }
-                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
                 }
-            }
-    }
-
-//    override suspend fun addUserInfo(user: User): Result<Boolean> = suspendCoroutine { continuation ->
-//
-//        val users = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
-//        val document = users.document("JJx43PDXIrF8tGF0fpcU")
-//
-//        user.id = document.id
-//        user.createdTime = Calendar.getInstance().timeInMillis
-//
-//        document
-//            .set(user)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    Logger.i("FitTracker: $user")
-//
-//                    continuation.resume(Result.Success(true))
-//                } else {
-//                    task.exception?.let {
-//
-//                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-//                        continuation.resume(Result.Error(it))
-//                        return@addOnCompleteListener
-//                    }
-//                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
-//                }
-//            }
-//    }
+        }
 
     override suspend fun addUserInfo(user: User): Result<Boolean> = suspendCoroutine { continuation ->
 
         val users = FirebaseFirestore.getInstance().collection(PATH_ARTICLES_USER)
         val document = users.document("${UserManger.userID}")
-
 
         user.id = document.id
         user.createdTime = Calendar.getInstance().timeInMillis
@@ -404,48 +285,7 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             }
     }
 
-    //As an Object
-//    override suspend fun getTrainingRecord(): Result<InsertRecord> = suspendCoroutine { continuation ->
-//
-//        var timeNow: Long = Calendar.getInstance().timeInMillis
-//        var timePeriod: Long = timeNow + 60000000000
-//
-//        FirebaseFirestore.getInstance()
-//            .collection(PATH_ARTICLES_USER)
-//            .document(UserManger.userData.id)
-//            .collection("menu")
-//            .document("self")
-//            .collection("record")
-//            .whereEqualTo("name","俯臥腿彎曲")
-//            .get()
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    var record = InsertRecord(fitDetail = listOf())
-//                    for (document in task.result!!) {
-//
-//                        Logger.d(document.id + " => " + document.data)
-//
-//                        val inserRecord = document.toObject(InsertRecord::class.java)
-//                        record = inserRecord
-//                    }
-//                    continuation.resume(Result.Success(record))
-//                } else {
-//                    task.exception?.let {
-//
-//                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-//                        continuation.resume(Result.Error(it))
-//                        return@addOnCompleteListener
-//                    }
-//                    continuation.resume(Result.Fail(FitTrackerApplication.instance.getString(R.string.you_know_nothing)))
-//                }
-//            }
-//    }
-
-    //As a list
     override suspend fun getTrainingRecord(): Result<List<InsertRecord>> = suspendCoroutine { continuation ->
-
-        var timeNow: Long = Calendar.getInstance().timeInMillis
-        var timePeriod: Long = timeNow + 60000000000
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
@@ -453,9 +293,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             .collection("menu")
             .document("self")
             .collection("record")
-//            .whereEqualTo("name","俯臥腿彎曲")
-//            .whereGreaterThan("createdTime","1594644296569")
-//            .whereLessThan("createdTime","1594649425984")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -483,7 +320,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
     override suspend fun getTrainingCardioRecord(): Result<List<CardioRecord>> = suspendCoroutine { continuation ->
 
         var timeNow: Long = Calendar.getInstance().timeInMillis
-        var timePeriod: Long = timeNow + 60000000000
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
@@ -491,9 +327,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             .collection("cardio")
             .document("self")
             .collection("record")
-//            .whereEqualTo("name","俯臥腿彎曲")
-//            .whereGreaterThan("createdTime","1594644296569")
-//            .whereLessThan("createdTime","1594649425984")
             .orderBy("createdTime", Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener { task ->
@@ -555,9 +388,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
     override suspend fun getLoginInfo(): Result<User> = suspendCoroutine { continuation ->
 
-        var timeNow: Long = Calendar.getInstance().timeInMillis
-        var timePeriod: Long = timeNow + 60000000000
-
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
             .whereEqualTo("id", "${UserManger.userID}")
@@ -587,9 +417,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
     override suspend fun getWeightTrainRecord(recordKey: String): Result<List<InsertRecord>> = suspendCoroutine { continuation ->
 
-        var timeNow: Long = Calendar.getInstance().timeInMillis
-        var timePeriod: Long = timeNow + 60000000000
-
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
             .document("${UserManger.userID}")
@@ -606,8 +433,8 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
                         Logger.d(document.id + " => " + document.data)
 
-                        val inserRecord = document.toObject(InsertRecord::class.java)
-                        list.add(inserRecord)
+                        val insertRecord = document.toObject(InsertRecord::class.java)
+                        list.add(insertRecord)
                     }
                     continuation.resume(Result.Success(list))
                 } else {
@@ -623,9 +450,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
     }
 
     override suspend fun getCardioTrainRecord(recordKey: String): Result<List<CardioRecord>> = suspendCoroutine { continuation ->
-
-        var timeNow: Long = Calendar.getInstance().timeInMillis
-        var timePeriod: Long = timeNow + 60000000000
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
@@ -661,17 +485,12 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
     override suspend fun getCalendarTrainingRecord(calendar: Long, endcalendar: Long): Result<List<InsertRecord>> = suspendCoroutine { continuation ->
 
-        var timeNow: Long = Calendar.getInstance().timeInMillis
-        var timePeriod: Long = timeNow + 60000000000
-
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
             .document("${UserManger.userID}")
             .collection("menu")
             .document("self")
             .collection("record")
-//            .whereEqualTo("createdTime",1594649462560)
-//            .whereEqualTo("createdTime",1591804860000)
             .whereGreaterThan("createdTime",calendar)
             .whereLessThan("createdTime",endcalendar)
             .get()
@@ -699,9 +518,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
     }
 
     override suspend fun getCalendarTrainingCardioRecord(calendar: Long, endcalendar: Long): Result<List<CardioRecord>>  = suspendCoroutine { continuation ->
-
-        var timeNow: Long = Calendar.getInstance().timeInMillis
-        var timePeriod: Long = timeNow + 60000000000
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_USER)
@@ -739,7 +555,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES_GYM_LOCATION)
-//            .whereEqualTo("location", "${UserManger.userID}")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

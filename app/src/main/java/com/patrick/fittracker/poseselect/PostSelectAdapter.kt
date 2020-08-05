@@ -9,23 +9,20 @@ import com.patrick.fittracker.R
 import com.patrick.fittracker.data.SelectedMuscleGroup
 import com.patrick.fittracker.databinding.ItemMusclePostureBinding
 
-//class PostSelectAdapter {
-//}
-//class PostSelectAdapter(val onClickListener: OnClickListener):
-class PostSelectAdapter(val onClickListener: OnClickListener):
-    ListAdapter<String, PostSelectAdapter.PostSelectViewHolder>(DiffCallback){
 
-    class PostSelectViewHolder(private var binding: ItemMusclePostureBinding):
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(menu: String){
+class PostSelectAdapter(val onClickListener: OnClickListener) :
+    ListAdapter<String, PostSelectAdapter.PostSelectViewHolder>(DiffCallback) {
+
+    class PostSelectViewHolder(private var binding: ItemMusclePostureBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(menu: String) {
             binding.menu = menu
             binding.executePendingBindings()
 
         }
     }
 
-
-    companion object DiffCallback: DiffUtil.ItemCallback<String>(){
+    companion object DiffCallback : DiffUtil.ItemCallback<String>() {
         override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
@@ -35,11 +32,17 @@ class PostSelectAdapter(val onClickListener: OnClickListener):
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostSelectViewHolder{
-        return PostSelectViewHolder(ItemMusclePostureBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostSelectViewHolder {
+        return PostSelectViewHolder(
+            ItemMusclePostureBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: PostSelectViewHolder, position: Int){
+    override fun onBindViewHolder(holder: PostSelectViewHolder, position: Int) {
         val menu = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(menu)

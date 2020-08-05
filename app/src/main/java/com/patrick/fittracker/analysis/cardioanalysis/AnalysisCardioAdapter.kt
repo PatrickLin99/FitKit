@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.patrick.fittracker.R
 import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.databinding.ItemCardioAnalysisBinding
-import kotlinx.android.synthetic.main.record_fragment_del.*
 
 
 class AnalysisCardioAdapter(val onClickListener: OnClickListener):
-//class AnalysisCardioAdapter():
     ListAdapter<CardioRecord, AnalysisCardioAdapter.AnalysisCardioViewHolder>(DiffCallback){
 
     class AnalysisCardioViewHolder(private var binding: ItemCardioAnalysisBinding):

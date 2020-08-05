@@ -13,10 +13,6 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSetOrderNum(group: SetOrderFilter): Result<RecordSetOrder> {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getCardioSelection(): Result<List<Cardio>> {
         TODO("Not yet implemented")
     }

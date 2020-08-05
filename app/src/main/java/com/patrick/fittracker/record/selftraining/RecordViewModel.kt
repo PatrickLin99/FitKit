@@ -96,10 +96,7 @@ class RecordViewModel(private val repository: FitTrackerRepository,
 
     fun valueInsert(imageUri: String){
         addInsert.value?.let { fitDetailList ->
-            InsertRecord(muscleKey, fitDetailList, 0, imageUri)
-                ?.let { it ->
-                    uploadRecord(insertRecord = it)
-                }
+            uploadRecord(insertRecord = InsertRecord(muscleKey, fitDetailList, 0, imageUri))
         }
     }
 
@@ -143,7 +140,6 @@ class RecordViewModel(private val repository: FitTrackerRepository,
     fun onLeft() {
             _leave.value = null
         }
-
 
     fun plusWeight() {
         _addItem.value?.let {

@@ -29,6 +29,7 @@ class GroupFragment() : Fragment() {
         val binding = GroupFragmentBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        binding.clickListener = onSelectedImageClickListener
 
         viewModel.navigateToPoseSelect.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -36,86 +37,31 @@ class GroupFragment() : Fragment() {
             }
         })
 
-        binding.muscleChestColorImage.setOnClickListener {
-            binding.muscleChestColorImage.visibility = View.GONE
-        }
-        binding.muscleGroupBicepsColor.setOnClickListener {
-            binding.muscleGroupBicepsColor.visibility = View.GONE
-        }
-        binding.muscleGroupDeltoidsColor.setOnClickListener {
-            binding.muscleGroupDeltoidsColor.visibility = View.GONE
-        }
-        binding.muscleGroupLowerbackColor.setOnClickListener {
-            binding.muscleGroupLowerbackColor.visibility = View.GONE
-        }
-        binding.muscleGroupAbsColor.setOnClickListener {
-            binding.muscleGroupAbsColor.visibility = View.GONE
-        }
-        binding.muscleGroupUperbackColor.setOnClickListener {
-            binding.muscleGroupUperbackColor.visibility = View.GONE
-        }
-        binding.muscleGroupBacklegsColor.setOnClickListener {
-            binding.muscleGroupBacklegsColor.visibility = View.GONE
-        }
-        binding.muscleGroupCalfColor.setOnClickListener {
-            binding.muscleGroupCalfColor.visibility = View.GONE
-        }
-        binding.muscleGroupFrontlegsColor.setOnClickListener {
-            binding.muscleGroupFrontlegsColor.visibility = View.GONE
-        }
+        viewModel.selectMuscleType.observe(viewLifecycleOwner, Observer {
+            it?.let {
 
-        binding.muscleChestImage.setOnClickListener(onClickListener)
-        binding.muscleBicepsImage.setOnClickListener(onClickListener)
-        binding.muscleDeltoidsImage.setOnClickListener(onClickListener)
-        binding.muscleLowerbackImage.setOnClickListener(onClickListener)
-        binding.muscleAbsImage.setOnClickListener(onClickListener)
-        binding.muscleUpperbackImage.setOnClickListener(onClickListener)
-        binding.muscleFrontlegsImage.setOnClickListener(onClickListener)
-        binding.muscleCalfImage.setOnClickListener(onClickListener)
-        binding.muscleBacklegsImage.setOnClickListener(onClickListener)
+                viewModel.getMuscleGroupResult(group = it)
+                when (it) {
+                    MuscleGroupTypeFilter.CHEST -> muscle_chest_color_image.visibility = View.VISIBLE
+                    MuscleGroupTypeFilter.BICEPS -> muscle_group_biceps_color.visibility = View.VISIBLE
+                    MuscleGroupTypeFilter.DELTOIDS -> muscle_group_deltoids_color.visibility = View.VISIBLE
+                    MuscleGroupTypeFilter.LOWERBACK -> muscle_group_lowerback_color.visibility = View.VISIBLE
+                    MuscleGroupTypeFilter.ABS -> muscle_group_abs_color.visibility = View.VISIBLE
+                    MuscleGroupTypeFilter.UPPERBACK -> muscle_group_uperback_color.visibility = View.VISIBLE
+                    MuscleGroupTypeFilter.FRONTLEGS -> muscle_group_frontlegs_color.visibility = View.VISIBLE
+                    MuscleGroupTypeFilter.CALF -> muscle_group_calf_color.visibility = View.VISIBLE
+                    MuscleGroupTypeFilter.BACKLEGS -> muscle_group_backlegs_color.visibility = View.VISIBLE
+                }
+                viewModel.onMuscleSelected()
+            }
+        })
 
         return  binding.root
     }
 
-
-    private val onClickListener = View.OnClickListener {
-        when (it.id) {
-            R.id.muscle_chest_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.CHEST)
-                muscle_chest_color_image.visibility = View.VISIBLE
-            }
-            R.id.muscle_biceps_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.BICEPS)
-                muscle_group_biceps_color.visibility = View.VISIBLE
-            }
-            R.id.muscle_deltoids_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.DELTOIDS)
-                muscle_group_deltoids_color.visibility = View.VISIBLE
-            }
-            R.id.muscle_lowerback_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.LOWERBACK)
-                muscle_group_lowerback_color.visibility = View.VISIBLE
-            }
-            R.id.muscle_abs_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.ABS)
-                muscle_group_abs_color.visibility = View.VISIBLE
-            }
-            R.id.muscle_upperback_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.UPPERBACK)
-                muscle_group_uperback_color.visibility = View.VISIBLE
-            }
-            R.id.muscle_frontlegs_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.FRONTLEGS)
-                muscle_group_frontlegs_color.visibility = View.VISIBLE
-            }
-            R.id.muscle_calf_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.CALF)
-                muscle_group_calf_color.visibility = View.VISIBLE
-            }
-            R.id.muscle_backlegs_image -> {
-                viewModel.getMuscleGroupResult(group = MuscleGroupTypeFilter.BACKLEGS)
-                muscle_group_backlegs_color.visibility = View.VISIBLE
-            }
+    private val onSelectedImageClickListener = View.OnClickListener {
+        it?.let {
+            it.visibility = View.GONE
         }
     }
 

@@ -30,7 +30,6 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     get() = _cardioItem
 
 
-
     private val _addCardioRecordd = MutableLiveData<CardioRecord>().apply {
         value = CardioRecord()
     }
@@ -45,7 +44,8 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
 
     val outlineProvider = CardioSelectionOutlineProvider()
 
-    //---------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -81,16 +81,13 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     }
 
     init {
-
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
     }
 
-    fun uploadCardioRecordData(cardioRecord: CardioRecord) {
+    private fun uploadCardioRecordData(cardioRecord: CardioRecord) {
 
-        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$cardioRecord")
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
@@ -117,11 +114,50 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
         }
     }
 
-    fun uploadCardioStatusRecord() {
-                Log.d("Patrick", "_addTrainingRecordd.value=${_addCardioRecordd.value}")
+    fun calculateCal(type: String){
+        addCardioRecordd.value?.let {
+            when (cardioItem.value?.cardio_title) {
+                "羽毛球" -> it.burnFat = it.duration.times(153).div(30)
+                "棒球" -> it.burnFat = it.duration.times(141).div(30)
+                "籃球" -> it.burnFat = it.duration.times(189).div(30)
+                "保齡球" -> it.burnFat = it.duration.times(108).div(30)
+                "攀岩" -> it.burnFat = it.duration.times(210).div(30)
+                "自行車" -> it.burnFat = it.duration.times(252).div(30)
+                "慢跑" -> it.burnFat = it.duration.times(246).div(30)
+                "跳繩" -> it.burnFat = it.duration.times(252).div(30)
+                "戶外體操" -> it.burnFat = it.duration.times(93).div(30)
+                "步行" -> it.burnFat = it.duration.times(105).div(30)
+                "桌球" -> it.burnFat = it.duration.times(126).div(30)
+                "足球" -> it.burnFat = it.duration.times(231).div(30)
+                "衝浪" -> it.burnFat = it.duration.times(216).div(30)
+                "游泳" -> it.burnFat = it.duration.times(189).div(30)
+                "TABATA" -> it.burnFat = it.duration.times(450).div(30)
+                "撞球" -> it.burnFat = it.duration.times(45).div(30)
+                "網球" -> it.burnFat = it.duration.times(198).div(30)
+                "排球" -> it.burnFat = it.duration.times(108).div(30)
+                "健走" -> it.burnFat = it.duration.times(165).div(30)
+                "瑜珈" -> it.burnFat = it.duration.times(90).div(30)
+                "有氧舞蹈" -> it.burnFat = it.duration.times(204).div(30)
+                "飛輪" -> it.burnFat = it.duration.times(250).div(30)
+                "高爾夫" -> it.burnFat = it.duration.times(150).div(30)
+                "划船" -> it.burnFat = it.duration.times(132).div(30)
+                "滑雪" -> it.burnFat = it.duration.times(216).div(30)
+                "拳擊" -> it.burnFat = it.duration.times(342).div(30)
+            }
+        }
+    }
 
+    fun insertValue(recordImage: String) {
+        addCardioRecordd.value?.let {
+        it.recordImage = recordImage
+        it.name = cardioItem.value?.cardio_title.toString()
+        uploadCardioRecordData(it)
+        }
+
+    }
+
+    fun uploadCardioStatusRecord() {
         _addCardioRecordd.value?.let {
-//            it.weight = it.weight.minus(5)
             it.burnFat = it.burnFat
             it.duration = it.duration
             _addCardioRecordd.value = _addCardioRecordd.value
@@ -131,8 +167,6 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     fun showLoadingStatus(){
         _status.value = LoadApiStatus.LOADING
     }
-
-
 
     fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
@@ -159,6 +193,5 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     fun convertLongToString(value: Long): String {
         return value.toString()
     }
-
 
 }

@@ -3,40 +3,23 @@ package com.patrick.fittracker.record.classoption.inner
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.icu.util.Calendar
 import android.net.Uri
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.patrick.fittracker.NavigationDirections
-
-import com.patrick.fittracker.R
-import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
-import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.InnerRecordFragmentBinding
-import com.patrick.fittracker.databinding.PoseSelectFragmentBinding
-import com.patrick.fittracker.databinding.TestLayoutBinding
 import com.patrick.fittracker.ext.getVmFactory
-import com.patrick.fittracker.record.selftraining.RecordAdapter
-import com.patrick.fittracker.record.selftraining.RecordFragment
-import com.patrick.fittracker.record.selftraining.RecordFragmentArgs
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -44,17 +27,12 @@ class InnerRecordFragment : Fragment() {
 
     private val viewModel by viewModels <InnerRecordViewModel> {getVmFactory()}
 
-    private var mStorageRef: StorageReference? = null
-
     var saveUri: Uri? = null
     var imageUri: String = ""
 
     private companion object {
-        val PHOTO_FROM_GALLERY = 0
-        val PHOTO_FROM_CAMERA = 1
-
+        const val PHOTO_FROM_GALLERY = 0
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,10 +42,8 @@ class InnerRecordFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-
         val adapter = InnerRecordAdapter()
         binding.classOptionRecyclerViewShowAddList.adapter = adapter
-
         viewModel.addInsert.observe(viewLifecycleOwner, Observer {
             it?.let {
                     adapter.submitList(it)
@@ -88,65 +64,39 @@ class InnerRecordFragment : Fragment() {
         binding.setMinButton.setOnClickListener {
             viewModel.minusOrderSet()
         }
-
-        var orderNum : Long = 0
-
         binding.addRecord.setOnClickListener {
-
-            orderNum += 1
-            val newRecord = FitDetail()
-            newRecord?.count = orderNum
-            newRecord?.weight = viewModel.addOne.value?.weight ?: 0
-            newRecord?.orderSet = viewModel.addOne.value?.orderSet ?: 0
-
-            viewModel.recyclverSho(newRecord)
+            viewModel.showRecordList()
             adapter.notifyDataSetChanged()
-
         }
 
         binding.recordAnother.setOnClickListener {
-            viewModel.showLoadingStatus()
-
-                viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
-                    if (viewModel.photoUpload.value == true || viewModel.photoUpload.value == null) {
-                        viewModel.addInsert.value?.let { it1 ->
-                            InsertRecord(
-                                InnerRecordFragmentArgs.fromBundle(
-                                    requireArguments()
-                                ).classKey, it1, 0, imageUri
-                            )
-                        }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
-
-                        if (viewModel.addInsert.value != null) {
-                            findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
-                        } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Some Thing When Wrong, Please Wait!",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                })
-
+            viewModel._photoUpload.observe(viewLifecycleOwner, Observer {
+                if (it == true || it == null) {
+                    viewModel.valueInsert(
+                        InnerRecordFragmentArgs.fromBundle(
+                            requireArguments()
+                        ).classKey, imageUri
+                    )
+                    findNavController().navigate(NavigationDirections.actionGlobalClassOptionFragment())
+                } else {
+                    viewModel.showLoadingStatus()
+                }
+            })
         }
 
         binding.finishRecord.setOnClickListener {
-            viewModel.showLoadingStatus()
-            viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
-                if (viewModel.photoUpload.value == true || viewModel.photoUpload.value == null) {
-
-            viewModel.addInsert.value?.let { it1 -> InsertRecord(InnerRecordFragmentArgs.fromBundle(requireArguments()).classKey, it1,0,imageUri) }?.let { it2 -> viewModel.uploadClassRecord(insertRecord = it2) }
-
-                if (viewModel.addInsert.value != null) {
+            viewModel._photoUpload.observe(viewLifecycleOwner, Observer {
+                if (it == true || it == null) {
+                    viewModel.valueInsert(
+                        InnerRecordFragmentArgs.fromBundle(
+                            requireArguments()
+                        ).classKey, imageUri
+                    )
                     findNavController().navigate(NavigationDirections.actionGlobalClassOptionFinishFragment())
                 } else {
-                    Toast.makeText(requireContext(),"Some Thing When Wrong, Please Wait!",Toast.LENGTH_LONG).show()
-                }
-
+                    viewModel.showLoadingStatus()
                 }
             })
-
         }
 
         binding.countDownTimer.setOnClickListener {
@@ -168,16 +118,8 @@ class InnerRecordFragment : Fragment() {
         return binding.root
     }
 
-
-
-
-    private fun initData() {
-        mStorageRef = FirebaseStorage.getInstance().reference
-    }
-
-    fun permission() {
+    private fun permission() {
         val permissionList = arrayListOf(
-            android.Manifest.permission.CAMERA,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.READ_EXTERNAL_STORAGE
         )
@@ -203,9 +145,9 @@ class InnerRecordFragment : Fragment() {
         )
     }
 
-    fun toAlbum() {
+    private fun toAlbum() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.setType("image/*")
+        intent.type = "image/*"
         startActivityForResult(intent, PHOTO_FROM_GALLERY)
     }
 
@@ -217,37 +159,20 @@ class InnerRecordFragment : Fragment() {
         }
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             PHOTO_FROM_GALLERY -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-                        val uri = data!!.data
-//                        upload_image_placeholder_weight.setImageURI(uri)
-                        saveUri = data.data
-                        saveUri.let {
-                            uploadImage()
-                        }
-
+//                        val uri = data!!.data
+                        saveUri = data?.data
+                        uploadImage()
                     }
                     Activity.RESULT_CANCELED -> {
                         Log.wtf("getImageResult", resultCode.toString())
                     }
                 }
-            }
-
-            PHOTO_FROM_CAMERA -> {
-                when (resultCode) {
-                    Activity.RESULT_OK -> {
-//                        Glide.with(this).load(saveUri).into(imageView)
-                    }
-                    Activity.RESULT_CANCELED -> {
-                        Log.wtf("getImageResult", resultCode.toString())
-                    }
-                }
-
             }
         }
     }
@@ -260,7 +185,6 @@ class InnerRecordFragment : Fragment() {
             ref.putFile(it)
                 .addOnSuccessListener {
                     ref.downloadUrl.addOnSuccessListener {
-//                        newRecord.recordImage = it.toString()
                         imageUri = it.toString()
                         viewModel._photoUpload.value = imageUri != ""
 
@@ -268,9 +192,6 @@ class InnerRecordFragment : Fragment() {
                 }
         }
     }
-
-
-
 
     override fun onResume() {
         (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
