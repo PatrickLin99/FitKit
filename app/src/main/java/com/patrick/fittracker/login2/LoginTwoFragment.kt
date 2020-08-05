@@ -28,6 +28,7 @@ import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.R
 import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.data.User
+import com.patrick.fittracker.data.UserProfile
 import com.patrick.fittracker.databinding.LoginFragmentBinding
 import com.patrick.fittracker.databinding.LoginTwoFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
@@ -39,14 +40,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class LoginTwoFragment : Fragment() {
 
-
-    private val viewModel by viewModels <LoginViewModel> {getVmFactory(user = User())}
+    private val viewModel by viewModels<LoginViewModel> { getVmFactory(user = User()) }
 
     // Firebase Authentication
-    var auth: FirebaseAuth? = null
-    var googleSignInClient: GoogleSignInClient? = null
-    var RC_SIGN_IN = 100
-
+    private var auth: FirebaseAuth? = null
+    private var googleSignInClient: GoogleSignInClient? = null
+    private var RC_SIGN_IN = 100
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,16 +61,19 @@ class LoginTwoFragment : Fragment() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-        binding.textView42.setOnClickListener { signIn() }
+        binding.signinTitle.setOnClickListener { signIn() }
 
         val mainTitle = binding.loginMainTitle
-        val span: Spannable = SpannableString(mainTitle.getText())
-        span.setSpan(ForegroundColorSpan(getColor(R.color.colorAccent)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        mainTitle.setText(span)
+        val span: Spannable = SpannableString(mainTitle.text)
+        span.setSpan(
+            ForegroundColorSpan(getColor(R.color.colorAccent)),
+            0,
+            3,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        mainTitle.text = span
 
-
-        return  binding.root
-
+        return binding.root
     }
 
     private fun signIn() {
@@ -88,13 +90,7 @@ class LoginTwoFragment : Fragment() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-
-                viewModel.addUnserInfo.value?.name = "${account.displayName}"
-                viewModel.addUnserInfo.value?.id = "${account.id}"
-                viewModel.addUnserInfo.value?.email = "${account.email}"
-                viewModel.addUnserInfo.value?.userProfile?.info_name = "${account.displayName}"
-                viewModel.addUnserInfo.value?.userProfile?.info_image = "${account.photoUrl}"
-                viewModel.addUnserInfo.value?.userProfile?.id = "${account.id}"
+                viewModel.insertUserValue(account)
 
                 UserManger.userID = account.id
                 UserManger.userName = account.displayName
@@ -110,11 +106,9 @@ class LoginTwoFragment : Fragment() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(ContentValues.TAG, "Google sign in failed", e)
-                // ...
             }
         }
     }
-
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
@@ -123,30 +117,28 @@ class LoginTwoFragment : Fragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth?.currentUser
-                    viewModel.addUnserInfo.value?.id?.let { User(it) }?.let { viewModel.userAdd(user = it) }
-                    viewModel.addUnserInfo.value?.name?.let { User(it) }?.let { viewModel.userAdd(user = it) }
-                    viewModel.addUnserInfo.value?.let { viewModel.uploadUserInfo(user = it) }
+                    user?.let {
+                        viewModel.syncUserInfo(user)
+                    }
 
                     findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
-
 
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
-                    // ...
-                    view?.let { Snackbar.make(it, "Authentication Failed.", Snackbar.LENGTH_SHORT).show() }
-//                        updateUI(null)
+                    view?.let {
+                        Snackbar.make(it, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                    }
                 }
 
             }
     }
 
-
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth?.currentUser
-        if (UserManger.isLogin()){
+        if (UserManger.isLogin()) {
             findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
         }
     }
@@ -166,6 +158,4 @@ class LoginTwoFragment : Fragment() {
 
         super.onStop()
     }
-
-
 }

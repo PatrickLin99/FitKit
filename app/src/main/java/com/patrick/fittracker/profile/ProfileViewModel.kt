@@ -20,11 +20,10 @@ import com.patrick.fittracker.data.Result
 
 class ProfileViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-    private val _UserInfo = MutableLiveData<User>()
+    private val _userInfo = MutableLiveData<User>()
 
-    val UserInfo: LiveData<User>
-        get() = _UserInfo
-
+    val userInfo: LiveData<User>
+        get() = _userInfo
 
     private val _add = MutableLiveData<User>()
 
@@ -33,6 +32,7 @@ class ProfileViewModel(private val repository: FitTrackerRepository) : ViewModel
 
     val outlineProvider = ProfileAvatarOutlineProvider()
 
+//--------------------------------------------------------------------------------------------------
 
     private val _leave = MutableLiveData<Boolean>()
 
@@ -82,7 +82,7 @@ class ProfileViewModel(private val repository: FitTrackerRepository) : ViewModel
 
             val result = repository.getLoginInfo()
 
-            _UserInfo.value = when (result) {
+            _userInfo.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE

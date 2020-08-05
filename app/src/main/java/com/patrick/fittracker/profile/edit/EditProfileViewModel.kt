@@ -38,8 +38,8 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
 
     val outlineProvider = ProfileAvatarOutlineProvider()
 
+//--------------------------------------------------------------------------------------------------
 
-    //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -78,11 +78,9 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
     }
 
     fun uploadProfileInfo(user: User) {
-
 
         coroutineScope.launch {
 
@@ -109,7 +107,6 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
             }
         }
     }
-
 
     fun getLoginInfoResult() {
 
@@ -145,7 +142,6 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
         }
     }
 
-
     fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
     }
@@ -176,6 +172,5 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
         _addUserInfo.value?.userProfile?.let { it.info_name = it.info_name }
         _addUserInfo.value?.userProfile?.let { it.info_age = it.info_age }
     }
-
 
 }

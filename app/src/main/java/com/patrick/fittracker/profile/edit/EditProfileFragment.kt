@@ -29,16 +29,14 @@ class EditProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = EditProfileFragmentBinding.inflate(inflater, container, false)
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        var profile_height: Double = 1.0
-        var profile_weight: Double = 1.0
-        var profile_bodyFat: Long = 1
+        var profileHeight: Double = 1.0
+        var profileWeight: Double = 1.0
+        var profileBodyFat: Long = 1
 
         viewModel.getLoginInfoResult()
-
 
         binding.seekBarHeight.onProgressChangedListener = object :
             BubbleSeekBar.OnProgressChangedListener {
@@ -49,7 +47,7 @@ class EditProfileFragment : Fragment() {
                 fromUser: Boolean
             ) {
 //                Toast.makeText(requireContext(), "身高為$progress", Toast.LENGTH_LONG).show()
-                profile_height = progress.toDouble()
+                profileHeight = progress.toDouble()
             }
 
             override fun getProgressOnActionUp(
@@ -77,7 +75,7 @@ class EditProfileFragment : Fragment() {
                 fromUser: Boolean
             ) {
 //                Toast.makeText(requireContext(), "體重為$progress", Toast.LENGTH_LONG).show()
-                profile_weight = progress.toDouble()
+                profileWeight = progress.toDouble()
             }
 
             override fun getProgressOnActionUp(
@@ -105,7 +103,7 @@ class EditProfileFragment : Fragment() {
                 fromUser: Boolean
             ) {
 //                Toast.makeText(requireContext(), "體脂肪為$progress", Toast.LENGTH_LONG).show()
-                profile_bodyFat = progress.toLong()
+                profileBodyFat = progress.toLong()
             }
 
             override fun getProgressOnActionUp(
@@ -126,23 +124,22 @@ class EditProfileFragment : Fragment() {
 
         binding.updateInfoImage.setOnClickListener {
 
-            UserManger.userData.userProfile?.info_height = profile_height.toLong()
-            UserManger.userData.userProfile?.info_weight = profile_weight.toLong()
-            UserManger.userData.userProfile?.info_bodyFat = profile_bodyFat
+            UserManger.userData.userProfile?.info_height = profileHeight.toLong()
+            UserManger.userData.userProfile?.info_weight = profileWeight.toLong()
+            UserManger.userData.userProfile?.info_bodyFat = profileBodyFat
 
-//            val profile_BMI: Double = ((profile_weight).div(profile_height * profile_height * 10000)).toDouble()
-            val profile_BMI: Double = profile_weight.times(10000).div(profile_height * profile_height)
-            Log.d("aaaaaaaBMI", profile_BMI.toString())
+            val profileBMI: Double = profileWeight.times(10000).div(profileHeight * profileHeight)
+            Log.d("aaaaaaaBMI", profileBMI.toString())
 
             viewModel.addUserInfo.value?.email = "${UserManger.userEmail}"
             viewModel.addUserInfo.value?.name = "${UserManger.userName}"
             viewModel.addUserInfo.value?.createdTime = UserManger.userData.createdTime
             viewModel.addUserInfo.value?.id = UserManger.userData.id
 
-            viewModel.addUserInfo.value?.userProfile?.info_height = profile_height.toLong()
-            viewModel.addUserInfo.value?.userProfile?.info_weight = profile_weight.toLong()
-            viewModel.addUserInfo.value?.userProfile?.info_bodyFat = profile_bodyFat
-            viewModel.addUserInfo.value?.userProfile?.info_BMI = profile_BMI.toLong()
+            viewModel.addUserInfo.value?.userProfile?.info_height = profileHeight.toLong()
+            viewModel.addUserInfo.value?.userProfile?.info_weight = profileWeight.toLong()
+            viewModel.addUserInfo.value?.userProfile?.info_bodyFat = profileBodyFat
+            viewModel.addUserInfo.value?.userProfile?.info_BMI = profileBMI.toLong()
 
 
             viewModel.uploadProfileInfo(user = User(
@@ -155,10 +152,10 @@ class EditProfileFragment : Fragment() {
                         "${UserManger.userID}",
                         UserManger.userData.createdTime,
                         "${UserManger.userName}",
-                        profile_weight.toLong(),
-                        profile_height.toLong(),
-                        profile_BMI.toLong(),
-                        profile_bodyFat,
+                        profileWeight.toLong(),
+                        profileHeight.toLong(),
+                        profileBMI.toLong(),
+                        profileBodyFat,
                         0,
                         "${UserManger.userImage}"
                     )
