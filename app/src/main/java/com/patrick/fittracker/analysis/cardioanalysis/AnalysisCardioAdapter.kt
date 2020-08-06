@@ -11,21 +11,19 @@ import com.patrick.fittracker.R
 import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.databinding.ItemCardioAnalysisBinding
 
+class AnalysisCardioAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<CardioRecord, AnalysisCardioAdapter.AnalysisCardioViewHolder>(DiffCallback) {
 
-class AnalysisCardioAdapter(val onClickListener: OnClickListener):
-    ListAdapter<CardioRecord, AnalysisCardioAdapter.AnalysisCardioViewHolder>(DiffCallback){
-
-    class AnalysisCardioViewHolder(private var binding: ItemCardioAnalysisBinding):
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(cardioRecord: CardioRecord){
+    class AnalysisCardioViewHolder(private var binding: ItemCardioAnalysisBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(cardioRecord: CardioRecord) {
             binding.cardiorecord = cardioRecord
             binding.executePendingBindings()
 
         }
     }
 
-
-    companion object DiffCallback: DiffUtil.ItemCallback<CardioRecord>(){
+    companion object DiffCallback : DiffUtil.ItemCallback<CardioRecord>() {
         override fun areContentsTheSame(oldItem: CardioRecord, newItem: CardioRecord): Boolean {
             return oldItem == newItem
         }
@@ -35,11 +33,17 @@ class AnalysisCardioAdapter(val onClickListener: OnClickListener):
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalysisCardioViewHolder{
-        return AnalysisCardioViewHolder(ItemCardioAnalysisBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalysisCardioViewHolder {
+        return AnalysisCardioViewHolder(
+            ItemCardioAnalysisBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: AnalysisCardioViewHolder, position: Int){
+    override fun onBindViewHolder(holder: AnalysisCardioViewHolder, position: Int) {
         val cardioRecord = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(cardioRecord)

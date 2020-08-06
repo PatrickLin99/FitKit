@@ -18,61 +18,37 @@ import kotlinx.coroutines.launch
 
 class AnalysisWeightViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-
     private val _record = MutableLiveData<List<InsertRecord>>()
 
     val record: LiveData<List<InsertRecord>>
         get() = _record
 
-    private var _navigateToAnalysis = MutableLiveData<List<InsertRecord>>()
+//--------------------------------------------------------------------------------------------------
 
-    val navigateToAnalysis : LiveData<List<InsertRecord>>
-        get() = _navigateToAnalysis
-
-
-    //-------weight set count detail
-    private val _recordDetail = MutableLiveData<List<FitDetail>>()
-
-
-    val recordDetail: LiveData<List<FitDetail>>
-        get() = _recordDetail
-
-
-
-    //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
         get() = _leave
 
-    // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
     val status: LiveData<LoadApiStatus>
         get() = _status
 
-    // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
 
     val error: LiveData<String>
         get() = _error
 
-    // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
 
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    /**
-     * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
-     * Retrofit service to stop.
-     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
@@ -83,15 +59,10 @@ class AnalysisWeightViewModel(private val repository: FitTrackerRepository) : Vi
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-
-        } else {
-
-        }
+        getTrainingRecordResult()
     }
 
-
-    fun getTrainingRecordResult() {
+    private fun getTrainingRecordResult() {
 
         coroutineScope.launch {
 
@@ -116,7 +87,8 @@ class AnalysisWeightViewModel(private val repository: FitTrackerRepository) : Vi
                     null
                 }
                 else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -130,13 +102,6 @@ class AnalysisWeightViewModel(private val repository: FitTrackerRepository) : Vi
         if (FitTrackerApplication.instance.isLiveDataDesign()) {
             _status.value = LoadApiStatus.DONE
             _refreshStatus.value = false
-
-        } else {
-            if (status.value != LoadApiStatus.LOADING) {
-//                if (group != null) {
-//                    getMuscleGroupResult(group)
-//                }
-            }
         }
     }
 
@@ -146,9 +111,5 @@ class AnalysisWeightViewModel(private val repository: FitTrackerRepository) : Vi
 
     fun onLeft() {
         _leave.value = null
-    }
-
-    fun navigateToAnalysis(insertRecord: InsertRecord) {
-        _navigateToAnalysis.value = listOf(insertRecord)
     }
 }

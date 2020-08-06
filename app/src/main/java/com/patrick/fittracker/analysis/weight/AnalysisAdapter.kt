@@ -1,4 +1,4 @@
-package com.patrick.fittracker.analysis
+package com.patrick.fittracker.analysis.weight
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,17 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.patrick.fittracker.TimeUtil
 import com.patrick.fittracker.data.InsertRecord
-import com.patrick.fittracker.databinding.ItemMusclePostureBinding
 import com.patrick.fittracker.databinding.ItemWeightAnalysisBinding
-import com.patrick.fittracker.databinding.TestLayoutBinding
-import com.patrick.fittracker.poseselect.PostSelectAdapter
-import java.sql.Time
 import java.util.*
 
 
-class AnalysisAdapter(val onClickListener: OnClickListener):
-//class AnalysisAdapter():
-    ListAdapter<InsertRecord, AnalysisAdapter.AnalysisViewHolder>(DiffCallback){
+class AnalysisAdapter(private val onClickListener: OnClickListener):
+    ListAdapter<InsertRecord, AnalysisAdapter.AnalysisViewHolder>(
+        DiffCallback
+    ){
 
     class AnalysisViewHolder(private var binding: ItemWeightAnalysisBinding):
         RecyclerView.ViewHolder(binding.root){
@@ -27,7 +24,6 @@ class AnalysisAdapter(val onClickListener: OnClickListener):
             binding.analysisWorkoutTime.text = TimeUtil.CalendarStampToDate(insertRecord.createdTime, Locale.TAIWAN)
         }
     }
-
 
     companion object DiffCallback: DiffUtil.ItemCallback<InsertRecord>(){
         override fun areContentsTheSame(oldItem: InsertRecord, newItem: InsertRecord): Boolean {
@@ -39,8 +35,10 @@ class AnalysisAdapter(val onClickListener: OnClickListener):
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalysisViewHolder{
-        return AnalysisViewHolder(ItemWeightAnalysisBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalysisViewHolder {
+        return AnalysisViewHolder(
+            ItemWeightAnalysisBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: AnalysisViewHolder, position: Int){

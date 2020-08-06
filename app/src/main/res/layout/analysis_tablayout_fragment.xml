@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.patrick.fittracker.analysis.test.AnalysisTestViewModel" />
+            type="com.patrick.fittracker.analysis.tablayout.AnalysisTestViewModel" />
 
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".analysis.test.AnalysisTestFragment">
+        tools:context=".analysis.tablayout.AnalysisTabLayoutFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

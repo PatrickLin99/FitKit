@@ -27,12 +27,6 @@
     </fragment>
     <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
     <fragment
-        android:id="@+id/analysisFragment"
-        android:name="com.patrick.fittracker.analysis.AnalysisFragment"
-        android:label="analysis_fragment"
-        tools:layout="@layout/analysis_fragment" />
-    <action android:id="@+id/action_global_analysisFragment" app:destination="@id/analysisFragment" />
-    <fragment
         android:id="@+id/groupFragment"
         android:name="com.patrick.fittracker.group.GroupFragment"
         android:label="group_fragment"
@@ -147,7 +141,7 @@
     <action android:id="@+id/action_global_weightChartFragment" app:destination="@id/weightChartFragment" />
     <fragment
         android:id="@+id/analysisTestFragment"
-        android:name="com.patrick.fittracker.analysis.test.AnalysisTestFragment"
+        android:name="com.patrick.fittracker.analysis.tablayout.AnalysisTabLayoutFragment"
         android:label="AnalysisTestFragment" />
     <action android:id="@+id/action_global_analysisTestFragment" app:destination="@id/analysisTestFragment" />
     <fragment
