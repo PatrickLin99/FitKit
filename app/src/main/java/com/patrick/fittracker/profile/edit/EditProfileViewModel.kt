@@ -30,7 +30,6 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
     val addUserInfo: LiveData<User>
         get() = _addUserInfo
 
-
     private val _add = MutableLiveData<User>()
 
     val add: LiveData<User>
@@ -78,9 +77,28 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+
+        getLoginInfoResult()
     }
 
-    fun uploadProfileInfo(user: User) {
+    fun userValueInsert(userHeight: Double, userWeight: Double, userBodyFat: Long) {
+        addUserInfo.value?.let { userInfo ->
+            userInfo.email = "${UserManger.userEmail}"
+            userInfo.name = "${UserManger.userName}"
+            userInfo.createdTime = UserManger.userData.createdTime
+            userInfo.id = UserManger.userData.id
+
+            userInfo.userProfile?.let { userProfile ->
+                userProfile.info_height = userHeight.toLong()
+                userProfile.info_weight = userWeight.toLong()
+                userProfile.info_bodyFat = userBodyFat
+                userProfile.info_BMI = userWeight.times(10000).div(userHeight * userHeight).toLong()
+            }
+        }
+        addUserInfo.value?.let { uploadProfileInfo(user = it) }
+    }
+
+    private fun uploadProfileInfo(user: User) {
 
         coroutineScope.launch {
 
@@ -108,7 +126,7 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
         }
     }
 
-    fun getLoginInfoResult() {
+    private fun getLoginInfoResult() {
 
         coroutineScope.launch {
 
@@ -133,7 +151,8 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
                     null
                 }
                 else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -167,10 +186,4 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
     fun convertLongToString(value: Long): String {
         return value.toString()
     }
-
-    fun infoNameandAge(){
-        _addUserInfo.value?.userProfile?.let { it.info_name = it.info_name }
-        _addUserInfo.value?.userProfile?.let { it.info_age = it.info_age }
-    }
-
 }
