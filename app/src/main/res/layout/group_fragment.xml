@@ -15,7 +15,6 @@
         <import type="com.patrick.fittracker.network.LoadApiStatus"/>
         <import type="android.view.View"/>
         <import type="com.patrick.fittracker.group.MuscleGroupTypeFilter" />
-
     </data>
 
     <FrameLayout

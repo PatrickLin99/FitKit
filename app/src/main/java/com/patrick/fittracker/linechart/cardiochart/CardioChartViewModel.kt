@@ -3,8 +3,12 @@ package com.patrick.fittracker.linechart.cardiochart
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
+import com.patrick.fittracker.TimeUtil
 import com.patrick.fittracker.data.CardioRecord
 import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.data.InsertRecord
@@ -16,61 +20,49 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CardioChartViewModel(private val repository: FitTrackerRepository,
                            private val recordKey: CardioRecord
 ) : ViewModel() {
-
 
     private val _record = MutableLiveData<List<CardioRecord>>()
 
     val record: LiveData<List<CardioRecord>>
         get() = _record
 
+    val entriesDuration: MutableList<Entry> = ArrayList()
+    val entriesCalories: MutableList<Entry> = ArrayList()
+    val labels : ArrayList<String> = ArrayList()
 
-    //-------weight set count detail
-    private val _recordDetail = MutableLiveData<List<FitDetail>>()
+//--------------------------------------------------------------------------------------------------
 
-
-    val recordDetail: LiveData<List<FitDetail>>
-        get() = _recordDetail
-
-
-
-    //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
         get() = _leave
 
-    // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
     val status: LiveData<LoadApiStatus>
         get() = _status
 
-    // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
 
     val error: LiveData<String>
         get() = _error
 
-    // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
 
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    /**
-     * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
-     * Retrofit service to stop.
-     */
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
@@ -80,14 +72,31 @@ class CardioChartViewModel(private val repository: FitTrackerRepository,
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
-        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-
-        } else {
-
-        }
     }
 
+    fun insertChartValue() {
+        record.value?.let {
+            val cardioListSizeStart: Int = if (it.size > 10) {
+                it.size.minus(10)
+            } else {
+                0
+            }
+
+            for (i in cardioListSizeStart until it.size) {
+                it[i].duration.toFloat()
+                    .let { order ->
+                        Entry(i.toFloat(), order)
+                    }.let { pointValue -> entriesDuration.add(pointValue) }
+
+                it[i].burnFat.toFloat()
+                    .let { order ->
+                        Entry(i.toFloat(), order)
+                    }.let { pointValue -> entriesCalories.add(pointValue) }
+
+                labels.add(TimeUtil.AnalysisStampToDate(it[i].createdTime, Locale.TAIWAN))
+            }
+        }
+    }
 
     fun getCardioRecordRecordResult(recordKey: CardioRecord) {
 
@@ -124,17 +133,9 @@ class CardioChartViewModel(private val repository: FitTrackerRepository,
     }
 
     fun refresh() {
-
         if (FitTrackerApplication.instance.isLiveDataDesign()) {
             _status.value = LoadApiStatus.DONE
             _refreshStatus.value = false
-
-        } else {
-            if (status.value != LoadApiStatus.LOADING) {
-//                if (group != null) {
-//                    getMuscleGroupResult(group)
-//                }
-            }
         }
     }
 
@@ -144,4 +145,5 @@ class CardioChartViewModel(private val repository: FitTrackerRepository,
 
     fun onLeft() {
         _leave.value = null
-    }}
+    }
+}

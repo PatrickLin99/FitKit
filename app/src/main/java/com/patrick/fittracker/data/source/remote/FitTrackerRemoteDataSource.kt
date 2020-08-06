@@ -463,13 +463,14 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val list = mutableListOf<CardioRecord>()
-                    for (document in task.result!!) {
+                        for (document in task.result!!) {
 
-                        Logger.d(document.id + " => " + document.data)
+                            Logger.d(document.id + " => " + document.data)
 
-                        val cardioRecord = document.toObject(CardioRecord::class.java)
-                        list.add(cardioRecord)
-                    }
+                            val cardioRecord = document.toObject(CardioRecord::class.java)
+                            list.add(cardioRecord)
+                        }
+
                     continuation.resume(Result.Success(list))
                 } else {
                     task.exception?.let {

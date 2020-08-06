@@ -27,7 +27,7 @@ class GroupViewModel(
 
     val selectMuscleType = MutableLiveData<MuscleGroupTypeFilter>()
 
-//-------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 
     private val _leave = MutableLiveData<Boolean>()
 
