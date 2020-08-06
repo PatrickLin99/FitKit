@@ -32,12 +32,10 @@ class EventDetailCardioFragment : DialogFragment() {
         binding.viewModel = viewModel
 
         val recordKey = EventDetailCardioFragmentArgs.fromBundle(requireArguments()).recordKey
-
         binding.calendarEventDetailCardioTitle.text = recordKey.name
         binding.calendarEventDetailCardioDate.text = TimeUtil.CalendarStampToDate(recordKey.createdTime, Locale.TAIWAN)
         binding.calendarEventDetailCardioDuration.text = "運動時間:  ${recordKey.duration.toString()}"
         binding.calendarEventDetailCardioCalories.text = "消耗熱量:  ${recordKey.burnFat.toString()}"
-
 
         return binding.root
     }

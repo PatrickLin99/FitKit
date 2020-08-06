@@ -30,22 +30,16 @@ class EventDetailFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-
         val eventDetail = EventDetailFragmentArgs.fromBundle(requireArguments()).recordKey
-
         binding.calendarEventDetailTitle.text = eventDetail.name
         binding.calendarEventDetailTitleTime.text = TimeUtil.CalendarStampToDate(eventDetail.createdTime, Locale.TAIWAN)
 
         val adapter = EventDetailAdapter()
         binding.recyclerViewEventDetail.adapter = adapter
-        eventDetail.fitDetail?.let {
+        eventDetail.fitDetail.let {
             adapter.submitList(it.sortedByDescending { it.count }.reversed())
         }
 
-
-
-
         return binding.root
     }
-
 }

@@ -29,56 +29,33 @@ import kotlin.time.milliseconds
 class CalendarFragment : Fragment() {
 
     private val viewModel by viewModels<CalendarViewModel> { getVmFactory() }
-    lateinit var test: CalendarView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        return inflater.inflate(R.layout.calendar_fragment, container, false)
         val binding = CalendarFragmentBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-
-
         binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            var time : String = "$year$month$dayOfMonth"
+            val dayBegin = "$year-${month.plus(1)}-$dayOfMonth 00:01:00"
+            val dayEnd = "$year-${month.plus(1)}-$dayOfMonth 23:59:00"
 
+            val dateBegin = TimeUtil.DateToStamp(dayBegin, Locale.TAIWAN)
+            val dateEnd = TimeUtil.DateToStamp(dayEnd, Locale.TAIWAN)
 
-            val startDate = "$year-${month.plus(1)}-$dayOfMonth 00:01:00"
-            var endDate = "$year-${month.plus(1)}-$dayOfMonth 23:59:00"
-
-            val dateFormat_yyyyMMddHHmmss = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.TAIWAN)
-
-            val startdate = dateFormat_yyyyMMddHHmmss.parse(startDate)
-            val enddate = dateFormat_yyyyMMddHHmmss.parse(endDate)
-
-            val calendar = Calendar.getInstance()
-            val endcalendar = Calendar.getInstance()
-
-            calendar.time = startdate
-            endcalendar.time = enddate
-
-//            val timestampStart = TimeUtil.DateToStamp(startDate, Locale.TAIWAN)
-//            val timestampEnd = TimeUtil.DateToStamp(endDate, Locale.TAIWAN)
-
-            viewModel.getCalendarTrainingRecordResult(calendar.timeInMillis, endcalendar.timeInMillis)
-            viewModel.getCalendarTrainingCardioRecordResult(calendar.timeInMillis, endcalendar.timeInMillis)
-
+            viewModel.getCalendarTrainingRecordResult(dateBegin, dateEnd)
+            viewModel.getCalendarTrainingCardioRecordResult(dateBegin, dateEnd)
         }
 
-
-
         val adapter = CalendarEventAdapter(CalendarEventAdapter.OnClickListener{
-            it?.let {
-
+            it.let {
                 findNavController().navigate(NavigationDirections.actionGlobalEventDetailFragment(it))
-
             }
         })
-        binding.recyclerViewCalendarEvent.adapter = adapter
 
+        binding.recyclerViewCalendarEvent.adapter = adapter
         viewModel.record.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
                 adapter.submitList(it.distinctBy { it.name })
@@ -86,22 +63,19 @@ class CalendarFragment : Fragment() {
         })
 
         val adapterCardio = CalendarEventCardioAdapter(CalendarEventCardioAdapter.OnClickListener{
-            it?.let {
+            it.let {
                 findNavController().navigate(NavigationDirections.actionGlobalEventDetailCardioFragment(it))
             }
         })
-        binding.recyclerViewCalendarEventCardio.adapter = adapterCardio
 
+        binding.recyclerViewCalendarEventCardio.adapter = adapterCardio
         viewModel.recordCardio.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
                 adapterCardio.submitList(it.distinctBy { it.name })
             }
         })
-
         adapter.notifyDataSetChanged()
-
 
         return binding.root
     }
-
 }

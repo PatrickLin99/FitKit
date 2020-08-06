@@ -9,13 +9,10 @@
             type="com.patrick.fittracker.calendar.CalendarViewModel" />
 
         <variable
-            name="insertrecord"
+            name="insertRecord"
             type="com.patrick.fittracker.data.InsertRecord" />
 
         <import type="com.patrick.fittracker.TimeUtil"/>
-
-
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +44,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@{insertrecord.name}"
+            android:text="@{insertRecord.name}"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

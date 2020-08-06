@@ -12,24 +12,19 @@ import com.patrick.fittracker.databinding.ItemMusclePostureBinding
 import java.util.*
 
 
-class CalendarEventAdapter(val onClickListener: OnClickListener):
-//class CalendarEventAdapter():
-    ListAdapter<InsertRecord, CalendarEventAdapter.CalendarEventViewHolder>(DiffCallback){
+class CalendarEventAdapter(val onClickListener: OnClickListener) :
+    ListAdapter<InsertRecord, CalendarEventAdapter.CalendarEventViewHolder>(DiffCallback) {
 
-    class CalendarEventViewHolder(private var binding: ItemCalendarEventBinding):
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(insertrecord: InsertRecord){
-            binding.insertrecord = insertrecord
+    class CalendarEventViewHolder(private var binding: ItemCalendarEventBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(insertRecord: InsertRecord) {
+            binding.insertRecord = insertRecord
             binding.executePendingBindings()
-
-            val event_time = TimeUtil.CalendarStampToDate(insertrecord.createdTime, Locale.TAIWAN)
-            binding.calendarEventTime.text = event_time
-
+            binding.calendarEventTime.text = TimeUtil.CalendarStampToDate(insertRecord.createdTime, Locale.TAIWAN)
         }
     }
 
-
-    companion object DiffCallback: DiffUtil.ItemCallback<InsertRecord>(){
+    companion object DiffCallback : DiffUtil.ItemCallback<InsertRecord>() {
         override fun areContentsTheSame(oldItem: InsertRecord, newItem: InsertRecord): Boolean {
             return oldItem == newItem
         }
@@ -39,11 +34,17 @@ class CalendarEventAdapter(val onClickListener: OnClickListener):
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarEventViewHolder{
-        return CalendarEventViewHolder(ItemCalendarEventBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarEventViewHolder {
+        return CalendarEventViewHolder(
+            ItemCalendarEventBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: CalendarEventViewHolder, position: Int){
+    override fun onBindViewHolder(holder: CalendarEventViewHolder, position: Int) {
         val menu = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(menu)
