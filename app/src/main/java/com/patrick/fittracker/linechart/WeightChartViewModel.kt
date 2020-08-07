@@ -35,6 +35,7 @@ class WeightChartViewModel(private val repository: FitTrackerRepository,
     val labels: ArrayList<String> = ArrayList()
 
 //--------------------------------------------------------------------------------------------------
+
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>

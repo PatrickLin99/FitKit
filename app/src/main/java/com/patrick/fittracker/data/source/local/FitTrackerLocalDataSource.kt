@@ -29,14 +29,6 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addProfileInfo(userProfile: UserProfile): Result<Boolean> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getProfileInfo(userProfile: UserProfile): Result<List<UserProfile>> {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun addSelfRecord(insertRecord: InsertRecord): Result<Boolean> {
         TODO("Not yet implemented")
     }

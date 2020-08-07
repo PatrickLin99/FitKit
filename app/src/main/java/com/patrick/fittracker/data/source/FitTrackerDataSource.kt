@@ -18,10 +18,6 @@ interface FitTrackerDataSource {
 
     suspend fun addUserInfo(user: User): Result<Boolean>
 
-    suspend fun addProfileInfo (userProfile: UserProfile): Result<Boolean>
-
-    suspend fun getProfileInfo (userProfile: UserProfile): Result<List<UserProfile>>
-
     suspend fun addSelfRecord(insertRecord: InsertRecord): Result<Boolean>
 
     suspend fun getTrainingRecord(): Result<List<InsertRecord>>
