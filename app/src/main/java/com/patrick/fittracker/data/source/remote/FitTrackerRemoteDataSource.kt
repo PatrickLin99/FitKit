@@ -2,9 +2,11 @@ package com.patrick.fittracker.data.source.remote
 
 
 import android.icu.util.Calendar
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
 import com.patrick.fittracker.UserManger
@@ -14,6 +16,7 @@ import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import com.patrick.fittracker.network.FitTrackerApi
 import com.patrick.fittracker.util.Logger
 import com.patrick.fittracker.util.Util.isInternetConnected
+import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -549,4 +552,58 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
         }
     }
 
+    override suspend fun addSelfTrainingImage(uri: Uri): Result<String> =
+        suspendCoroutine { continuation ->
+
+            var saveUri: Uri? = null
+            val filename = UUID.randomUUID().toString()
+            val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
+            uri.let {
+                ref.putFile(it)
+                    .addOnSuccessListener {
+                        ref.downloadUrl.addOnSuccessListener {
+
+
+                            continuation.resume(Result.Success(it.toString()))
+                        }
+                    }
+            }
+        }
+
+    override suspend fun addClassOptionImage(uri: Uri): Result<String> =
+        suspendCoroutine { continuation ->
+
+            var saveUri: Uri? = null
+            val filename = UUID.randomUUID().toString()
+            val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
+            uri.let {
+                ref.putFile(it)
+                    .addOnSuccessListener {
+                        ref.downloadUrl.addOnSuccessListener {
+
+
+                            continuation.resume(Result.Success(it.toString()))
+                        }
+                    }
+            }
+        }
+
+
+    override suspend fun addCardioImage(uri: Uri): Result<String> =
+        suspendCoroutine { continuation ->
+
+            var saveUri: Uri? = null
+            val filename = UUID.randomUUID().toString()
+            val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
+            uri.let {
+                ref.putFile(it)
+                    .addOnSuccessListener {
+                        ref.downloadUrl.addOnSuccessListener {
+
+
+                            continuation.resume(Result.Success(it.toString()))
+                        }
+                    }
+            }
+        }
 }

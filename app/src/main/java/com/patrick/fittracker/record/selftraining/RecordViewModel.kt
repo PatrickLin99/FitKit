@@ -1,5 +1,6 @@
 package com.patrick.fittracker.record.selftraining
 
+import android.net.Uri
 import android.util.Log
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
@@ -37,9 +38,17 @@ class RecordViewModel(private val repository: FitTrackerRepository,
         get() = _addInsert
 
 
-    val photoUpload = MutableLiveData<Boolean>().apply { value = null }
+    private val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
 
-//---------------------------------------------------------------------------------------------------
+    val photoUpload : LiveData<Boolean>
+        get() = _photoUpload
+
+    private val _imageResult = MutableLiveData<String>()
+
+    val imageResult: LiveData<String>
+        get() = _imageResult
+
+//--------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -100,6 +109,35 @@ class RecordViewModel(private val repository: FitTrackerRepository,
         }
     }
 
+    fun uploadSelfTrainingImage(uri: Uri) {
+        _photoUpload.value = false
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            when (val result = repository.addSelfTrainingImage(uri)) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    _imageResult.value = result.data
+                    _photoUpload.value = result.data != ""
+                    leave(true)
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+        }
+    }
 
     private fun uploadRecord(insertRecord: InsertRecord) {
 
@@ -196,5 +234,4 @@ class RecordViewModel(private val repository: FitTrackerRepository,
     fun convertLongToString(value: Long): String {
         return value.toString()
     }
-
 }

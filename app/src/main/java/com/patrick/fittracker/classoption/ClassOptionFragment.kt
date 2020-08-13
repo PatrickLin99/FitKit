@@ -1,6 +1,5 @@
 package com.patrick.fittracker.classoption
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +8,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.patrick.fittracker.NavigationDirections
 
-import com.patrick.fittracker.R
-import com.patrick.fittracker.cardio.selection.CardioSelectionViewModel
 import com.patrick.fittracker.databinding.CardioSelectionFragmentBinding
 import com.patrick.fittracker.databinding.ClassOptionFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
@@ -56,12 +52,12 @@ class ClassOptionFragment : Fragment() {
     }
 
     override fun onResume() {
-        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
+        (activity as AppCompatActivity).bottomNavView?.visibility = View.GONE
         super.onResume()
     }
 
     override fun onStop() {
-        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
+        (activity as AppCompatActivity).bottomNavView?.visibility = View.VISIBLE
         super.onStop()
     }
 }

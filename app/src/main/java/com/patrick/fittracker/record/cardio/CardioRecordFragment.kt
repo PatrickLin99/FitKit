@@ -66,6 +66,7 @@ class CardioRecordFragment : DialogFragment() {
         binding.finishButton.setOnClickListener {
             viewModel.photoUpload.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 if (it == true || it == null) {
+                    recordImage = viewModel.imageResult.value ?:""
                     viewModel.insertValue(recordImage)
                     viewModel.uploadCardioStatusRecord()
                     val cardioKey: String = viewModel.cardioItem.value?.cardio_title ?: ""
@@ -135,28 +136,14 @@ class CardioRecordFragment : DialogFragment() {
                         val uri = data!!.data
                         upload_image_placeholder.setImageURI(uri)
                         saveUri = data.data
-                        uploadImage()
+//                        uploadImage()
+                        saveUri?.let { viewModel.uploadCardioImage(it) }
                     }
                     Activity.RESULT_CANCELED -> {
                         Log.wtf("getImageResult", resultCode.toString())
                     }
                 }
             }
-        }
-    }
-
-    private fun uploadImage() {
-        val filename = UUID.randomUUID().toString()
-        val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
-        saveUri?.let {
-            viewModel._photoUpload.value = false
-            ref.putFile(it)
-                .addOnSuccessListener {
-                    ref.downloadUrl.addOnSuccessListener {
-                        recordImage = it.toString()
-                        viewModel._photoUpload.value = recordImage != ""
-                    }
-                }
         }
     }
 

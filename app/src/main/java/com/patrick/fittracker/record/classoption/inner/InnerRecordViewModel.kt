@@ -1,5 +1,6 @@
 package com.patrick.fittracker.record.classoption.inner
 
+import android.net.Uri
 import android.util.Log
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
@@ -10,6 +11,7 @@ import com.patrick.fittracker.R
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
+import com.patrick.fittracker.profile.CardioSelectionOutlineProvider
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +19,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewModel() {
-
-
-    val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
 
     private var _navigateToFinish = MutableLiveData<String>()
 
@@ -46,6 +45,16 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
     private val _addInsertTest = MutableLiveData<MutableList<InsertRecord>>().apply {
         value = mutableListOf()
     }
+
+    private val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
+
+    val photoUpload : LiveData<Boolean>
+        get() = _photoUpload
+
+    private val _imageResult = MutableLiveData<String>()
+
+    val imageResult: LiveData<String>
+        get() = _imageResult
 
 
 //---------------------------------------------------------------------------------------------------
@@ -87,6 +96,36 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+    }
+
+    fun uploadClassOptionImage(uri: Uri) {
+        _photoUpload.value = false
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            when (val result = repository.addClassOptionImage(uri)) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    _imageResult.value = result.data
+                    _photoUpload.value = result.data != ""
+                    leave(true)
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+        }
     }
 
     private fun uploadClassRecord(insertRecord: InsertRecord) {

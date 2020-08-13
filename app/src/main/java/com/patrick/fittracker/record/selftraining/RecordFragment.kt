@@ -5,33 +5,22 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.airbnb.lottie.L
-import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.patrick.fittracker.NavigationDirections
-import com.patrick.fittracker.data.FitDetail
-import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.RecordFragmentBinding
 import com.patrick.fittracker.databinding.TestLayoutBinding
 import com.patrick.fittracker.ext.getVmFactory
-import com.patrick.fittracker.record.cardio.CardioRecordFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.cardio_record_fragment.*
-import kotlinx.android.synthetic.main.home_fragment.*
-import kotlinx.android.synthetic.main.record_fragment.*
 import java.util.*
 
 
@@ -86,6 +75,7 @@ class RecordFragment : Fragment() {
         binding.finishRecord.setOnClickListener {
             viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
                 if (it == true || it == null) {
+                    imageUri = viewModel.imageResult.value ?:""
                     viewModel.valueInsert(imageUri)
                     findNavController().navigate(
                         NavigationDirections.actionGlobalFinishRecordFragment(muscleKey)
@@ -99,6 +89,7 @@ class RecordFragment : Fragment() {
         binding.recordAnother.setOnClickListener {
             viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
                 if (it == true || it == null) {
+                    imageUri = viewModel.imageResult.value ?:""
                     viewModel.valueInsert(imageUri)
                     findNavController().navigate(NavigationDirections.actionGlobalGroupFragment())
                 } else {
@@ -114,7 +105,6 @@ class RecordFragment : Fragment() {
         binding.countDownTimer.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalCountDownTimerFragment())
         }
-
 
         if (savedInstanceState != null) {
             saveUri = Uri.parse(savedInstanceState.getString("saveUri"))
@@ -175,7 +165,7 @@ class RecordFragment : Fragment() {
                     Activity.RESULT_OK -> {
                         val uri = data!!.data
                         saveUri = data.data
-                        uploadImage()
+                        saveUri?.let { viewModel.uploadSelfTrainingImage(it) }
                     }
                     Activity.RESULT_CANCELED -> {
                         Log.wtf("getImageResult", resultCode.toString())
@@ -185,28 +175,13 @@ class RecordFragment : Fragment() {
         }
     }
 
-    private fun uploadImage() {
-        val filename = UUID.randomUUID().toString()
-        val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
-        saveUri?.let {
-            viewModel.photoUpload.value = false
-            ref.putFile(it)
-                .addOnSuccessListener {
-                    ref.downloadUrl.addOnSuccessListener {
-                        imageUri = it.toString()
-                        viewModel.photoUpload.value = imageUri != ""
-                    }
-                }
-        }
-    }
-
     override fun onResume() {
-        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
+        (activity as AppCompatActivity).bottomNavView?.visibility = View.GONE
         super.onResume()
     }
 
     override fun onStop() {
-        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
+        (activity as AppCompatActivity).bottomNavView?.visibility = View.VISIBLE
         super.onStop()
     }
 

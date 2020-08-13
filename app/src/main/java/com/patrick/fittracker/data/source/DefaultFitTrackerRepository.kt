@@ -1,5 +1,6 @@
 package com.patrick.fittracker.data.source
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.group.MuscleGroupTypeFilter
@@ -74,5 +75,17 @@ class DefaultFitTrackerRepository(private val remoteDataSource: FitTrackerDataSo
         keyword: String
     ): Result<GymLocationListResult> {
         return remoteDataSource.getLocationList(key, location, radius, language, keyword)
+    }
+
+    override suspend fun addSelfTrainingImage(uri: Uri): Result<String> {
+        return remoteDataSource.addCardioImage(uri)
+    }
+
+    override suspend fun addClassOptionImage(uri: Uri): Result<String> {
+        return remoteDataSource.addCardioImage(uri)
+    }
+
+    override suspend fun addCardioImage(uri: Uri): Result<String> {
+        return remoteDataSource.addCardioImage(uri)
     }
 }

@@ -15,7 +15,7 @@
         android:id="@+id/calendarFragment"
         android:name="com.patrick.fittracker.calendar.CalendarFragment"
         android:label="calendar_fragment"
-        tools:layout="@layout/calendar_fragment" />
+        tools:layout="@layout/calendar_fragment"/>
     <action
         android:id="@+id/action_global_calendarFragment"
         app:destination="@id/calendarFragment" />

@@ -2,7 +2,6 @@ package com.patrick.fittracker.login2
 
 import android.content.ContentValues
 import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -19,7 +18,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -28,12 +26,10 @@ import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.R
 import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.data.User
-import com.patrick.fittracker.data.UserProfile
 import com.patrick.fittracker.databinding.LoginFragmentBinding
 import com.patrick.fittracker.databinding.LoginTwoFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import com.patrick.fittracker.login.LoginViewModel
-import com.patrick.fittracker.network.LoadApiStatus
 import com.patrick.fittracker.util.Util.getColor
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -144,7 +140,7 @@ class LoginTwoFragment : Fragment() {
     }
 
     override fun onResume() {
-        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
+        (activity as AppCompatActivity).bottomNavView?.visibility = View.GONE
         (activity as AppCompatActivity).toolbar.visibility = View.GONE
         (activity as AppCompatActivity).main_title_spannable_test.visibility = View.GONE
 
@@ -152,7 +148,7 @@ class LoginTwoFragment : Fragment() {
     }
 
     override fun onStop() {
-        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
+        (activity as AppCompatActivity).bottomNavView?.visibility = View.VISIBLE
         (activity as AppCompatActivity).toolbar.visibility = View.VISIBLE
         (activity as AppCompatActivity).main_title_spannable_test.visibility = View.VISIBLE
 

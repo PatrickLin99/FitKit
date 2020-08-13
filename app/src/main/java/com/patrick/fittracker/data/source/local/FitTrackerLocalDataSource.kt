@@ -1,6 +1,7 @@
 package com.patrick.fittracker.data.source.local
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerDataSource
@@ -72,6 +73,18 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         language: String,
         keyword: String
     ): Result<GymLocationListResult> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addSelfTrainingImage(uri: Uri): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addClassOptionImage(uri: Uri): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addCardioImage(uri: Uri): Result<String> {
         TODO("Not yet implemented")
     }
 

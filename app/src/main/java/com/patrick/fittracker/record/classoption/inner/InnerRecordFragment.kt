@@ -17,7 +17,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.storage.FirebaseStorage
 import com.patrick.fittracker.NavigationDirections
-import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.InnerRecordFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -70,8 +69,9 @@ class InnerRecordFragment : Fragment() {
         }
 
         binding.recordAnother.setOnClickListener {
-            viewModel._photoUpload.observe(viewLifecycleOwner, Observer {
+            viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
                 if (it == true || it == null) {
+                    imageUri = viewModel.imageResult.value ?:""
                     viewModel.valueInsert(
                         InnerRecordFragmentArgs.fromBundle(
                             requireArguments()
@@ -85,8 +85,9 @@ class InnerRecordFragment : Fragment() {
         }
 
         binding.finishRecord.setOnClickListener {
-            viewModel._photoUpload.observe(viewLifecycleOwner, Observer {
+            viewModel.photoUpload.observe(viewLifecycleOwner, Observer {
                 if (it == true || it == null) {
+                    imageUri = viewModel.imageResult.value ?:""
                     viewModel.valueInsert(
                         InnerRecordFragmentArgs.fromBundle(
                             requireArguments()
@@ -167,7 +168,8 @@ class InnerRecordFragment : Fragment() {
                     Activity.RESULT_OK -> {
 //                        val uri = data!!.data
                         saveUri = data?.data
-                        uploadImage()
+//                        uploadImage()
+                        saveUri?.let { viewModel.uploadClassOptionImage(it) }
                     }
                     Activity.RESULT_CANCELED -> {
                         Log.wtf("getImageResult", resultCode.toString())
@@ -177,29 +179,13 @@ class InnerRecordFragment : Fragment() {
         }
     }
 
-    private fun uploadImage() {
-        val filename = UUID.randomUUID().toString()
-        val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
-        saveUri?.let {
-            viewModel._photoUpload.value = false
-            ref.putFile(it)
-                .addOnSuccessListener {
-                    ref.downloadUrl.addOnSuccessListener {
-                        imageUri = it.toString()
-                        viewModel._photoUpload.value = imageUri != ""
-
-                    }
-                }
-        }
-    }
-
     override fun onResume() {
-        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.GONE
+        (activity as AppCompatActivity).bottomNavView?.visibility = View.GONE
         super.onResume()
     }
 
     override fun onStop() {
-        (activity as AppCompatActivity).bottomNavVIew?.visibility = View.VISIBLE
+        (activity as AppCompatActivity).bottomNavView?.visibility = View.VISIBLE
         super.onStop()
     }
 

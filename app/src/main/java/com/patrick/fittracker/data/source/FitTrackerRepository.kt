@@ -1,5 +1,6 @@
 package com.patrick.fittracker.data.source
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.util.MultiClassKey
 import com.patrick.fittracker.data.*
@@ -38,6 +39,12 @@ interface FitTrackerRepository {
     suspend fun getLocationInfo(): Result<GymLocation>
 
     suspend fun getLocationList(key: String, location: String, radius: Int, language: String, keyword: String): Result<GymLocationListResult>
+
+    suspend fun addSelfTrainingImage(uri: Uri): Result<String>
+
+    suspend fun addClassOptionImage(uri: Uri): Result<String>
+
+    suspend fun addCardioImage(uri: Uri): Result<String>
 
 
 

@@ -1,5 +1,6 @@
 package com.patrick.fittracker.record.cardio
 
+import android.net.Uri
 import android.util.Log
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
@@ -37,12 +38,17 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
     val addCardioRecordd: LiveData<CardioRecord>
         get() = _addCardioRecordd
 
-    val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
+    private val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
 
     val photoUpload : LiveData<Boolean>
         get() = _photoUpload
 
     val outlineProvider = CardioSelectionOutlineProvider()
+
+    private val _imageResult = MutableLiveData<String>()
+
+    val imageResult: LiveData<String>
+        get() = _imageResult
 
 //--------------------------------------------------------------------------------------------------
 
@@ -85,6 +91,38 @@ class CardioRecordViewModel(private val repository: FitTrackerRepository, privat
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
     }
+
+    fun uploadCardioImage(uri: Uri) {
+        _photoUpload.value = false
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            when (val result = repository.addCardioImage(uri)) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    _imageResult.value = result.data
+//                    insertValue(result.data)
+                    _photoUpload.value = result.data != ""
+                    leave(true)
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+        }
+    }
+
 
     private fun uploadCardioRecordData(cardioRecord: CardioRecord) {
 
