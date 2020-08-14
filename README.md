@@ -12,7 +12,7 @@ Create customized workout plans and visulize workout data.
 ## Content
 1. Create personalized workout programs
 
-   <img src="https://i.imgur.com/gpghyJQ.png" width="300" height="563"> <img src="https://i.imgur.com/gpghyJQ.png" width="300" height="563"> <img src="https://i.imgur.com/gpghyJQ.png" width="300" height="563"> <img src="https://i.imgur.com/gpghyJQ.png" width="300" height="563">
+   <img src="https://i.imgur.com/gpghyJQ.png" width="200" height="375"> <img src="https://i.imgur.com/gpghyJQ.png" width="200" height="375"> <img src="https://i.imgur.com/gpghyJQ.png" width="200" height="375"> <img src="https://i.imgur.com/gpghyJQ.png" width="200" height="375">
 
 2. Display your workout schedule and details
     Pics
