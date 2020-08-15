@@ -14,10 +14,12 @@ Create customized workout plans and visulize workout data.
 1. Create personalized workout programs
 
    <img src="https://i.imgur.com/PUFnwbP.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/0Bu3G8Y.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/sYSJlAu.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/zl4WZqH.png" width="180.32" height="341.6">
+   
+   <img src="https://i.imgur.com/bGyN3Wk.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/em7GZE3.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/G9ppJtF.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/3bdQk6w.png" width="180.32" height="341.6">
 
 2. Display your workout schedule and details
 
-    <img src="https://i.imgur.com/5Xn9dxX.png" width="180" height="337.5"> <img src="https://i.imgur.com/dQduGug.png" width="180" height="337.5"> <img src="https://i.imgur.com/8CNm2W0.png" width="180" height="337.5">
+    <img src="https://i.imgur.com/uojLik9.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/Ycqjq1U.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/yUYduJq.png" width="180.32" height="341.6">
     
 3. Profile
 
