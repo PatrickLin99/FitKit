@@ -27,7 +27,7 @@ Create customized workout plans and visulize workout data.
     
 4. Analysis
     
-    <img src="https://i.imgur.com/LJmq5du.png" width="180" height="337.5"> <img src="https://i.imgur.com/lKcHYsu.png" width="180" height="337.5"> <img src="https://i.imgur.com/073VKbI.jpg" width="180" height="337.5"> <img src="https://i.imgur.com/djBtIBx.png" width="180" height="337.5">
+    <img src="https://i.imgur.com/jbkCZ8j.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/aCmXSZb.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/URD9nio.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/bHmtsmI.png" width="180.32" height="341.6">
 
 
 ## Implementation 
