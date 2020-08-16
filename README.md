@@ -23,7 +23,7 @@ Create customized workout plans and visulize workout data.
     
 3. Profile
 
-    <img src="https://i.imgur.com/rcf0H6C.png" width="180" height="337.5"> <img src="https://i.imgur.com/KS0wu5E.png" width="180" height="337.5">
+    <img src="https://i.imgur.com/qXbCZZZ.png" width="180.32" height="341.6"> <img src="https://i.imgur.com/aSRthha.png" width="180.32" height="341.6">
     
 4. Analysis
     
