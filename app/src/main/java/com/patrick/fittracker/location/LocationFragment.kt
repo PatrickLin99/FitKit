@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -50,33 +51,35 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         map?.let {
             googleMap = it
 
-//            map.addMarker(
-//                MarkerOptions()
-//                    .position(LatLng(25.042496, 121.564919))
-//                    .title("AppWorks School")
-//            )
             viewModel.gymList.observe(viewLifecycleOwner, Observer {
                 it?.let {
-                    val locationSize = viewModel.gymList.value?.results?.size?.minus(1) ?: 0
-                    for (i in 0..locationSize) {
+                    viewModel.insertMarkerValue()
+                    val locationSize = it.results?.size ?: 0
+                    for (i in 0 until locationSize) {
+//                        map.addMarker(
+//                            (viewModel.gymList.value?.results?.get(i)?.geometry?.location?.lat?.toDouble())?.let { lat ->
+//                                viewModel.gymList.value?.results?.get(i)?.geometry?.location?.lng?.toDouble()
+//                                    ?.let { lng ->
+//                                        LatLng(
+//                                            lat, lng
+//                                        )
+//                                    }
+//                            }?.let { position ->
+//                                MarkerOptions().position(position)
+//                                    .title(viewModel.gymList.value?.results?.get(i)?.name)
+//                            }
+//                        ).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.gym_icon))
                         map.addMarker(
-                            (viewModel.gymList.value?.results?.get(i)?.geometry?.location?.lat?.toDouble())?.let { it1 ->
-                                viewModel.gymList.value?.results?.get(i)?.geometry?.location?.lng?.toDouble()
-                                    ?.let { it2 ->
-                                        LatLng(
-                                            it1, it2
-                                        )
-                                    }
-                            }?.let { it2 ->
-                                MarkerOptions().position(it2)
-                                    .title(viewModel.gymList.value?.results?.get(i)?.name)
-                            }
+                            MarkerOptions().position(
+                                LatLng(
+                                    viewModel.locationLat[i].toDouble(),
+                                    viewModel.locationLng[i].toDouble()
+                                )
+                            ).title(viewModel.locationTitle[i])
                         ).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.gym_icon))
                     }
                 }
             })
-
-
 
             permission()
 
@@ -92,7 +95,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
     }
 
 
-    fun permission() {
+    private fun permission() {
         if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), 0)
@@ -106,27 +109,14 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 //                startIntent()
                 Toast.makeText(requireContext(),"bbbbbbbbbbbbbbbb",Toast.LENGTH_LONG).show()
 
-            } else {
-//                val snackBar = Snackbar.make(thisView, "無定位功能無法執行程序", Snackbar.LENGTH_INDEFINITE)
-//                snackBar.setAction("OK", object : View.OnClickListener {
-//                    override fun onClick(v: View?) {
-//                        snackBar.setText("aaaaaaaa")
-////                        snackBar.dismiss()
-//                    }
-//                })
-//                    .setActionTextColor(Color.LTGRAY)
-//                    .show()
             }
         }
     }
 
-
-
-
-    fun locationManager(){
+    private fun locationManager(){
         val locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-        var isGPSEnabled = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        var isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        val isGPSEnabled = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
         if (!(isGPSEnabled || isNetworkEnabled))
 //            Snackbar.make(thisView, "目前無開啟任何定位功能", Snackbar.LENGTH_LONG).show()
@@ -150,28 +140,19 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         UserManger.currentLocation.longitude = oriLocation?.longitude
         viewModel.getLocationListResult(key = getString(R.string.google_maps_key), location = "${UserManger.currentLocation.latitude},${UserManger.currentLocation.longitude}",radius = 800, language = "zh-TW", keyword = "健身")
 
-
-//            UserManger.currentLocation.longitude = 121.565023
-//            UserManger.currentLocation.latitude = 25.042994
-
-        Log.d("Usermanager.currentlocation","${UserManger.currentLocation.latitude},${UserManger.currentLocation.longitude}")
         if(oriLocation != null) {
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(oriLocation!!.latitude, oriLocation!!.longitude), 15.4f))
-//            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(25.042994,121.565023), 15.0f))
 
             UserManger.currentLocation.latitude = oriLocation!!.latitude
             UserManger.currentLocation.longitude = oriLocation!!.longitude
         }
     }
 
-    val locationListener = object : LocationListener {
+    private val locationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             if(oriLocation == null) {
                 oriLocation = location
             }
-            //keep CameraOn
-//            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 15.4f))
-
         }
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
         }
@@ -184,7 +165,6 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -193,7 +173,6 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         permission()
-//        locationManager()
         binding.mapView.visibility = View.GONE
 
         binding.findNearGym.setOnClickListener {
@@ -213,20 +192,21 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
             attachToRecyclerView(binding.recyclerViewLocationList)
         }
 
-        binding.recyclerViewLocationList.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        binding.recyclerViewLocationList.setOnScrollChangeListener { _, _, _, _, _ ->
             viewModel.onGalleryScrollChange(
                 binding.recyclerViewLocationList.layoutManager, linearSnapHelper
             )
         }
 
-
             viewModel.snapPosition.observe(viewLifecycleOwner, Observer {
                 adapter.selectedPosition.value
-                val cameraLat = viewModel.detailResult.value?.get(it)?.geometry?.location?.lat?.toDouble()
-                val cameraLng = viewModel.detailResult.value?.get(it)?.geometry?.location?.lng?.toDouble()
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(cameraLat!!, cameraLng!!), 15.4f))
+//                val cameraLat = viewModel.detailResult.value?.get(it)?.geometry?.location?.lat?.toDouble()
+//                val cameraLng = viewModel.detailResult.value?.get(it)?.geometry?.location?.lng?.toDouble()
+//                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(cameraLat ?:0.0, cameraLng ?:0.0), 15.4f))
+                viewModel.detailResult.value?.get(it)?.geometry?.location?.let { location ->
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.lat?.toDouble() ?:0.0, location.lng?.toDouble() ?:0.0), 15.4f))
+                }
 
-                Log.d("nnnnnnnnaaaaaaaaa","${viewModel.snapPosition.value }")
             })
 
         viewModel.detailResult.observe(viewLifecycleOwner, Observer {
@@ -235,10 +215,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
             }
         })
 
-
         viewModel.getLocationResult()
-
-
 
         return binding.root
     }

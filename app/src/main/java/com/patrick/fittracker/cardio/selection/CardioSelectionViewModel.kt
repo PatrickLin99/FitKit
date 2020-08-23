@@ -10,7 +10,6 @@ import com.patrick.fittracker.data.Cardio
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.network.LoadApiStatus
-import com.patrick.fittracker.profile.CardioSelectionOutlineProvider
 import com.patrick.fittracker.profile.ProfileAvatarOutlineProvider
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
@@ -25,14 +24,14 @@ class CardioSelectionViewModel(private val repository: FitTrackerRepository) : V
     val cardio: LiveData<List<Cardio>>
         get() = _cardio
 
-    var liveArticles = MutableLiveData<List<Cardio>>()
-
     private val _navigateToCardioRecord = MutableLiveData<Cardio>()
 
     val navigationToCardioRecord: LiveData<Cardio>
         get() = _navigateToCardioRecord
 
     val outlineProvider = ProfileAvatarOutlineProvider()
+
+//----------------------------------------------------------------------------------------------
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -63,11 +62,9 @@ class CardioSelectionViewModel(private val repository: FitTrackerRepository) : V
         _navigateToCardioRecord.value = cardio
     }
 
-    fun navigateToCardioRecordDone () {
+    fun navigateToCardioRecordDone() {
         _navigateToCardioRecord.value = null
     }
-
-
 
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
@@ -86,14 +83,10 @@ class CardioSelectionViewModel(private val repository: FitTrackerRepository) : V
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-//        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-            getCardioSelectionResult()
-//        } else {
-//            getCardioSelectionResult()
-//        }
+        getCardioSelectionResult()
     }
 
-    fun getCardioSelectionResult() {
+    private fun getCardioSelectionResult() {
 
         coroutineScope.launch {
 
@@ -118,7 +111,8 @@ class CardioSelectionViewModel(private val repository: FitTrackerRepository) : V
                     null
                 }
                 else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

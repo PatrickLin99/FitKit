@@ -35,9 +35,6 @@
             android:layout_height="match_parent"
             android:background="@color/colorWhite">
 
-
-
-
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
@@ -102,204 +99,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_name_title"
                 tools:text="aaa" />
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView5"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginTop="24dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:alpha="0.6"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/imageView9"-->
-<!--                app:layout_constraintHorizontal_bias="0.5"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/view"-->
-<!--                app:srcCompat="@drawable/measurement" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView9"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:alpha="0.6"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/imageView5"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/imageView5"-->
-<!--                app:srcCompat="@drawable/weight" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView11"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:alpha="0.6"-->
-<!--                android:layout_marginTop="36dp"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/imageView12"-->
-<!--                app:layout_constraintHorizontal_bias="0.5"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView7"-->
-<!--                app:srcCompat="@drawable/distribution" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView12"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:alpha="0.6"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.5"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/imageView11"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/imageView11"-->
-<!--                app:srcCompat="@drawable/caliper" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView15"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:alpha="0.6"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.5"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/imageView14"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/imageView14"-->
-<!--                app:srcCompat="@drawable/website" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView14"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginTop="36dp"-->
-<!--                android:alpha="0.6"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/imageView15"-->
-<!--                app:layout_constraintHorizontal_bias="0.5"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView9"-->
-<!--                app:srcCompat="@drawable/file" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView7"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="身高"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/colorDarkGray"-->
-<!--                android:textSize="14sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView5"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView5"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/imageView5" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView8"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="體重"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/colorDarkGray"-->
-<!--                android:textSize="14sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView9"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView9"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/imageView9" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView9"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="BMI"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/colorDarkGray"-->
-<!--                android:textSize="14sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView11"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView11"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/imageView11" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView10"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="體脂肪"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/colorDarkGray"-->
-<!--                android:textSize="14sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView12"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView12"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/imageView12" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView11"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="編輯"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/colorDarkGray"-->
-<!--                android:textSize="14sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView14"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView14"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/imageView14" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView12"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="會員"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/colorDarkGray"-->
-<!--                android:textSize="14sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView15"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView15"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/imageView15" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView32"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_height)}"-->
-<!--                android:textSize="18sp"-->
-<!--                android:textColor="@color/colorLightBlack"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/textView7"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView7"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView7"-->
-<!--                tools:text="180" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView33"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_weight)}"-->
-<!--                android:textColor="@color/colorLightBlack"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintBaseline_toBaselineOf="@+id/textView32"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/textView8"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView8"-->
-<!--                tools:text="75"/>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView34"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_BMI)}"-->
-<!--                android:textSize="18sp"-->
-<!--                android:textColor="@color/colorLightBlack"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/textView9"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView9"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView9"-->
-<!--                tools:text="BMI"/>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView36"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@{String.valueOf(viewModel.userInfo.userProfile.info_bodyFat)}"-->
-<!--                android:textColor="@color/colorLightBlack"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintBaseline_toBaselineOf="@+id/textView34"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/textView10"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView10"-->
-<!--                tools:text="bodyfat"/>-->
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
@@ -513,34 +312,11 @@
                         app:layout_constraintStart_toEndOf="@+id/imageView32"
                         app:layout_constraintTop_toTopOf="@+id/imageView32" />
 
-                    <!--                <ImageView-->
-                    <!--                    android:id="@+id/imageView31"-->
-                    <!--                    android:layout_width="24dp"-->
-                    <!--                    android:layout_height="24dp"-->
-                    <!--                    android:layout_marginEnd="8dp"-->
-                    <!--                    app:layout_constraintBottom_toBottomOf="@+id/button4"-->
-                    <!--                    app:layout_constraintEnd_toStartOf="@+id/button4"-->
-                    <!--                    app:layout_constraintTop_toTopOf="@+id/button4"-->
-                    <!--                    app:srcCompat="@drawable/file" />-->
-
-                    <!--                    <Button-->
-                    <!--                        android:id="@+id/edit_button"-->
-                    <!--                        android:layout_width="72dp"-->
-                    <!--                        android:layout_height="38dp"-->
-                    <!--                        android:layout_marginEnd="16dp"-->
-                    <!--                        android:layout_marginBottom="16dp"-->
-                    <!--                        android:background="@drawable/round_button_accent"-->
-                    <!--                        android:letterSpacing="0.1"-->
-                    <!--                        android:text="編輯"-->
-                    <!--                        android:textColor="@color/colorWhite"-->
-                    <!--                        android:textSize="16sp"-->
-                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--                        app:layout_constraintEnd_toEndOf="parent" />-->
-
                     <ImageView
                         android:id="@+id/super_low_body_fat"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:visibility="gone"
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="8dp"
                         app:layout_constraintStart_toEndOf="@+id/textView57"
@@ -578,17 +354,6 @@
                         app:layout_constraintTop_toTopOf="@+id/imageView32"
                         app:srcCompat="@drawable/muscle_stand_icon" />
 
-<!--                    <ProgressBar-->
-<!--                        android:id="@+id/progressBar3"-->
-<!--                        style="?android:attr/progressBarStyle"-->
-<!--                        android:layout_width="48dp"-->
-<!--                        android:layout_height="48dp"-->
-<!--                        android:theme="@style/ProgressTheme"-->
-<!--                        android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
                     <ImageView
                         android:id="@+id/edit_button"

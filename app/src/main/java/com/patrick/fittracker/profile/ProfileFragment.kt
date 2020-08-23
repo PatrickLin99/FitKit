@@ -26,10 +26,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = ProfileFragmentBinding.inflate(inflater, container, false)
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
 
         binding.editButton.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalEditProfileFragment())
@@ -37,7 +35,7 @@ class ProfileFragment : Fragment() {
 
         viewModel.getLoginInfoResult()
         viewModel.refresh()
-        viewModel.UserInfo.observe(viewLifecycleOwner, Observer {
+        viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Log.d("viewModel.UserInfo.","viewModel.UserInfo: $it")
             it?.let {
 
@@ -49,21 +47,17 @@ class ProfileFragment : Fragment() {
         binding.fitBodyFat.visibility = View.GONE
         binding.superLowBodyFat.visibility = View.GONE
 
-        viewModel.UserInfo.observe(viewLifecycleOwner, Observer {
+        viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             it?.let {
-
                 viewModel.getLoginInfoResult()
-//                viewModel.refresh()
-                when (viewModel.UserInfo.value?.userProfile?.info_bodyFat) {
+                when (viewModel.userInfo.value?.userProfile?.info_bodyFat) {
                     in 1..8.toLong() -> binding.superLowBodyFat.visibility = View.VISIBLE
                     in 8..12.toLong() -> binding.lowBodyFat.visibility = View.VISIBLE
                     in 13..20.toLong() -> binding.fitBodyFat.visibility = View.VISIBLE
                     in 20..50.toLong() -> binding.highBodyFat.visibility = View.VISIBLE
                 }
-
             }
         })
-
 
         binding.layoutSwipeRefreshHome.setOnRefreshListener {
             viewModel.refresh()
@@ -74,7 +68,6 @@ class ProfileFragment : Fragment() {
                 binding.layoutSwipeRefreshHome.isRefreshing = it
             }
         })
-
 
         return binding.root
     }

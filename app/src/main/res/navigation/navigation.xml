@@ -15,7 +15,7 @@
         android:id="@+id/calendarFragment"
         android:name="com.patrick.fittracker.calendar.CalendarFragment"
         android:label="calendar_fragment"
-        tools:layout="@layout/calendar_fragment" />
+        tools:layout="@layout/calendar_fragment"/>
     <action
         android:id="@+id/action_global_calendarFragment"
         app:destination="@id/calendarFragment" />
@@ -26,12 +26,6 @@
         tools:layout="@layout/profile_fragment" >
     </fragment>
     <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
-    <fragment
-        android:id="@+id/analysisFragment"
-        android:name="com.patrick.fittracker.analysis.AnalysisFragment"
-        android:label="analysis_fragment"
-        tools:layout="@layout/analysis_fragment" />
-    <action android:id="@+id/action_global_analysisFragment" app:destination="@id/analysisFragment" />
     <fragment
         android:id="@+id/groupFragment"
         android:name="com.patrick.fittracker.group.GroupFragment"
@@ -49,26 +43,6 @@
             />
     </dialog>
     <action android:id="@+id/action_global_poseSelectFragment" app:destination="@id/poseSelectFragment" />
-    <fragment
-        android:id="@+id/recordFragment"
-        android:name="com.patrick.fittracker.record.selftraining.RecordFragment"
-        android:label="record_fragment"
-        tools:layout="@layout/record_fragment" >
-        <argument
-            android:name="muscleKey"
-            app:argType="string" />
-    </fragment>
-    <action
-        android:id="@+id/action_global_recordFragment"
-        app:destination="@id/recordFragment"
-        app:popUpTo="@id/poseSelectFragment"
-        app:popUpToInclusive="true" />
-    <dialog
-        android:id="@+id/addSuccessFragment"
-        android:name="com.patrick.fittracker.addsuccess.AddSuccessFragment"
-        android:label="add_success_fragment"
-        tools:layout="@layout/add_success_fragment" />
-    <action android:id="@+id/action_global_addSuccessFragment" app:destination="@id/addSuccessFragment" />
     <fragment
         android:id="@+id/cardioSelectionFragment"
         android:name="com.patrick.fittracker.cardio.selection.CardioSelectionFragment"
@@ -167,7 +141,7 @@
     <action android:id="@+id/action_global_weightChartFragment" app:destination="@id/weightChartFragment" />
     <fragment
         android:id="@+id/analysisTestFragment"
-        android:name="com.patrick.fittracker.analysis.test.AnalysisTestFragment"
+        android:name="com.patrick.fittracker.analysis.tablayout.AnalysisTabLayoutFragment"
         android:label="AnalysisTestFragment" />
     <action android:id="@+id/action_global_analysisTestFragment" app:destination="@id/analysisTestFragment" />
     <fragment
@@ -212,4 +186,13 @@
         android:name="com.patrick.fittracker.location.LocationFragment"
         android:label="LocationFragment" />
     <action android:id="@+id/action_global_locationFragment" app:destination="@id/locationFragment" />
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.patrick.fittracker.record.selftraining.RecordFragment"
+        android:label="RecordFragment" >
+        <argument
+            android:name="muscleKey"
+            app:argType="string" />
+    </fragment>
+    <action android:id="@+id/action_global_recordFragment" app:destination="@id/recordFragment" />
 </navigation>

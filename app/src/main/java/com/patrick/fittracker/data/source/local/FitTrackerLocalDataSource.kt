@@ -1,6 +1,7 @@
 package com.patrick.fittracker.data.source.local
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerDataSource
@@ -13,31 +14,11 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSetOrderNum(group: SetOrderFilter): Result<RecordSetOrder> {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getCardioSelection(): Result<List<Cardio>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getClassOption(): Result<List<ClassOption>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun addRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getRecord(muscleKey: String): Result<List<AddTrainingRecord>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun addClassRecord(addTrainingRecord: AddTrainingRecord): Result<Boolean> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getClassRecord(classKey: String): Result<List<AddTrainingRecord>> {
         TODO("Not yet implemented")
     }
 
@@ -49,15 +30,7 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addProfileInfo(userProfile: UserProfile): Result<Boolean> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getProfileInfo(userProfile: UserProfile): Result<List<UserProfile>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun addRecordTest(insertRecord: InsertRecord): Result<Boolean> {
+    override suspend fun addSelfRecord(insertRecord: InsertRecord): Result<Boolean> {
         TODO("Not yet implemented")
     }
 
@@ -100,6 +73,18 @@ class FitTrackerLocalDataSource(val context: Context) : FitTrackerDataSource {
         language: String,
         keyword: String
     ): Result<GymLocationListResult> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addSelfTrainingImage(uri: Uri): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addClassOptionImage(uri: Uri): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addCardioImage(uri: Uri): Result<String> {
         TODO("Not yet implemented")
     }
 

@@ -2,13 +2,11 @@ package com.patrick.fittracker.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.record.selftraining.RecordViewModel
 import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 /**
- * Created by Wayne Chen on 2020-01-15.
  *
  * Factory for all ViewModels.
  */

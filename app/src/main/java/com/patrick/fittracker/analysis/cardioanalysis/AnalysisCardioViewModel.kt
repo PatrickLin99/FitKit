@@ -24,22 +24,8 @@ class AnalysisCardioViewModel(private val repository: FitTrackerRepository)  : V
     val record: LiveData<List<CardioRecord>>
         get() = _record
 
-    private var _navigateToAnalysis = MutableLiveData<List<InsertRecord>>()
+//--------------------------------------------------------------------------------------------------
 
-    val navigateToAnalysis : LiveData<List<InsertRecord>>
-        get() = _navigateToAnalysis
-
-
-    //-------weight set count detail
-    private val _recordDetail = MutableLiveData<List<FitDetail>>()
-
-
-    val recordDetail: LiveData<List<FitDetail>>
-        get() = _recordDetail
-
-
-
-    //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -83,15 +69,10 @@ class AnalysisCardioViewModel(private val repository: FitTrackerRepository)  : V
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-
-        } else {
-
-        }
+        getTrainingCardioRecordResult()
     }
 
-
-    fun getTrainingCardioRecordResult() {
+    private fun getTrainingCardioRecordResult() {
 
         coroutineScope.launch {
 
@@ -116,7 +97,8 @@ class AnalysisCardioViewModel(private val repository: FitTrackerRepository)  : V
                     null
                 }
                 else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -130,13 +112,6 @@ class AnalysisCardioViewModel(private val repository: FitTrackerRepository)  : V
         if (FitTrackerApplication.instance.isLiveDataDesign()) {
             _status.value = LoadApiStatus.DONE
             _refreshStatus.value = false
-
-        } else {
-            if (status.value != LoadApiStatus.LOADING) {
-//                if (group != null) {
-//                    getMuscleGroupResult(group)
-//                }
-            }
         }
     }
 
@@ -147,5 +122,4 @@ class AnalysisCardioViewModel(private val repository: FitTrackerRepository)  : V
     fun onLeft() {
         _leave.value = null
     }
-
 }

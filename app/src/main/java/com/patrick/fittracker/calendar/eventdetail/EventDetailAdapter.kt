@@ -12,21 +12,19 @@ import com.patrick.fittracker.databinding.ItemCalendarEventBinding
 import com.patrick.fittracker.databinding.ItemCalendarEventDetailBinding
 import java.util.*
 
-//class EventDetailAdapter(val onClickListener: OnClickListener):
-class EventDetailAdapter():
-    ListAdapter<FitDetail, EventDetailAdapter.EventDetailViewHolder>(DiffCallback){
+class EventDetailAdapter() :
+    ListAdapter<FitDetail, EventDetailAdapter.EventDetailViewHolder>(DiffCallback) {
 
-    class EventDetailViewHolder(private var binding: ItemCalendarEventDetailBinding):
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(fitDetail: FitDetail){
+    class EventDetailViewHolder(private var binding: ItemCalendarEventDetailBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(fitDetail: FitDetail) {
             binding.fitdetail = fitDetail
             binding.executePendingBindings()
 
         }
     }
 
-
-    companion object DiffCallback: DiffUtil.ItemCallback<FitDetail>(){
+    companion object DiffCallback : DiffUtil.ItemCallback<FitDetail>() {
         override fun areContentsTheSame(oldItem: FitDetail, newItem: FitDetail): Boolean {
             return oldItem == newItem
         }
@@ -36,15 +34,18 @@ class EventDetailAdapter():
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventDetailViewHolder{
-        return EventDetailViewHolder(ItemCalendarEventDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventDetailViewHolder {
+        return EventDetailViewHolder(
+            ItemCalendarEventDetailBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: EventDetailViewHolder, position: Int){
+    override fun onBindViewHolder(holder: EventDetailViewHolder, position: Int) {
         val menu = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(menu)
-//        }
         holder.bind(menu)
     }
 

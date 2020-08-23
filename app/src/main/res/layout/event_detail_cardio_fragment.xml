@@ -16,11 +16,13 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".calendar.eventcardio.EventDetailCardioFragment">
+        tools:context=".calendar.eventcardio.EventDetailCardioFragment"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_dialog_background">
 
             <TextView
                 android:id="@+id/calendar_event_detail_cardio_title"

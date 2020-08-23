@@ -8,9 +8,6 @@
             name="viewModel"
             type="com.patrick.fittracker.record.selftraining.RecordViewModel" />
         <variable
-            name="add"
-            type="com.patrick.fittracker.data.AddTrainingRecord" />
-        <variable
             name="insertRecord"
             type="com.patrick.fittracker.data.InsertRecord" />
         <variable

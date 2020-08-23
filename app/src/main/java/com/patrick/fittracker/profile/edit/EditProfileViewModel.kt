@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
 import com.patrick.fittracker.UserManger
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.User
 import com.patrick.fittracker.data.UserProfile
@@ -31,7 +30,6 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
     val addUserInfo: LiveData<User>
         get() = _addUserInfo
 
-
     private val _add = MutableLiveData<User>()
 
     val add: LiveData<User>
@@ -39,35 +37,30 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
 
     val outlineProvider = ProfileAvatarOutlineProvider()
 
+//--------------------------------------------------------------------------------------------------
 
-    //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
         get() = _leave
 
-    // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
     val status: LiveData<LoadApiStatus>
         get() = _status
 
-    // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
 
     val error: LiveData<String>
         get() = _error
 
-    // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
 
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     override fun onCleared() {
@@ -80,10 +73,27 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
+        getLoginInfoResult()
     }
 
-    fun uploadProfileInfo(user: User) {
+    fun userValueInsert(userHeight: Double, userWeight: Double, userBodyFat: Long) {
+        addUserInfo.value?.let { userInfo ->
+            userInfo.email = "${UserManger.userEmail}"
+            userInfo.name = "${UserManger.userName}"
+            userInfo.createdTime = UserManger.userData.createdTime
+            userInfo.id = UserManger.userData.id
 
+            userInfo.userProfile?.let { userProfile ->
+                userProfile.info_height = userHeight.toLong()
+                userProfile.info_weight = userWeight.toLong()
+                userProfile.info_bodyFat = userBodyFat
+                userProfile.info_BMI = userWeight.times(10000).div(userHeight * userHeight).toLong()
+            }
+        }
+        addUserInfo.value?.let { uploadProfileInfo(user = it) }
+    }
+
+    private fun uploadProfileInfo(user: User) {
 
         coroutineScope.launch {
 
@@ -111,8 +121,7 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
         }
     }
 
-
-    fun getLoginInfoResult() {
+    private fun getLoginInfoResult() {
 
         coroutineScope.launch {
 
@@ -137,7 +146,8 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
                     null
                 }
                 else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -145,7 +155,6 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
             _refreshStatus.value = false
         }
     }
-
 
     fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
@@ -172,11 +181,4 @@ class EditProfileViewModel(private val repository: FitTrackerRepository) : ViewM
     fun convertLongToString(value: Long): String {
         return value.toString()
     }
-
-    fun infoNameandAge(){
-        _addUserInfo.value?.userProfile?.let { it.info_name = it.info_name }
-        _addUserInfo.value?.userProfile?.let { it.info_age = it.info_age }
-    }
-
-
 }

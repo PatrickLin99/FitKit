@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.patrick.fittracker.analysis.tablayout.AnalysisTestViewModel" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".analysis.tablayout.AnalysisTabLayoutFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    app:tabSelectedTextColor="@color/colorLightBlack"
+                    app:tabTextAppearance="@style/TabTextStyle"/>
+
+<!--                app:tabIndicatorColor="#3f3a3a"-->
+<!--                style="@style/MyTabTextAppearance"-->
+
+
+            </androidx.viewpager.widget.ViewPager>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

@@ -8,8 +8,6 @@ import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 /**
- * Created by Wayne Chen in Jul. 2019.
- *
  * Extension functions for Fragment.
  */
 fun Fragment.getVmFactory(): ViewModelFactory {
@@ -21,11 +19,6 @@ fun Fragment.getVmFactory(group: MuscleGroupTypeFilter): SelectedMuscleViewModel
     val repository = (requireContext().applicationContext as FitTrackerApplication).repository
     return SelectedMuscleViewModelFactory(repository, group)
 }
-
-//fun Fragment.getVmFactory(addTrainingRecord: AddTrainingRecord): RecordViewModelFactory {
-//    val repository = (requireContext().applicationContext as FitTrackerApplication).repository
-//    return RecordViewModelFactory(repository, addTrainingRecord)
-//}
 
 fun Fragment.getVmFactory(cardio: Cardio): CardioSelectionRecordViewModelFactory {
     val repository = (requireContext().applicationContext as FitTrackerApplication).repository

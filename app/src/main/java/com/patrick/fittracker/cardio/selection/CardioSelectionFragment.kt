@@ -18,21 +18,18 @@ import kotlinx.android.synthetic.main.cardio_selection_fragment.*
 
 class CardioSelectionFragment : Fragment() {
 
-
-    private val viewModel by viewModels <CardioSelectionViewModel> {getVmFactory()}
-
+    private val viewModel by viewModels<CardioSelectionViewModel> { getVmFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = CardioSelectionFragmentBinding.inflate(inflater, container,false)
-
+        val binding = CardioSelectionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         val adapter =
-            CardioSelectionAdapter(CardioSelectionAdapter.OnClickListener{
+            CardioSelectionAdapter(CardioSelectionAdapter.OnClickListener {
                 viewModel.navigateToCardioRecord(it)
             })
         binding.recyclerCardioSelection.adapter = adapter
@@ -41,8 +38,7 @@ class CardioSelectionFragment : Fragment() {
             it?.let {
                 adapter.submitList(it)
 
-                //indoor checked
-                binding.filterIndoor.setOnCheckedChangeListener { buttonView, isChecked ->
+                binding.filterIndoor.setOnCheckedChangeListener { _, isChecked ->
                     adapter.submitList(it.filter { it.cardio_unknown == "室內" })
                     binding.filterOutdoor.isChecked = false
                     if (!isChecked) {
@@ -50,25 +46,23 @@ class CardioSelectionFragment : Fragment() {
                     }
                 }
 
-                //outdoor checked
-                binding.filterOutdoor.setOnCheckedChangeListener { buttonView, isChecked ->
-                    adapter.submitList(it.filter { it.cardio_unknown == "戶外"})
+                binding.filterOutdoor.setOnCheckedChangeListener { _, isChecked ->
+                    adapter.submitList(it.filter { it.cardio_unknown == "戶外" })
                     binding.filterIndoor.isChecked = false
-                    if (!isChecked){
+                    if (!isChecked) {
                         adapter.submitList(it)
                     }
                 }
 
-                //relax
-                binding.filterRelax.setOnCheckedChangeListener { buttonView, isChecked ->
+                binding.filterRelax.setOnCheckedChangeListener { _, isChecked ->
                     adapter.submitList(it.filter { it.cardio_unknown == "輕鬆" })
                     binding.filterHighBurn.isChecked = false
-                    if (!isChecked){
+                    if (!isChecked) {
                         adapter.submitList(it)
                     }
                 }
 
-                binding.filterHighBurn.setOnCheckedChangeListener { buttonView, isChecked ->
+                binding.filterHighBurn.setOnCheckedChangeListener { _, isChecked ->
                     adapter.submitList(it.filter { it.cardio_unknown == "高強度" })
                     binding.filterRelax.isChecked = false
                     if (!isChecked) {
@@ -76,9 +70,9 @@ class CardioSelectionFragment : Fragment() {
                     }
                 }
 
-                binding.filterCombine.setOnCheckedChangeListener { buttonView, isChecked ->
+                binding.filterCombine.setOnCheckedChangeListener { _, isChecked ->
                     adapter.submitList(it.filter { it.cardio_unknown == "綜合" })
-                    if (!isChecked){
+                    if (!isChecked) {
                         adapter.submitList(it)
                     }
                 }
@@ -87,14 +81,15 @@ class CardioSelectionFragment : Fragment() {
 
         viewModel.navigationToCardioRecord.observe(viewLifecycleOwner, Observer {
             it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalCardioRecordFragment(it))
+                findNavController().navigate(
+                    NavigationDirections.actionGlobalCardioRecordFragment(
+                        it
+                    )
+                )
                 viewModel.navigateToCardioRecordDone()
             }
         })
 
-
         return binding.root
     }
-
-
 }

@@ -25,7 +25,9 @@ class GroupViewModel(
     val navigateToPoseSelect : LiveData<SelectedMuscleGroup>
     get() = _navigateToPoseSelect
 
-//-------------------------------------------------------------------------------------------
+    val selectMuscleType = MutableLiveData<MuscleGroupTypeFilter>()
+
+//--------------------------------------------------------------------------------------------------
 
     private val _leave = MutableLiveData<Boolean>()
 
@@ -127,6 +129,14 @@ class GroupViewModel(
 
     fun onLeft() {
         _leave.value = null
+    }
+
+    fun click(type: MuscleGroupTypeFilter) {
+        selectMuscleType.value = type
+    }
+
+    fun onMuscleSelected() {
+        selectMuscleType.value = null
     }
 }
 

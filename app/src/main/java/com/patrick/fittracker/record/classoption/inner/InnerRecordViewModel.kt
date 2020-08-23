@@ -1,5 +1,6 @@
 package com.patrick.fittracker.record.classoption.inner
 
+import android.net.Uri
 import android.util.Log
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
@@ -10,6 +11,7 @@ import com.patrick.fittracker.R
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
+import com.patrick.fittracker.profile.CardioSelectionOutlineProvider
 import com.patrick.fittracker.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,29 +20,10 @@ import kotlinx.coroutines.launch
 
 class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-    private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
-        value = AddTrainingRecord()
-    }
-
-    val addTrainingRecordd: LiveData<AddTrainingRecord>
-        get() = _addTrainingRecordd
-
-    private val _add = MutableLiveData<List<AddTrainingRecord>>()
-
-    val add: LiveData<List<AddTrainingRecord>>
-        get() = _add
-
-    val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
-
-    val photoUpload : LiveData<Boolean>
-        get() = _photoUpload
-
     private var _navigateToFinish = MutableLiveData<String>()
 
     val navigateToFinish : LiveData<String>
         get() = _navigateToFinish
-
-    //---------------------------------------------------------------------------------------------------
 
 
     private val _addOne = MutableLiveData<FitDetail>().apply {
@@ -63,8 +46,18 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
         value = mutableListOf()
     }
 
+    private val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
 
-    //---------------------------------------------------------------------------------------------------
+    val photoUpload : LiveData<Boolean>
+        get() = _photoUpload
+
+    private val _imageResult = MutableLiveData<String>()
+
+    val imageResult: LiveData<String>
+        get() = _imageResult
+
+
+//---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -103,27 +96,20 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
-//        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-//            getLiveRecordResult(muscleKey)
-//        } else {
-//            getArticlesResult()
-//        }
     }
 
-    fun uploadClassRecord(insertRecord: InsertRecord) {
-
-//        _addInsert.value?.add(0, insertRecord)
-//        _addInsert.value = _addInsert.value
-
+    fun uploadClassOptionImage(uri: Uri) {
+        _photoUpload.value = false
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addRecordTest(insertRecord)) {
+            when (val result = repository.addClassOptionImage(uri)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
+                    _imageResult.value = result.data
+                    _photoUpload.value = result.data != ""
                     leave(true)
                 }
                 is Result.Fail -> {
@@ -140,70 +126,34 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
                 }
             }
         }
-
     }
 
-
-//    fun uploadRecordData(addTrainingRecord: AddTrainingRecord) {
-//
-//        Log.d("Patrick", "uploadRecordData, addTrainingRecord=$addTrainingRecordd")
-//        coroutineScope.launch {
-//
-//            _status.value = LoadApiStatus.LOADING
-//
-//            when (val result = repository.addClassRecord(addTrainingRecord)) {
-//                is Result.Success -> {
-//                    _error.value = null
-//                    _status.value = LoadApiStatus.DONE
-//                    leave(true)
-//                }
-//                is Result.Fail -> {
-//                    _error.value = result.error
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//                is Result.Error -> {
-//                    _error.value = result.exception.toString()
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//                else -> {
-//                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//            }
-//        }
-//    }
-
-    fun getClassInnerRecordResult(classKey: String) {
+    private fun uploadClassRecord(insertRecord: InsertRecord) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getClassRecord(classKey)
-
-            _add.value = when (result) {
+            when (val result = repository.addSelfRecord(insertRecord)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
-                    result.data
+                    leave(true)
                 }
                 is Result.Fail -> {
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
-                    null
                 }
                 is Result.Error -> {
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
-                    null
                 }
                 else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
-                    null
                 }
             }
-            _refreshStatus.value = false
         }
     }
 
@@ -220,9 +170,24 @@ class InnerRecordViewModel(private val repository: FitTrackerRepository) : ViewM
         _leave.value = null
     }
 
-    fun recyclverSho(fitDetail: FitDetail){
+    var orderNum : Long = 0
+    fun showRecordList(){
+        orderNum += 1
+        addOne.value?.let {
+            val recordList = FitDetail(it.orderSet, it.weight, orderNum)
+            recyclerViewShow(recordList)
+        }
+    }
+
+    private fun recyclerViewShow(fitDetail: FitDetail){
         _addInsert.value?.add(0, fitDetail)
         _addInsert.value = _addInsert.value
+    }
+
+    fun valueInsert(classKey: String, imageUri: String){
+        addInsert.value?.let { fitDetail ->
+            uploadClassRecord( insertRecord = InsertRecord(classKey, fitDetail, 0, imageUri))
+        }
     }
 
     fun plusWeight() {

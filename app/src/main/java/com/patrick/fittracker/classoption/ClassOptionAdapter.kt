@@ -10,25 +10,18 @@ import com.patrick.fittracker.data.ClassOption
 import com.patrick.fittracker.databinding.ItemCardioSelectionBinding
 import com.patrick.fittracker.databinding.ItemClassOptionBinding
 
-//class ClassOptionAdapter {
-//}
-//class ClassOptionAdapter():
-class ClassOptionAdapter(val onClickListener: OnClickListener):
-    ListAdapter<ClassOption, ClassOptionAdapter.ClassOptionViewHolder>(
-        DiffCallback
-    ){
+class ClassOptionAdapter(val onClickListener: OnClickListener) :
+    ListAdapter<ClassOption, ClassOptionAdapter.ClassOptionViewHolder>(DiffCallback) {
 
-    class ClassOptionViewHolder(private var binding: ItemClassOptionBinding):
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(classoption : ClassOption){
-            binding.classoption = classoption
+    class ClassOptionViewHolder(private var binding: ItemClassOptionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(classOption: ClassOption) {
+            binding.classOption = classOption
             binding.executePendingBindings()
-
         }
     }
 
-
-    companion object DiffCallback: DiffUtil.ItemCallback<ClassOption>(){
+    companion object DiffCallback : DiffUtil.ItemCallback<ClassOption>() {
         override fun areContentsTheSame(oldItem: ClassOption, newItem: ClassOption): Boolean {
             return oldItem == newItem
         }
@@ -44,15 +37,15 @@ class ClassOptionAdapter(val onClickListener: OnClickListener):
         )
     }
 
-    override fun onBindViewHolder(holder: ClassOptionViewHolder, position: Int){
-        val classoption = getItem(position)
+    override fun onBindViewHolder(holder: ClassOptionViewHolder, position: Int) {
+        val classOption = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(classoption)
+            onClickListener.onClick(classOption)
         }
-        holder.bind(classoption)
+        holder.bind(classOption)
     }
 
-    class OnClickListener(val clickListener: (classoption : ClassOption) -> Unit) {
-        fun onClick(classoption : ClassOption) = clickListener(classoption)
+    class OnClickListener(val clickListener: (classOption: ClassOption) -> Unit) {
+        fun onClick(classOption: ClassOption) = clickListener(classOption)
     }
 }

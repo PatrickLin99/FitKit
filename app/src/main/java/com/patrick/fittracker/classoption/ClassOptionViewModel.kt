@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
-import com.patrick.fittracker.data.Cardio
 import com.patrick.fittracker.data.ClassOption
 import com.patrick.fittracker.data.Result
 import com.patrick.fittracker.data.source.FitTrackerRepository
@@ -16,23 +15,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-//class ClassOptionViewModel(private val repository: FitTrackerRepository) : ViewModel() {
-//    // TODO: Implement the ViewModel
-//}
-
 class ClassOptionViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
-    private val _classoption = MutableLiveData<List<ClassOption>>()
+    private val _classOption = MutableLiveData<List<ClassOption>>()
 
-    val classiption: LiveData<List<ClassOption>>
-        get() = _classoption
-
-    var liveArticles = MutableLiveData<List<ClassOption>>()
+    val classOption: LiveData<List<ClassOption>>
+        get() = _classOption
 
     private val _navigateToClassOptionRecord = MutableLiveData<ClassOption>()
 
     val navigationToClassOptionRecord: LiveData<ClassOption>
         get() = _navigateToClassOptionRecord
+
+//------------------------------------------------------------------------------------------
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -67,8 +62,6 @@ class ClassOptionViewModel(private val repository: FitTrackerRepository) : ViewM
         _navigateToClassOptionRecord.value = null
     }
 
-
-
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
      * Retrofit service to stop.
@@ -86,14 +79,11 @@ class ClassOptionViewModel(private val repository: FitTrackerRepository) : ViewM
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-//        if (FitTrackerApplication.instance.isLiveDataDesign()) {
         getClassOptionResult()
-//        } else {
-//            getCardioSelectionResult()
-//        }
+
     }
 
-    fun getClassOptionResult() {
+    private fun getClassOptionResult() {
 
         coroutineScope.launch {
 
@@ -101,7 +91,7 @@ class ClassOptionViewModel(private val repository: FitTrackerRepository) : ViewM
 
             val result = repository.getClassOption()
 
-            _classoption.value = when (result) {
+            _classOption.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE

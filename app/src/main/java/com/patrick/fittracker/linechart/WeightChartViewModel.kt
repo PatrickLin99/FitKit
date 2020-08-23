@@ -3,8 +3,12 @@ package com.patrick.fittracker.linechart
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
+import com.patrick.fittracker.TimeUtil
 import com.patrick.fittracker.data.FitDetail
 import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.data.Result
@@ -15,6 +19,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class WeightChartViewModel(private val repository: FitTrackerRepository,
                            private val recordKey: InsertRecord
@@ -25,57 +31,35 @@ class WeightChartViewModel(private val repository: FitTrackerRepository,
     val record: LiveData<List<InsertRecord>>
         get() = _record
 
-    private val _test = _record.value?.distinct()
+    val entries: MutableList<Entry> = ArrayList()
+    val labels: ArrayList<String> = ArrayList()
 
-    private var _navigateToAnalysis = MutableLiveData<List<InsertRecord>>()
+//--------------------------------------------------------------------------------------------------
 
-    val navigateToAnalysis : LiveData<List<InsertRecord>>
-        get() = _navigateToAnalysis
-
-
-    //-------weight set count detail
-    private val _recordDetail = MutableLiveData<List<FitDetail>>()
-
-
-    val recordDetail: LiveData<List<FitDetail>>
-        get() = _recordDetail
-
-
-
-    //---------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
         get() = _leave
 
-    // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
     val status: LiveData<LoadApiStatus>
         get() = _status
 
-    // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
 
     val error: LiveData<String>
         get() = _error
 
-    // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
 
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    /**
-     * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
-     * Retrofit service to stop.
-     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
@@ -85,14 +69,23 @@ class WeightChartViewModel(private val repository: FitTrackerRepository,
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
-        if (FitTrackerApplication.instance.isLiveDataDesign()) {
-
-        } else {
-
-        }
     }
 
+    fun insertChartValue() {
+        record.value?.let { records ->
+            val weightListSizeStart: Int = if (records.size > 10) {
+                records.size.minus(10)
+            } else {
+                0
+            }
+            for (i in weightListSizeStart until records.size) {
+                records.sortedBy { records[i].createdTime }[i].fitDetail.maxBy { fitDetail -> fitDetail.weight }?.weight?.toFloat()
+                    ?.let { order -> Entry(i.toFloat(), order) }
+                    ?.let { point -> entries.add(point) }
+                labels.add(TimeUtil.AnalysisStampToDate(records[i].createdTime, Locale.TAIWAN))
+            }
+        }
+    }
 
     fun getWeightRecordRecordResult(recordKey: InsertRecord) {
 
@@ -133,13 +126,6 @@ class WeightChartViewModel(private val repository: FitTrackerRepository,
         if (FitTrackerApplication.instance.isLiveDataDesign()) {
             _status.value = LoadApiStatus.DONE
             _refreshStatus.value = false
-
-        } else {
-            if (status.value != LoadApiStatus.LOADING) {
-//                if (group != null) {
-//                    getMuscleGroupResult(group)
-//                }
-            }
         }
     }
 
@@ -150,6 +136,4 @@ class WeightChartViewModel(private val repository: FitTrackerRepository,
     fun onLeft() {
         _leave.value = null
     }
-
-
 }

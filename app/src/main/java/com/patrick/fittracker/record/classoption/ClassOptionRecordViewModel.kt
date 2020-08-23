@@ -26,7 +26,4 @@ class ClassOptionRecordViewModel(private val repository: FitTrackerRepository, p
         _navigateToRecord.value = arguments
     }
 
-
-
-
 }

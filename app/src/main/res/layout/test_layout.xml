@@ -9,10 +9,6 @@
             type="com.patrick.fittracker.record.classoption.inner.InnerRecordViewModel" />
 
         <variable
-            name="add"
-            type="com.patrick.fittracker.data.AddTrainingRecord" />
-
-        <variable
             name="fitDetail"
             type="com.patrick.fittracker.data.FitDetail" />
 

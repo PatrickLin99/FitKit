@@ -30,7 +30,6 @@ import com.patrick.fittracker.NavigationDirections
 import com.patrick.fittracker.R
 import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.classoption.ClassOptionViewModel
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.User
 import com.patrick.fittracker.databinding.LoginFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
@@ -82,12 +81,12 @@ class LoginFragment : BottomSheetDialogFragment() {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
 
-                viewModel.addUnserInfo.value?.name = "${account.displayName}"
-                viewModel.addUnserInfo.value?.id = "${account.id}"
-                viewModel.addUnserInfo.value?.email = "${account.email}"
-                viewModel.addUnserInfo.value?.userProfile?.info_name = "${account.displayName}"
-                viewModel.addUnserInfo.value?.userProfile?.info_image = "${account.photoUrl}"
-                viewModel.addUnserInfo.value?.userProfile?.id = "${account.id}"
+                viewModel.addUserInfo.value?.name = "${account.displayName}"
+                viewModel.addUserInfo.value?.id = "${account.id}"
+                viewModel.addUserInfo.value?.email = "${account.email}"
+                viewModel.addUserInfo.value?.userProfile?.info_name = "${account.displayName}"
+                viewModel.addUserInfo.value?.userProfile?.info_image = "${account.photoUrl}"
+                viewModel.addUserInfo.value?.userProfile?.id = "${account.id}"
 
                 UserManger.userID = account.id
                 UserManger.userName = account.displayName
@@ -116,9 +115,9 @@ class LoginFragment : BottomSheetDialogFragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth?.currentUser
-                    viewModel.addUnserInfo.value?.id?.let { User(it) }?.let { viewModel.userAdd(user = it) }
-                    viewModel.addUnserInfo.value?.name?.let { User(it) }?.let { viewModel.userAdd(user = it) }
-                    viewModel.addUnserInfo.value?.let { viewModel.uploadUserInfo(user = it) }
+                    viewModel.addUserInfo.value?.id?.let { User(it) }?.let { viewModel.userAdd(user = it) }
+                    viewModel.addUserInfo.value?.name?.let { User(it) }?.let { viewModel.userAdd(user = it) }
+                    viewModel.addUserInfo.value?.let { viewModel.uploadUserInfo(user = it) }
 
                     findNavController().navigate(NavigationDirections.actionGlobalProfileFragment())
 

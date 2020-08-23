@@ -8,7 +8,6 @@ import com.patrick.fittracker.group.MuscleGroupTypeFilter
 
 
 /**
- * Created by Wayne Chen on 2020-01-15.
  *
  * Factory for all ViewModels.
  */
@@ -23,8 +22,6 @@ class SelectedMuscleViewModelFactory(
         if (modelClass.isAssignableFrom(GroupViewModel::class.java)) {
             return GroupViewModel(repository, group) as T
         }
-
-
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
 }

@@ -5,6 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
 import com.patrick.fittracker.data.*
@@ -18,10 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class LocationViewModel(private val repository: FitTrackerRepository)  : ViewModel() {
-
-
-
+class LocationViewModel(private val repository: FitTrackerRepository) : ViewModel() {
 
     private val _locationInfo = MutableLiveData<GymLocation>()
 
@@ -44,35 +45,34 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
     val snapPosition: LiveData<Int>
         get() = _snapPosition
 
+    val locationLat: ArrayList<String> = ArrayList()
+    val locationLng: ArrayList<String> = ArrayList()
+    val locationTitle: ArrayList<String> = ArrayList()
 
+//--------------------------------------------------------------------------------------------------
 
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
         get() = _leave
 
-    // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
     val status: LiveData<LoadApiStatus>
         get() = _status
 
-    // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
 
     val error: LiveData<String>
         get() = _error
 
-    // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
 
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     override fun onCleared() {
@@ -84,10 +84,6 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-    }
-
-    fun cameraMove(){
-
     }
 
     fun getLocationResult() {
@@ -115,17 +111,23 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
                     null
                 }
                 else -> {
-                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        FitTrackerApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
             }
             _refreshStatus.value = false
-
         }
     }
 
-    fun getLocationListResult(key: String, location: String, radius: Int, language: String, keyword: String) {
+    fun getLocationListResult(
+        key: String,
+        location: String,
+        radius: Int,
+        language: String,
+        keyword: String
+    ) {
 
         coroutineScope.launch {
 
@@ -160,7 +162,33 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
         }
     }
 
-    fun onGalleryScrollChange(layoutManager: RecyclerView.LayoutManager?, linearSnapHelper: LinearSnapHelper) {
+    fun insertMarkerValue() {
+        val locationSize = gymList.value?.results?.size?.minus(1) ?: 0
+        for (i in 0..locationSize) {
+            gymList.value?.results.let {
+                (it?.get(i)?.geometry?.location?.lat?.toDouble())?.let { it1 ->
+                    it[i].geometry?.location?.lng?.toDouble()
+                        ?.let { it2 ->
+                            LatLng(
+                                it1, it2
+                            )
+                        }
+                }?.let { it2 ->
+                    MarkerOptions().position(it2)
+                        .title(it[i].name)
+                }
+                it?.get(i)?.geometry?.location?.lat?.let { lat -> locationLat.add(lat) }
+                it?.get(i)?.geometry?.location?.lng?.let { lng -> locationLng.add(lng) }
+                it?.get(i)?.name?.let { name -> locationTitle.add(name) }
+            }
+
+        }
+    }
+
+    fun onGalleryScrollChange(
+        layoutManager: RecyclerView.LayoutManager?,
+        linearSnapHelper: LinearSnapHelper
+    ) {
         val snapView = linearSnapHelper.findSnapView(layoutManager)
         snapView?.let {
             layoutManager?.getPosition(snapView)?.let {
@@ -170,6 +198,4 @@ class LocationViewModel(private val repository: FitTrackerRepository)  : ViewMod
             }
         }
     }
-
-
 }

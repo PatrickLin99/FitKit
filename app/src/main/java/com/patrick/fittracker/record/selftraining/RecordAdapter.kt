@@ -5,27 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.patrick.fittracker.data.AddTrainingRecord
 import com.patrick.fittracker.data.FitDetail
-import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.ItemRecordAddSetBinding
 
+class RecordAdapter() :
+    ListAdapter<FitDetail, RecordAdapter.RecordViewHolder>(DiffCallback) {
 
-//class RecordAdapter(val onClickListener: OnClickListener):
-class RecordAdapter():
-    ListAdapter<FitDetail, RecordAdapter.RecordViewHolder>(DiffCallback){
-
-    class RecordViewHolder(private var binding: ItemRecordAddSetBinding):
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(fitDetail: FitDetail){
+    class RecordViewHolder(private var binding: ItemRecordAddSetBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(fitDetail: FitDetail) {
             binding.fitDetail = fitDetail
             binding.executePendingBindings()
 
         }
     }
 
-
-    companion object DiffCallback: DiffUtil.ItemCallback<FitDetail>(){
+    companion object DiffCallback : DiffUtil.ItemCallback<FitDetail>() {
         override fun areContentsTheSame(oldItem: FitDetail, newItem: FitDetail): Boolean {
             return oldItem == newItem
         }
@@ -41,15 +36,8 @@ class RecordAdapter():
         )
     }
 
-    override fun onBindViewHolder(holder: RecordViewHolder, position: Int){
+    override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val menu = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(menu)
-//        }
         holder.bind(menu)
-    }
-
-    class OnClickListener(val clickListener: (add: AddTrainingRecord) -> Unit) {
-        fun onClick(add: AddTrainingRecord) = clickListener(add)
     }
 }

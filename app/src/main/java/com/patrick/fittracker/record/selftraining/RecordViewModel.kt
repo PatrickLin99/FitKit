@@ -1,5 +1,6 @@
 package com.patrick.fittracker.record.selftraining
 
+import android.net.Uri
 import android.util.Log
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
@@ -22,31 +23,12 @@ class RecordViewModel(private val repository: FitTrackerRepository,
                       private val muscleKey: String
 ) : ViewModel() {
 
-    private val _addTrainingRecordd = MutableLiveData<AddTrainingRecord>().apply {
-        value = AddTrainingRecord()
-    }
-
-    val addTrainingRecordd: LiveData<AddTrainingRecord>
-        get() = _addTrainingRecordd
-
-
-    private val _add = MutableLiveData<List<InsertRecord>>().apply {
-        value = mutableListOf()
-    }
-
-    val add: LiveData<List<InsertRecord>>
-        get() = _add
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------
-
-    private val _addOne = MutableLiveData<FitDetail>().apply {
+    private val _addItem = MutableLiveData<FitDetail>().apply {
         value = FitDetail()
     }
 
-    val addOne: LiveData<FitDetail>
-        get() = _addOne
-
+    val addItem: LiveData<FitDetail>
+        get() = _addItem
 
     private val _addInsert = MutableLiveData<MutableList<FitDetail>>().apply {
         value = mutableListOf()
@@ -55,33 +37,18 @@ class RecordViewModel(private val repository: FitTrackerRepository,
     val addInsert: LiveData<MutableList<FitDetail>>
         get() = _addInsert
 
-    private var _navigateToFinish = MutableLiveData<String>().apply { value = muscleKey }
 
-    val navigateToFinish : LiveData<String>
-        get() = _navigateToFinish
-
-
-    private val _addInsertTest = MutableLiveData<MutableList<InsertRecord>>().apply {
-        value = mutableListOf()
-    }
-
-    val addInsertTest: LiveData<MutableList<InsertRecord>>
-        get() = _addInsertTest
-
-
-    private var _navigateToPoseSelect = MutableLiveData<RecordSetOrder>()
-
-    val navigateToPoseSelect : LiveData<RecordSetOrder>
-        get() = _navigateToPoseSelect
-
-
-    val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
+    private val _photoUpload = MutableLiveData<Boolean>().apply { value = null }
 
     val photoUpload : LiveData<Boolean>
         get() = _photoUpload
 
+    private val _imageResult = MutableLiveData<String>()
 
-//---------------------------------------------------------------------------------------------------
+    val imageResult: LiveData<String>
+        get() = _imageResult
+
+//--------------------------------------------------------------------------------------------------
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -120,22 +87,65 @@ class RecordViewModel(private val repository: FitTrackerRepository,
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
     }
 
-    fun recyclverSho(fitDetail: FitDetail){
+    var orderNum: Long = 0
+    fun showRecordList(){
+        orderNum += 1
+        addItem.value?.let {
+         val recordList = FitDetail(it.orderSet?:0, it.weight?:0, orderNum)
+         showRecyclerView(recordList)
+        }
+    }
+
+    private fun showRecyclerView(fitDetail: FitDetail){
         _addInsert.value?.add(0, fitDetail)
         _addInsert.value = _addInsert.value
     }
 
+    fun valueInsert(imageUri: String){
+        addInsert.value?.let { fitDetailList ->
+            uploadRecord(insertRecord = InsertRecord(muscleKey, fitDetailList, 0, imageUri))
+        }
+    }
 
-    fun uploadRecord(insertRecord: InsertRecord) {
+    fun uploadSelfTrainingImage(uri: Uri) {
+        _photoUpload.value = false
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            when (val result = repository.addSelfTrainingImage(uri)) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    _imageResult.value = result.data
+                    _photoUpload.value = result.data != ""
+                    leave(true)
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = FitTrackerApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+        }
+    }
+
+    private fun uploadRecord(insertRecord: InsertRecord) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addRecordTest(insertRecord)) {
+            when (val result = repository.addSelfRecord(insertRecord)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -169,6 +179,43 @@ class RecordViewModel(private val repository: FitTrackerRepository,
             _leave.value = null
         }
 
+    fun plusWeight() {
+        _addItem.value?.let {
+            it.weight = it.weight.plus(5)
+            _addItem.value = _addItem.value
+        }
+    }
+
+    fun minusWeight() {
+        _addItem.value?.let {
+            if (it.weight >= 5) {
+                it.weight = it.weight.minus(5)
+                _addItem.value = _addItem.value
+            } else {
+                it.weight = 5
+                _addItem.value = _addItem.value
+            }
+        }
+    }
+
+    fun plusOrderSet() {
+        _addItem.value?.let {
+            it.orderSet = it.orderSet.plus(1)
+            _addItem.value = _addItem.value
+        }
+    }
+
+    fun minusOrderSet() {
+        _addItem.value?.let {
+            if (it.orderSet > 0) {
+                it.orderSet = it.orderSet.minus(1)
+                _addItem.value = _addItem.value
+            } else {
+                it.orderSet = 1
+                _addItem.value = _addItem.value
+            }
+        }
+    }
 
     @InverseMethod("convertLongToString")
     fun convertStringToLong(value: String): Long {
@@ -177,53 +224,14 @@ class RecordViewModel(private val repository: FitTrackerRepository,
                 when (it) {
                     0L -> 1
                     else -> it
-                    }
                 }
-            } catch (e: NumberFormatException) {
-                1
             }
+        } catch (e: NumberFormatException) {
+            1
         }
+    }
 
     fun convertLongToString(value: Long): String {
         return value.toString()
-        }
-
-    fun plusWeight() {
-        _addOne.value?.let {
-            it.weight = it.weight.plus(5)
-            _addOne.value = _addOne.value
-        }
     }
-
-    fun minusWeight() {
-        _addOne.value?.let {
-            if (it.weight >=5 ) {
-                it.weight = it.weight.minus(5)
-                _addOne.value = _addOne.value
-                } else {
-                it.weight = 5
-                _addOne.value = _addOne.value
-                }
-            }
-        }
-
-    fun plusOrderSet() {
-        _addOne.value?.let {
-            it.orderSet = it.orderSet.plus(1)
-            _addOne.value = _addOne.value
-            }
-        }
-
-    fun minusOrderSet() {
-        _addOne.value?.let {
-            if (it.orderSet > 0) {
-                it.orderSet = it.orderSet.minus(1)
-                _addOne.value = _addOne.value
-            } else {
-                it.orderSet = 1
-                _addOne.value = _addOne.value
-                }
-            }
-        }
-
-    }
+}

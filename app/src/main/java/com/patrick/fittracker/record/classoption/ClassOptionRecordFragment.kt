@@ -21,25 +21,28 @@ import com.patrick.fittracker.record.cardio.CardioRecordViewModel
 
 class ClassOptionRecordFragment : Fragment() {
 
-    private val viewModel by viewModels <ClassOptionRecordViewModel> { getVmFactory(ClassOptionRecordFragmentArgs.fromBundle(requireArguments()).classoptionKey) }
+    private val viewModel by viewModels<ClassOptionRecordViewModel> {
+        getVmFactory(
+            ClassOptionRecordFragmentArgs.fromBundle(requireArguments()).classoptionKey
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = ClassOptionRecordFragmentBinding.inflate(inflater, container,false)
-
-        val classoption = ClassOptionRecordFragmentArgs.fromBundle(requireArguments()).classoptionKey
-
+        val binding = ClassOptionRecordFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val adapter = ClassOptionRecordAdapter(ClassOptionRecordAdapter.OnClickListener{
-                viewModel.navigateToRecord(it)
+        val adapter = ClassOptionRecordAdapter(ClassOptionRecordAdapter.OnClickListener {
+            viewModel.navigateToRecord(it)
         })
         binding.recyclerViewClassMenu.adapter = adapter
 
-        classoption?.let {
+        val classOption =
+            ClassOptionRecordFragmentArgs.fromBundle(requireArguments()).classoptionKey
+        classOption.let {
             adapter.submitList(it.class_menu)
         }
 
@@ -48,10 +51,6 @@ class ClassOptionRecordFragment : Fragment() {
                 findNavController().navigate(NavigationDirections.actionGlobalInnerRecordFragment(it))
             }
         })
-
-
-
-
 
         return binding.root
     }

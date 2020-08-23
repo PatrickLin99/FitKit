@@ -1,11 +1,13 @@
 package com.patrick.fittracker.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseUser
 import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.R
+import com.patrick.fittracker.UserManger
 import com.patrick.fittracker.data.*
 import com.patrick.fittracker.data.source.FitTrackerRepository
 import com.patrick.fittracker.network.LoadApiStatus
@@ -14,8 +16,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class LoginViewModel(private val repository: FitTrackerRepository, private var user: User) : ViewModel() {
 
@@ -23,10 +23,9 @@ class LoginViewModel(private val repository: FitTrackerRepository, private var u
         value = User(
             userProfile = UserProfile()
         )
-
     }
 
-    val addUnserInfo: LiveData<User>
+    val addUserInfo: LiveData<User>
         get() = _addUserInfo
 
     private val _userTT = MutableLiveData<User>()
@@ -79,15 +78,32 @@ class LoginViewModel(private val repository: FitTrackerRepository, private var u
         Logger.i("------------------------------------")
     }
 
+    fun insertUserValue(account: GoogleSignInAccount) {
+        addUserInfo.value?.let {
+            it.name = account.displayName ?: ""
+            it.id = account.id ?: ""
+            it.email = account.email ?:""
+            it.userProfile?.info_name = account.displayName ?:""
+            it.userProfile?.info_image = "${account.photoUrl}"
+            it.userProfile?.id = account.id ?:""
+        }
+    }
+
+    fun syncUserInfo(user: FirebaseUser) {
+        addUserInfo.value?.let {
+            userAdd(user = User(it.id))
+            userAdd(user = User(it.name))
+            uploadUserInfo(user = it)
+        }
+    }
+
     fun uploadUserInfo(user: User) {
 
         _addUserInfo.value = _addUserInfo.value
 
-
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
-
 
             when (val result = repository.addUserInfo(user)) {
                 is Result.Success -> {
@@ -111,16 +127,9 @@ class LoginViewModel(private val repository: FitTrackerRepository, private var u
         }
     }
 
-
-
-
     fun userAdd (user: User){
-        Log.d("test viewmodel","${_addUserInfo.value}")
         _addUserInfo.value = _addUserInfo.value
-        Log.d("test viewmodel","${_addUserInfo.value}")
-
     }
-
 
     fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
