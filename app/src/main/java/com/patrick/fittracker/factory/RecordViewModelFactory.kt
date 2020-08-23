@@ -7,7 +7,6 @@ import com.patrick.fittracker.record.selftraining.RecordViewModel
 import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 /**
- * Created by Wayne Chen on 2020-01-15.
  *
  * Factory for all ViewModels.
  */

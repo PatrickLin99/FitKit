@@ -9,7 +9,6 @@ import kotlin.properties.Delegates
 
 class FitTrackerApplication : Application() {
 
-    // Depends on the flavor,
     val repository: FitTrackerRepository
         get() = ServiceLocator.provideRepository(this)
 

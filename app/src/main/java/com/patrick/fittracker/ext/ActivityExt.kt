@@ -7,7 +7,6 @@ import com.patrick.fittracker.FitTrackerApplication
 import com.patrick.fittracker.factory.ViewModelFactory
 
 /**
- * Created by Wayne Chen in Jul. 2019.
  *
  * Extension functions for Activity.
  */

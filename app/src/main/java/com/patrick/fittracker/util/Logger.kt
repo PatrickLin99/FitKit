@@ -3,10 +3,6 @@ package com.patrick.fittracker.util
 import android.util.Log
 import com.patrick.fittracker.BuildConfig
 
-
-/**
- * Created by Wayne Chen on 2020-01-15.
- */
 object Logger {
 
     private const val TAG = "Patrick-FitTracker"

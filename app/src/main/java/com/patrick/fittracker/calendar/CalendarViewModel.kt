@@ -32,6 +32,7 @@ class CalendarViewModel(private val repository: FitTrackerRepository) : ViewMode
         get() = _recordCardio
 
 //---------------------------------------------------------------------------------------------------
+
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -79,6 +80,7 @@ class CalendarViewModel(private val repository: FitTrackerRepository) : ViewMode
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
+
                     result.data
                 }
                 is Result.Fail -> {

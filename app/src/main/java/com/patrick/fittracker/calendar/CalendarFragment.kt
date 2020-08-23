@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import com.patrick.fittracker.R
 import com.patrick.fittracker.TimeUtil
 import com.patrick.fittracker.calendar.events.CalendarEventAdapter
 import com.patrick.fittracker.calendar.events.CalendarEventCardioAdapter
+import com.patrick.fittracker.data.InsertRecord
 import com.patrick.fittracker.databinding.CalendarFragmentBinding
 import com.patrick.fittracker.ext.getVmFactory
 import java.security.Timestamp
@@ -47,6 +49,11 @@ class CalendarFragment : Fragment() {
 
             viewModel.getCalendarTrainingRecordResult(dateBegin, dateEnd)
             viewModel.getCalendarTrainingCardioRecordResult(dateBegin, dateEnd)
+                if (viewModel.record.value?.size != 0 && viewModel.recordCardio.value?.size != 0) {
+                    Toast.makeText(requireContext(),"當天無運動紀錄",Toast.LENGTH_SHORT).show()
+                } else {
+                    binding.hint.visibility = View.GONE
+                }
         }
 
         val adapter = CalendarEventAdapter(CalendarEventAdapter.OnClickListener{

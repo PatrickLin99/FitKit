@@ -588,7 +588,6 @@ object FitTrackerRemoteDataSource : FitTrackerDataSource {
             }
         }
 
-
     override suspend fun addCardioImage(uri: Uri): Result<String> =
         suspendCoroutine { continuation ->
 

@@ -23,7 +23,6 @@ import com.patrick.fittracker.record.classoption.inner.InnerRecordViewModel
 import com.patrick.fittracker.timer.CountDownTimerViewModel
 
 /**
- * Created by Wayne Chen on 2020-01-15.
  *
  * Factory for all ViewModels.
  */

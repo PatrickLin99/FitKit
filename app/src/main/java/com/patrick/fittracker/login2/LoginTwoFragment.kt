@@ -57,7 +57,11 @@ class LoginTwoFragment : Fragment() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-        binding.signinTitle.setOnClickListener { signIn() }
+
+        binding.cardViewGoogleSignIn.setOnClickListener {
+            signIn()
+            it.outlineSpotShadowColor = getColor(R.color.colorAccent)
+        }
 
         val mainTitle = binding.loginMainTitle
         val span: Spannable = SpannableString(mainTitle.text)
@@ -142,7 +146,7 @@ class LoginTwoFragment : Fragment() {
     override fun onResume() {
         (activity as AppCompatActivity).bottomNavView?.visibility = View.GONE
         (activity as AppCompatActivity).toolbar.visibility = View.GONE
-        (activity as AppCompatActivity).main_title_spannable_test.visibility = View.GONE
+        (activity as AppCompatActivity).main_title_spannable.visibility = View.GONE
 
         super.onResume()
     }
@@ -150,7 +154,7 @@ class LoginTwoFragment : Fragment() {
     override fun onStop() {
         (activity as AppCompatActivity).bottomNavView?.visibility = View.VISIBLE
         (activity as AppCompatActivity).toolbar.visibility = View.VISIBLE
-        (activity as AppCompatActivity).main_title_spannable_test.visibility = View.VISIBLE
+        (activity as AppCompatActivity).main_title_spannable.visibility = View.VISIBLE
 
         super.onStop()
     }

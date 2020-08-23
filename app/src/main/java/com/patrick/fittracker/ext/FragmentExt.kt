@@ -8,8 +8,6 @@ import com.patrick.fittracker.group.MuscleGroupTypeFilter
 import com.patrick.fittracker.record.selftraining.SetOrderFilter
 
 /**
- * Created by Wayne Chen in Jul. 2019.
- *
  * Extension functions for Fragment.
  */
 fun Fragment.getVmFactory(): ViewModelFactory {

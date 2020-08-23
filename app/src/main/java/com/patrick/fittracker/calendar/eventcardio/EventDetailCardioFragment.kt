@@ -1,5 +1,7 @@
 package com.patrick.fittracker.calendar.eventcardio
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +32,8 @@ class EventDetailCardioFragment : DialogFragment() {
         val binding = EventDetailCardioFragmentBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
         val recordKey = EventDetailCardioFragmentArgs.fromBundle(requireArguments()).recordKey
         binding.calendarEventDetailCardioTitle.text = recordKey.name
