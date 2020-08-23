@@ -61,7 +61,7 @@ Create customized workout plans and visulize workout data.
 * Gradle 5.6.4
 
 ## Version
-1.0.3
+1.0.5. 更改計時提醒通知
 
 ## Contact
 Patrick Lin peipeideveloper@gmail.com
